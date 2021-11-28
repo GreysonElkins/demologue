@@ -2,16 +2,19 @@
 
 .DropdownCta {
   position: relative;
-
+  display: flex;
   @include showMenu('dropdown');
 }
+
+.override-hide {
+    display: flex !important;
+  }
 
 .dropdown {
   min-width: 40px;
   position: absolute;
-  background: #fefefe;
-  border: 1px solid black;
-  top: 40px;
+  top: 0;
+  padding-top: 50px;
   right: 0;
-  height: min-content;
+  height: fit-content;
 }
