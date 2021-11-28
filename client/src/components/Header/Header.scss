@@ -1,6 +1,10 @@
+@import 'style/variables.scss';
+
 header {
-  width: 100%;
-  background-color: blue;
+  max-width: 100%;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  background-color: $dark3;
 }
