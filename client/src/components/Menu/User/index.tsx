@@ -1,7 +1,7 @@
 import { useUser } from 'context/User'
 
 import DropdownCta from 'style/button/DropdownCta'
-import Avatar from 'style/button/Avatar'
+import Avatar from 'style/Icon/Avatar'
 
 import './UserMenu.scss'
 
