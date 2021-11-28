@@ -1,0 +1,40 @@
+@import '../variables.scss';
+
+.Avatar {
+  @include fadeIn(300ms);
+  height: 30px;
+  width: 30px;
+  background: $gray2;
+  border-radius: 50%;
+  color: $gray1;
+  border: none;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &::after {
+    content: attr(data-ico);
+    @include maskIcon($gray1);
+    margin-left: 3px;
+  }
+}
+
+.loading-icon {
+  @include fadeIn(300ms);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  > * {
+    @include spin(1s);
+    opacity: 0.8;
+    width: min-content;
+    height: min-content;
+    &::after {
+      content: attr(data-ico);
+      @include maskIcon($accent1dark, $accent2dark);   
+    }
+  }
+}
