@@ -9,6 +9,7 @@ type UserContextValue = {
   loading: boolean
   logout: () => void
   signedIn: boolean
+  user: ParsedFirebaseUser | null
 }
 
 const UserContext = createContext({} as UserContextValue)
@@ -51,7 +52,7 @@ export const UserProvider: React.FC = ({ children }) => {
   }
 
   return (
-    <UserContext.Provider value={{ signedIn: !!user, logout, loading }}>
+    <UserContext.Provider value={{ signedIn: !!user, user, logout, loading }}>
       {children}
     </UserContext.Provider>
   )
