@@ -1,3 +1,23 @@
+@import 'style/variables.scss';
+
+body {
+  color: $white;
+  padding: 0;
+  margin: 0;
+  height: 100vh;
+  font-family: 'Rubik', sans-serif;
+  // background-color: $dark1;
+  background: linear-gradient(165deg, $dark1 40%, #000000) border-box;  
+}
+
+h1 {
+  font-size: 24px;
+  font-weight: 600;
+  font-style: italic;
+  color: $accent1;
+  opacity: 0.8;
+}
+
 button {
   cursor: pointer;
 }
@@ -6,9 +26,19 @@ button {
   white-space: nowrap;
 }
 
+.Avatar {
+  height: 30px;
+  width: 30px;
+  background: $gray2;
+  border-radius: 50%;
+  color: $gray1;
+  border: none;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .CtaOne {
-  min-width: 40px;
-  height: 50px;
-  white-space: nowrap;
-  background: #fefefe
+  @include Cta($accent1, $accent2);
 }

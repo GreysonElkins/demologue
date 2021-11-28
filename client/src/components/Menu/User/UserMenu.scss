@@ -1,19 +1,51 @@
 @import 'style/variables.scss';
 
 .UserMenu {
-  height: 40px;
-  min-width: 40px;
-  position: absolute;
-  background: #fefefe;
+  // position: absolute;
+  background: $dark3;
   border: 1px solid black;
-  top: 40px;
-  right: 0;
+  min-width: 125px;
+  color: $white2;
+  border: 1px solid $white3;
+  border-radius: 5px;
+
+  button {
+    color: $white2;
+    white-space: nowrap;
+    background: none;
+    border: none;
+    width: 100%;
+    text-transform: capitalize;
+    text-align: right;
+    padding: 4px 12px;
+    transition: background 200ms, color 200ms;
+    &:hover, &:focus {
+      color: $dark3;
+      background: $accent2;
+    }
+  }
+
+  section {
+    width: 100%;
+  }
+
+  .user-section {
+    border-bottom: 1px solid $white3;
+    margin-bottom: 4px;
+    padding: 12px 0;
+
+    button {
+      &:hover, &:focus {
+        color: $white2;
+        background: none;
+      }  
+    }
+  }
+  
+  .log-out-section {
+    margin-top: 8px;
+    padding: 4px 0;
+    border-top: 1px solid $white3;
+  }
 }
 
-.user-icon {
-  position: relative;
-  height: 40px;
-  width: 40px;
-  background: #fefefe;
-  border-radius: 50%;
-}
