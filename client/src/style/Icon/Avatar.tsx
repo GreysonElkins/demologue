@@ -1,6 +1,6 @@
 import { DetailedHTMLProps } from 'react'
 
-// styles provided in index.scss
+import './index.scss'
 
 interface Props extends DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> {
   src?: string | null
