@@ -1,0 +1,19 @@
+@import 'style/variables.scss';
+
+.UserMenu {
+  height: 40px;
+  min-width: 40px;
+  position: absolute;
+  background: #fefefe;
+  border: 1px solid black;
+  top: 40px;
+  right: 0;
+}
+
+.user-icon {
+  position: relative;
+  height: 40px;
+  width: 40px;
+  background: #fefefe;
+  border-radius: 50%;
+}

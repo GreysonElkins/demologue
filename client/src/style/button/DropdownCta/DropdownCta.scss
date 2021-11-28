@@ -1,0 +1,17 @@
+@import '../../variables.scss';
+
+.DropdownCta {
+  position: relative;
+
+  @include showMenu('dropdown');
+}
+
+.dropdown {
+  min-width: 40px;
+  position: absolute;
+  background: #fefefe;
+  border: 1px solid black;
+  top: 40px;
+  right: 0;
+  height: min-content;
+}

@@ -1,0 +1,23 @@
+{
+  "name": "demologue-api",
+  "version": "1.0.0",
+  "description": "demologue's api",
+  "main": "index.js",
+  "author": "Greyson Elkins",
+  "license": "MIT",
+  "dependencies": {
+    "@graphile-contrib/pg-simplify-inflector": "^6.1.0",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "postgraphile": "^4.12.5",
+    "postgraphile-plugin-connection-filter": "^2.2.2"
+  },
+  "scripts": {
+    "start": "node index.js"
+  },
+  "devDependencies": {
+    "dotenv": "^10.0.0",
+    "nodemon": "^2.0.15"
+  }
+}

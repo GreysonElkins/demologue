@@ -1,0 +1,16 @@
+{
+  "name": "demologue",
+  "version": "1.0.0",
+  "description": "Demologue client and api",
+  "main": "index.js",
+  "author": "Greyson Elkins",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^6.4.0"
+  },
+  "scripts": {
+    "start:client": "npm run start --prefix client",
+    "start:api": "npm run start --prefix api",
+    "start": "concurrently 'npm run start:client' 'npm run start:api' --kill-others --names 'client,api'"
+  }
+}

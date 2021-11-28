@@ -1,0 +1,42 @@
+{
+  "name": "demologue",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:GreysonElkins/demologue.git",
+  "author": "Greyson Elkins <greysonelkins@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "react-scripts start",
+    "test": "react-scripts test",
+    "build": "react-scripts build"
+  },
+  "dependencies": {
+    "date-fns": "^2.25.0",
+    "firebase": "^9.5.0",
+    "node-sass": "^6.0.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-firebaseui": "^6.0.0",
+    "react-query": "^3.33.6",
+    "react-scripts": "^4.0.3"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^12.1.2",
+    "@types/react": "^17.0.33",
+    "@types/react-dom": "^17.0.10",
+    "typescript": "^4.4.4"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
