@@ -1,20 +1,70 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;900&family=Rubik:ital,wght@0,300;0,400;0,500;1,600&display=swap');
+
+$dark1: #0B191D;
+$dark2: #0f2127;
+$dark3: #162e36;
+$white2: #95a0a5;
+$white3: #4b555a;
+$white: #ebe9ea;
+$gray1: #6d6d6d;
+$gray2: #bebebe;
+$accent1:#53f591;
+$accent2: #4e9df7;
+
 @keyframes fade-in {
   0% {opacity:0;}
   100% {opacity:1;}
 }
 
-@mixin showMenu($name, $display: flex) {
+@mixin showMenu($name) {
   .#{$name} {
     display: none;
   } 
 
-  &:hover, &:focus {
+  &:hover {
     .#{$name} {
-      display: $display
+      display: flex;
     }
   }
 }
 
 @mixin fadeIn($time: 200ms) {
   animation: fade-in $time;
+}
+
+$b: 3px;
+
+@mixin cutout($color1, $color2) {
+  border: solid 2px transparent;
+  background: linear-gradient(to right bottom, $color1, $color2) border-box;  
+
+  -webkit-text-fill-color: transparent;
+  --full: linear-gradient(red 0 0);
+  -webkit-mask: var(--full) text, var(--full) padding-box, var(--full);
+  -webkit-mask-composite: xor;
+  mask: var(--full) padding-box exclude, var(--full);
+  
+  @supports (-webkit-mask-clip: text) {
+    -webkit-text-fill-color: transparent;
+    --full: linear-gradient(red 0 0);
+    --not: linear-gradient(rgba(255, 0, 0, 0) 0 0);
+    -webkit-mask: var(--full) text, var(--full) padding-box, var(--full);
+    -webkit-mask-composite: xor;
+  }
+
+  &:hover, &:focus {
+    -webkit-text-fill-color: $dark3;
+    -webkit-mask-composite: nor;
+    mask: var(--full) text, var(--full) padding-box include, var(--full);
+    transition: masking-clip 500ms;
+    transition: background 500ms;
+  }
+}
+
+@mixin Cta($color1, $color2) {
+  @include cutout($color1, $color2);
+  padding: 4px 8px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  font-weight: bold;
 }
