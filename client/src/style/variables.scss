@@ -32,9 +32,23 @@ $accent2: #4e9df7;
   animation: fade-in $time;
 }
 
+@mixin maskIcon($color: $dark1) {
+  -webkit-mask-clip: text;
+  background-color: $color;
+  mask-size: 100% 100%;
+  mask-clip: text;
+  
+  @supports (-webkit-mask-clip: text) {
+    -webkit-text-fill-color: transparent;
+    --full: linear-gradient(red 0 0);
+    -webkit-mask: var(--full) text;
+    -webkit-mask-composite: xor;
+  }
+}
+
 $b: 3px;
 
-@mixin cutout($color1, $color2) {
+@mixin cutout($color1, $color2, $color3) {
   border: solid 2px transparent;
   background: linear-gradient(to right bottom, $color1, $color2) border-box;  
 
@@ -47,7 +61,6 @@ $b: 3px;
   @supports (-webkit-mask-clip: text) {
     -webkit-text-fill-color: transparent;
     --full: linear-gradient(red 0 0);
-    --not: linear-gradient(rgba(255, 0, 0, 0) 0 0);
     -webkit-mask: var(--full) text, var(--full) padding-box, var(--full);
     -webkit-mask-composite: xor;
   }
@@ -56,15 +69,26 @@ $b: 3px;
     -webkit-text-fill-color: $dark3;
     -webkit-mask-composite: nor;
     mask: var(--full) text, var(--full) padding-box include, var(--full);
-    transition: masking-clip 500ms;
-    transition: background 500ms;
+
+    &::after {
+      @include maskIcon($color3)
+    }
   }
 }
 
-@mixin Cta($color1, $color2) {
-  @include cutout($color1, $color2);
-  padding: 4px 8px;
-  border-radius: 20px;
+@mixin Cta($color1, $color2, $color3: $dark1) {
+  @include cutout($color1, $color2, $color3);
+  padding: 6px 8px 4px;
+  border-radius: 24px;
   text-transform: uppercase;
   font-weight: bold;
+  display: flex;
+  // align-items: center;
+
+  &::after { 
+    content: attr(data-ico);
+    font-size: 10px;
+    margin-left: 6px;
+    margin-top: -2px;
+  }
 }

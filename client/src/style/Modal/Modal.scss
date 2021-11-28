@@ -11,23 +11,31 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }
 
 .Modal {
   position: relative;
-  background: white;
+  background: $dark3;
   border-radius: 5px;
   min-height: 150px;
   min-width: 250px;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 40px 32px;
   
   .close-modal {
     position: absolute;
-    top: 0;
-    right: 0;
+    top: 4px;
+    right: 4px;
     background: none;
     border: none;
+    &::after {
+      content: attr(data-ico);
+      font-size: 20px;
+      @include maskIcon($white2);
+    }
   }
+
 }

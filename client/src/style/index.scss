@@ -37,6 +37,11 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
+
+  &::after {
+    content: attr(data-ico);
+    @include maskIcon($gray1);
+  }
 }
 
 .CtaOne {
