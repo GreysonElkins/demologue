@@ -1,6 +1,10 @@
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
 import { UserProvider } from 'context/User'
+import { initFontAwesome } from 'style/fontAwesome'
+
+initFontAwesome()
+
 
 import Header from 'components/Header'
 import './App.scss'
