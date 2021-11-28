@@ -6,8 +6,8 @@ interface Props extends DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonE
 }
 
 const Avatar: React.FC<Props> = ({ src, className, ...props }) => (
-  <button className={`Avatar ${className || ''}`} {...props} style={src ? { background: `url(${src})` } : {}}>
-    {!src && <Icon icon="user" />}
+  <button data-ico="👤" className={`Avatar ${className || ''}`} {...props} style={src ? { background: `url(${src})` } : {}}>
+    {/* {!src && <Icon icon="user" />} */}
   </button>
 )
 

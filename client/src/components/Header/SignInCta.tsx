@@ -9,7 +9,7 @@ const SignInCta = () => {
   const toggleOpen = () => setIsOpen((prev) => !prev)
   return (
     <>
-      <CtaOne onClick={toggleOpen}>Sign In</CtaOne>
+      <CtaOne data-ico="👤" onClick={toggleOpen}>Sign In</CtaOne>
       <Modal isOpen={isOpen} toggle={toggleOpen}>
         <SignInMenu />
       </Modal>
