@@ -3,13 +3,15 @@
 $dark1: #0B191D;
 $dark2: #0f2127;
 $dark3: #162e36;
+$white1: #ebe9ea;
 $white2: #95a0a5;
 $white3: #4b555a;
-$white: #ebe9ea;
 $gray1: #6d6d6d;
 $gray2: #bebebe;
 $accent1:#53f591;
 $accent2: #4e9df7;
+$accent1dark:#22c862;
+$accent2dark: #1a72d8;
 
 @keyframes fade-in {
   0% {opacity:0;}
@@ -32,9 +34,9 @@ $accent2: #4e9df7;
   animation: fade-in $time;
 }
 
-@mixin maskIcon($color: $dark1) {
+@mixin maskIcon($color1: $dark1, $color2: $dark2) {
   -webkit-mask-clip: text;
-  background-color: $color;
+  background: linear-gradient($color1, $color2);
   mask-size: 100% 100%;
   mask-clip: text;
   
@@ -91,4 +93,17 @@ $b: 3px;
     margin-left: 6px;
     margin-top: -2px;
   }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@mixin spin($speed: 20s) {
+  animation: rotate infinite $speed linear;
 }

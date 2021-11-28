@@ -1,7 +1,7 @@
 @import 'style/variables.scss';
 
 body {
-  color: $white;
+  color: $white1;
   padding: 0;
   margin: 0;
   height: 100vh;
@@ -24,24 +24,6 @@ button {
 
 .firebaseui-card-content {
   white-space: nowrap;
-}
-
-.Avatar {
-  height: 30px;
-  width: 30px;
-  background: $gray2;
-  border-radius: 50%;
-  color: $gray1;
-  border: none;
-  font-size: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  &::after {
-    content: attr(data-ico);
-    @include maskIcon($gray1);
-  }
 }
 
 .CtaOne {
