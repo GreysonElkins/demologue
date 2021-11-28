@@ -1,5 +1,6 @@
 import { DetailedHTMLProps } from 'react'
-import Icon from 'style/Icon'
+
+// styles provided in index.scss
 
 interface Props extends DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> {
   src?: string | null
