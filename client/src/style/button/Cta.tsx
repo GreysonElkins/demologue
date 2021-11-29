@@ -3,15 +3,16 @@ import { DetailedHTMLProps } from 'react'
 // import { Icon } from 'style/Icon'
 
 interface Props extends DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> {
-  Cta?: 'One'
+  cta?: 'One' | 'Two'
+  ico?: string
   // icon?: IconProp
 }
 
-const CtaOne: React.FC<Props> = ({ children, className, Cta = 'One', ...props }) => (
-  <button className={`${className || `Cta${Cta}`}`} {...props}>
+const Cta: React.FC<Props> = ({ children, className, cta = 'One', ico = "", ...props }) => (
+  <button className={`${className || `Cta${cta}`}`} {...props} data-ico={ico}>
     {children} 
     {/* {icon && <Icon icon={icon} />} */}
   </button>
 )
 
-export default CtaOne
+export default Cta
