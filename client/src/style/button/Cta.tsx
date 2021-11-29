@@ -9,7 +9,8 @@ interface Props extends DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonE
 }
 
 const Cta: React.FC<Props> = ({ children, className, cta = 'One', ico = "", ...props }) => (
-  <button className={`${className || `Cta${cta}`}`} {...props} data-ico={ico}>
+  // add a class name that's dependent on defined ico and triggers ::after rules?
+  <button className={`${className || `Cta${cta}`}`} {...props} data-ico={ico}> 
     {children} 
     {/* {icon && <Icon icon={icon} />} */}
   </button>
