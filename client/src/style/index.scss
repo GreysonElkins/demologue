@@ -5,6 +5,7 @@ body {
   padding: 0;
   margin: 0;
   height: 100vh;
+  overflow: hidden;
   font-family: 'Rubik', sans-serif;
   // background-color: $dark1;
   background: linear-gradient(165deg, $dark1 40%, #000000) border-box;  
@@ -16,6 +17,20 @@ h1 {
   font-style: italic;
   color: $accent1;
   opacity: 0.8;
+  
+  display: flex;
+
+  svg {
+    margin-right: 8px;
+    margin-bottom: -2px;
+  }
+
+  a {
+    &:visited {
+      text-decoration: none;
+      color: $accent1;
+    }
+  }
 }
 
 button {
