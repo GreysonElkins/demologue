@@ -8,4 +8,9 @@ header {
   align-items: center;
   padding: 0 24px;
   background-color: $dark3;
+  transition: margin-top 300ms;
+
+  @include onBreak('mobile') {
+    margin-top: -94px;
+  }
 }
