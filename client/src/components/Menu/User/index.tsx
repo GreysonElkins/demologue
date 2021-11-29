@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { useUser } from 'context/User'
 
 import DropdownCta from 'style/button/DropdownCta'
@@ -12,14 +13,14 @@ const UserMenu: React.FC = () => {
     <DropdownCta altTrigger={<Avatar className="trigger" src={user?.photoURL} tabIndex={-1} />}>
       <nav className="UserMenu">
           <section className="user-section">
-            <button tabIndex={0} onClick={logout}>
+            <button>
               {user?.displayName || 'Edit Profile'}
             </button>
           </section>
-          <button tabIndex={0}>Bands</button>
-          <button tabIndex={0}>Playlists</button>
+          <Link to="/my-bands">Bands</Link>
+          <button>Playlists</button>
           <section className="log-out-section">
-            <button tabIndex={0} onClick={logout}>Log out</button>
+            <button onClick={logout}>Log out</button>
           </section>
       </nav>
     </DropdownCta>
