@@ -12,12 +12,27 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+  
+  padding: 0;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+  }
 
   &::after {
     content: attr(data-ico);
     @include maskIcon($gray1);
-    margin-left: 3px;
+    margin-left: -1px;
   }
+}
+
+.avatar-squared {
+  border-radius: 5px;
+  height: 60px;
+  width: 60px;
 }
 
 .loading-icon {
@@ -36,5 +51,20 @@
       content: attr(data-ico);
       @include maskIcon($accent1dark, $accent2dark);   
     }
+  }
+}
+
+.Sort {
+  display: flex;
+  flex-direction: column;
+  background: none;
+  border: none;
+  color: $white2;
+  .bottom-arrow {
+    margin-top: -12px;
+  }
+
+  .accent {
+    color: $accent2dark;
   }
 }
