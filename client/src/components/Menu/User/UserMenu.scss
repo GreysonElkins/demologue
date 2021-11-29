@@ -9,6 +9,10 @@
   border: 1px solid $white3;
   border-radius: 5px;
 
+  @include onBreak('mobile') {
+    display: none;
+  }
+
   button, a {
     color: $white2;
     white-space: nowrap;
