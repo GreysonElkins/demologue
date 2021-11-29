@@ -1,5 +1,8 @@
+import bands from "test/data/bands"
+import BandList from "components/Table/BandList"
+
 const Bands = () => {
-  return <div>bands</div>
+  return <BandList bands={bands} />
 }
 
 const BandRoute = {
