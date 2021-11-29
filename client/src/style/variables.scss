@@ -12,6 +12,27 @@ $accent1:#53f591;
 $accent2: #4e9df7;
 $accent1dark:#22c862;
 $accent2dark: #1a72d8;
+$accent3:#538cf5;
+$accent4: #b94ef7;
+$error: #f74e6a;
+
+
+$breakpoints: (
+  'mobile': 768px,
+  'smallTablet': 1015px,
+  'tablet': 1230px
+) !default;
+
+@mixin onBreak($breakpoint) {
+  @if map-has-key($breakpoints, $breakpoint) {
+    @media (max-width: map-get($breakpoints, $breakpoint)) {
+      @content;
+    }
+  } @else {
+    @warn "Breakpoint `#{$breakpoint}` does not exist. "
+    + "Available breakpoints are: #{map-keys($breakpoints)}.";
+  }
+}
 
 @keyframes fade-in {
   0% {opacity:0;}
@@ -34,7 +55,7 @@ $accent2dark: #1a72d8;
   animation: fade-in $time;
 }
 
-@mixin maskIcon($color1: $dark1, $color2: $dark2) {
+@mixin maskIcon($color1: $dark1, $color2: $color1) {
   -webkit-mask-clip: text;
   background: linear-gradient($color1, $color2);
   mask-clip: text;
