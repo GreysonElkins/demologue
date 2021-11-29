@@ -2,4 +2,14 @@
 
 main {
   height: calc(100vh - 94px);
+  width: 100%;
+
+
+  @include onBreak('mobile') {
+    height: calc(100vh - 75px);
+  }
+}
+
+.main-wrapper {
+  display: flex;
 }
