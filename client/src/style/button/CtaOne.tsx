@@ -1,15 +1,16 @@
 import { DetailedHTMLProps } from 'react'
+import { IconProp } from '@fortawesome/fontawesome-svg-core'
+import { Icon } from 'style/Icon'
 
-// class provided by index.scss
-// className should be a prop typed 'one' | 'two' | 'three', etc, 
-// as those cta's are built. 
-// only one Cta component will exist
+interface Props extends DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> {
+  Cta?: 'One'
+  // icon?: IconProp
+}
 
-const CtaOne: React.FC<
-  DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>
-> = ({ children, className, ...props }) => (
-  <button className={`${className || 'CtaOne'}`} {...props}>
-    {children}
+const CtaOne: React.FC<Props> = ({ children, className, Cta = 'One', ...props }) => (
+  <button className={`${className || `Cta${Cta}`}`} {...props}>
+    {children} 
+    {/* {icon && <Icon icon={icon} />} */}
   </button>
 )
 
