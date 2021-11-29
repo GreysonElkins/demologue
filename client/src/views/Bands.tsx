@@ -1,8 +1,15 @@
+import { Link } from 'react-router-dom'
 import bands from "test/data/bands"
-import BandList from "components/Table/BandList"
+
+import Cta from "style/button/Cta"
 
 const Bands = () => {
-  return <BandList bands={bands} />
+  return (
+    <>
+
+      {/* <BandList bands={bands} /> */}
+    </>
+  )
 }
 
 const BandRoute = {
