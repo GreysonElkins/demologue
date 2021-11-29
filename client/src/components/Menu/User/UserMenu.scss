@@ -9,12 +9,16 @@
   border: 1px solid $white3;
   border-radius: 5px;
 
-  button {
+  button, a {
     color: $white2;
     white-space: nowrap;
+    font-size: 14px;
+    text-decoration: none;
     background: none;
     border: none;
+    // max-width: 100%;
     width: 100%;
+    
     text-transform: capitalize;
     text-align: right;
     padding: 4px 12px;
@@ -23,6 +27,12 @@
       color: $dark3;
       background: $accent2;
     }
+  }
+
+  a {
+    display: block;
+    max-width: 100%;
+    width: auto;
   }
 
   section {
@@ -34,7 +44,7 @@
     margin-bottom: 4px;
     padding: 12px 0;
 
-    button {
+    button, a {
       &:hover, &:focus {
         color: $white2;
         background: none;
