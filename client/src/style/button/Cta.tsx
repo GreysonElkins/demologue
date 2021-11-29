@@ -1,6 +1,6 @@
 import { DetailedHTMLProps } from 'react'
-import { IconProp } from '@fortawesome/fontawesome-svg-core'
-import { Icon } from 'style/Icon'
+// import { IconProp } from '@fortawesome/fontawesome-svg-core'
+// import { Icon } from 'style/Icon'
 
 interface Props extends DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> {
   Cta?: 'One'

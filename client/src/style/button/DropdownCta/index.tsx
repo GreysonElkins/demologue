@@ -1,5 +1,5 @@
 import { useState, FocusEvent } from 'react'
-import CtaOne from 'style/button/CtaOne'
+import CtaOne from 'style/button/Cta'
 
 import './DropdownCta.scss'
 
