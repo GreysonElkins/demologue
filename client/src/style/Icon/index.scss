@@ -21,12 +21,6 @@
     width: 100%;
     height: 100%;
   }
-
-  &::after {
-    content: attr(data-ico);
-    @include maskIcon($gray1);
-    margin-left: -1px;
-  }
 }
 
 .avatar-squared {
@@ -67,4 +61,21 @@
   .accent {
     color: $accent2dark;
   }
+}
+
+.LinkIcon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: fit-content;
+  color: $dark1;
+  min-width: 50px;
+  .title {
+    margin-top: 4px;
+    font-size: 12px;
+  }
+}
+
+.LinkIcon.active {
+  color: $white2;
 }
