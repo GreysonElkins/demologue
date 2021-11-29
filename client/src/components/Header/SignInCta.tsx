@@ -1,16 +1,15 @@
-import { useState } from 'react'
+import useModal from 'hooks/useModal'
 
 import SignInMenu from 'components/Menu/SignIn'
-import Modal from 'style/Modal'
+import Modal from 'components/Modal'
 import CtaOne from 'style/button/Cta'
 
 const SignInCta = () => {
-  const [isOpen, setIsOpen] = useState<boolean>(false)
-  const toggleOpen = () => setIsOpen((prev) => !prev)
+  const { isOpen, toggle } = useModal()
   return (
     <>
-      <CtaOne data-ico="👤" onClick={toggleOpen}>Sign In</CtaOne>
-      <Modal isOpen={isOpen} toggle={toggleOpen}>
+      <CtaOne data-ico="👤" onClick={toggle}>Sign In</CtaOne>
+      <Modal isOpen={isOpen} toggle={toggle}>
         <SignInMenu />
       </Modal>
     </>
