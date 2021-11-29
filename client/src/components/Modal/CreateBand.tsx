@@ -1,5 +1,7 @@
 import { Formik, Form } from 'formik'
 import * as yup from 'yup'
+import BandMutations from 'scripts/api/demologue/mutation/band'
+import { useUser } from 'context/User'
 
 import LineText from 'style/form/LineText'
 import Modal, { ModalProps } from '.'
@@ -8,6 +10,9 @@ import Cta from 'style/button/Cta'
 import './index.scss'
 
 const CreateBand: React.FC<ModalProps> = (props) => {
+  const { startBand } = BandMutations()
+  const { user } = useUser()
+
   const validationSchema = yup.object().shape({
     name: yup.string().required('Required'),
   })
@@ -32,7 +37,10 @@ const CreateBand: React.FC<ModalProps> = (props) => {
       */}
       <Formik
         validationSchema={validationSchema}
-        onSubmit={(values) => console.log({ values })}
+        onSubmit={({ name }) => {
+          if (!user) return console.error('You need to be logged in!')
+          startBand({ name, userId: user.id, role: 'MEMBER' })
+        }}
         initialValues={{ name: '' }}
       >
         <Form className="StyledForm CreateBand">
