@@ -8,10 +8,11 @@ interface Props extends DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonE
   src?: string | null
   defaultIcon?: IconProp
   size?: SizeProp
+  noAction?: boolean
 }
 
-const Avatar: React.FC<Props> = ({ src, defaultIcon, className, size, ...props }) => (
-  <button className={`Avatar ${className || ''}`} {...props}>
+const Avatar: React.FC<Props> = ({ src, defaultIcon, className, size, noAction, ...props }) => (
+  <button className={`Avatar ${className || ''}`} {...props} tabIndex={noAction ? -1 : 0}>
     {src && <img src={src} alt="" />}
     {!src && <Icon icon={ defaultIcon || "user" } size={ size || "1x"} />}
   </button>
