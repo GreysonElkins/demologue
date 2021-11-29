@@ -21,7 +21,7 @@ type NewBandWithUser = {
 }
 
 const BandMutations = () => {
-  const { mutate: createBand } = useMutation(async (newBand: NewBand) => {
+  const { mutate: createBand } = useMutation(async (newBand: NewBand) => { // maybe data returns here?
     try {
       const response: any = await request(endpoint, CREATE_BAND, { ...newBand })
       return response
@@ -42,6 +42,7 @@ const BandMutations = () => {
   const startBand = async ({ userId, role, name }: NewBandWithUser) => {
     if (role === "GUEST") return console.error("A new band can't be created by a guest")
     const bandId = await createBand({ name })
+    // returning undefined
     console.log({ bandId })
     // await addUserToBand({ userId, role, bandId })
     // invalidate bands list?
