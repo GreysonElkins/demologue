@@ -8,47 +8,33 @@ type NewBand = {
   name: string
 }
 
-type NewBandMember = {
-  userId: string
+type JoinBandData = {
   role?: string // needs an actual type
   bandId: number
+  userId: string
 }
 
-type NewBandWithUser = {
-   userId: string
-  role?: string // needs an actual type
- name: string
-}
-
-const BandMutations = () => {
-  const { mutate: createBand } = useMutation(async (newBand: NewBand) => { // maybe data returns here?
-    try {
-      const response: any = await request(endpoint, CREATE_BAND, { ...newBand })
-      return response
-    } catch (error) {
-      console.error(error)
-    }
-  })
-
-  const { mutate: addUserToBand } = useMutation(async (bandMember: NewBandMember) => {
-    try {
-      const response: any = await request(endpoint, CREATE_USERS_TO_BAND, { role: "GUEST", ...bandMember })
-      return response
-    } catch (error) {
-      console.error(error)
-    }
-  })
-
-  const startBand = async ({ userId, role, name }: NewBandWithUser) => {
-    if (role === "GUEST") return console.error("A new band can't be created by a guest")
-    const bandId = await createBand({ name })
-    // returning undefined
-    console.log({ bandId })
-    // await addUserToBand({ userId, role, bandId })
-    // invalidate bands list?
+export const useAddUserToBand = () => useMutation(async ({ role = 'GUEST', bandId, userId }: JoinBandData) => {
+  try {
+    await request(endpoint, CREATE_USERS_TO_BAND, { bandId, userId, role })
+  } catch (error) {
+    console.error(error)
   }
+})
 
-  return { startBand, addUserToBand }
-}
-
-export default BandMutations
+export const useCreateBand = () => useMutation(async ({ name }: NewBand) => {
+  try {
+    const {
+      createBand: {
+        band: { id },
+      },
+    } = await request(endpoint, CREATE_BAND, { name: name.toLowerCase() })
+    return id
+  } catch (error: any) {
+    if (error.message.includes('duplicate key value violates unique constraint "band_name"')) {
+      console.error('band exists')
+      return false
+    }
+    console.error(error)
+  }
+})
