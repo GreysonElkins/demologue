@@ -1,7 +1,8 @@
 import endpoint from 'scripts/api/demologue'
-import { useMutation } from 'react-query'
+import { QueryClient, useMutation, useQueryClient } from 'react-query'
 import { request } from 'graphql-request'
 import { CREATE_BAND, CREATE_USERS_TO_BAND } from './band.gql'
+import { toast } from 'react-toastify'
 
 // move types to type dir
 type NewBand = {
@@ -14,13 +15,26 @@ type JoinBandData = {
   userId: string
 }
 
-export const useAddUserToBand = () => useMutation(async ({ role = 'GUEST', bandId, userId }: JoinBandData) => {
-  try {
-    await request(endpoint, CREATE_USERS_TO_BAND, { bandId, userId, role })
-  } catch (error) {
-    console.error(error)
-  }
-})
+
+
+export const useAddUserToBand = (queryClient?: QueryClient) =>
+  useMutation(
+    async ({ role = 'GUEST', bandId, userId }: JoinBandData) => {
+      try {
+        await request(endpoint, CREATE_USERS_TO_BAND, { bandId, userId, role })
+      } catch (error) {
+        toast.warn('Something went wrong while adding you to the band, please try again', {
+          toastId: 'create-band-to-user-error',
+        })
+        console.error(error)
+      }
+    },
+    {
+      onSuccess: () => {
+        queryClient && queryClient.invalidateQueries('user-to-bands')
+      },
+    }
+  )
 
 export const useCreateBand = () => useMutation(async ({ name }: NewBand) => {
   try {
@@ -32,9 +46,11 @@ export const useCreateBand = () => useMutation(async ({ name }: NewBand) => {
     return id
   } catch (error: any) {
     if (error.message.includes('duplicate key value violates unique constraint "band_name"')) {
-      console.error('band exists')
-      return false
+      return console.error('band exists')
     }
+    toast.warn('Something went wrong creating your band, please try again', {
+      toastId: 'create-band-error',
+    })
     console.error(error)
   }
 })
