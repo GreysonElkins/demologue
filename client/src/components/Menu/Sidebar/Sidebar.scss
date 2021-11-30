@@ -62,11 +62,29 @@
   max-height: 100%;
   padding: 8px;
   height: calc(100% - 50px); // accounting for mobile nav's additional length
+  
+  ul {
+    list-style-type: none;
+    color: $white2;
+    text-transform: capitalize;
+    max-height: 100%;
+    overflow: scroll;
+    li {
+      margin: 4px 0;
+    }
+  }
+
   .bottom {
     display: flex; 
     padding: 8px;
     justify-content: center;
     max-width: 100%;
+  }
+
+  .no-items {
+    width: 80%;
+    margin: 60% auto 0;
+    text-align: center;
   }
 
   .collapse {
