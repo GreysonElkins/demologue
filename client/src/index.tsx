@@ -14,7 +14,7 @@ initFontAwesome()
 ReactDOM.render(
   <React.StrictMode>
     <App />
-    <ToastContainer position="bottom-right" />
+    <ToastContainer position="bottom-right" draggable theme="dark"/>
   </React.StrictMode>,
   document.getElementById('root')
 )
