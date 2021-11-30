@@ -1,7 +1,7 @@
 import { BrowserRouter } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
-import { UserProvider } from 'context/Viewer'
+import { ViewerProvider } from 'context/Viewer'
 import Router from 'views'
 
 import Header from 'components/Header'
@@ -14,7 +14,7 @@ const queryClient = new QueryClient()
 const App: React.FC = () => (
     <QueryClientProvider client={queryClient}>
       {process.env.NODE_ENV === 'development' && <ReactQueryDevtools initialIsOpen={false} />}
-      <UserProvider>
+      <ViewerProvider>
         <BrowserRouter>
           <Header />
           <div className="main-wrapper">
@@ -25,7 +25,7 @@ const App: React.FC = () => (
           </div>
           <MobileNav />
         </BrowserRouter>
-      </UserProvider>
+      </ViewerProvider>
     </QueryClientProvider>
 )
 

@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import useModal from 'hooks/useModal'
-import { useUser } from 'context/Viewer'
+import { useViewer } from 'context/Viewer'
 import { getBandsByUser } from 'scripts/api/demologue/query/band'
 
 import AddBand from 'components/Modal/AddBand'
@@ -10,7 +10,7 @@ import Loading from 'style/Icon/Loading'
 
 const BandBar = () => {
   const { toggle, isOpen, secondOption: skipOptions } = useModal()
-  const { user } = useUser()
+  const { user } = useViewer()
   const { status, data, isFetching } = getBandsByUser(user?.uid)
 
   const printBands = () =>

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { useUser } from 'context/Viewer'
+import { useViewer } from 'context/Viewer'
 
 import DropdownCta from 'style/button/DropdownCta'
 import Avatar from 'style/Icon/Avatar'
@@ -7,7 +7,7 @@ import Avatar from 'style/Icon/Avatar'
 import './UserMenu.scss'
 
 const UserMenu: React.FC = () => {
-  const { logout, user } = useUser()
+  const { logout, user } = useViewer()
 
   return (
     <DropdownCta altTrigger={<Avatar className="trigger" src={user?.photoURL} tabIndex={-1} />}>

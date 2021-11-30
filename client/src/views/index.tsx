@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Routes, Route } from 'react-router-dom'
-import { useUser } from 'context/Viewer'
+import { useViewer } from 'context/Viewer'
 import RouteInfo from 'types/Route'
 import Loading from 'style/Icon/Loading'
 
@@ -13,7 +13,7 @@ export const pages: RouteInfo[] = [Home, Band, SearchBands]
 const Router: React.FC = () => {
   const [mappedRoutes, setMappedRoutes] = useState<JSX.Element[]>([])
   const [loading, setLoading] = useState<boolean>(true)
-  const { signedIn, loading: userLoading } = useUser()
+  const { signedIn, loading: userLoading } = useViewer()
 
   const mapRoutes = () => {
     const map = pages

@@ -2,19 +2,20 @@ import { createContext, useContext, useState, useEffect, useCallback } from 'rea
 import firebase from 'firebase/compat/app'
 import auth from 'scripts/auth'
 import { ParsedFirebaseUser } from 'types/firebase'
+
 import { getUser } from 'scripts/api/demologue/query/user'
 import UserMutations from 'scripts/api/demologue/mutation/user'
 
-type UserContextValue = {
+type ViewerContextValue = {
   loading: boolean
   logout: () => void
   signedIn: boolean
   user: ParsedFirebaseUser | null
 }
 
-const UserContext = createContext({} as UserContextValue)
+const ViewerContext = createContext({} as ViewerContextValue)
 
-export const UserProvider: React.FC = ({ children }) => {
+export const ViewerProvider: React.FC = ({ children }) => {
   const [user, setUser] = useState<ParsedFirebaseUser | null>(null)
   const { status, data, isFetching } = getUser(user?.uid)
   const { createUser } = UserMutations()
@@ -52,11 +53,11 @@ export const UserProvider: React.FC = ({ children }) => {
   }
 
   return (
-    <UserContext.Provider value={{ signedIn: !!user, user, logout, loading }}>
+    <ViewerContext.Provider value={{ signedIn: !!user, user, logout, loading }}>
       {children}
-    </UserContext.Provider>
+    </ViewerContext.Provider>
   )
 }
 
-export const useUser = () => useContext(UserContext)
+export const useViewer = () => useContext(ViewerContext)
 

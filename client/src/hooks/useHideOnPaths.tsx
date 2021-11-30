@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
 import { useLocation } from 'react-router-dom'
-import { useUser } from 'context/Viewer'
+import { useViewer } from 'context/Viewer'
 
 type Options = {
   paths?: string[]
@@ -13,7 +13,7 @@ const useHideOnPaths = ({ paths, authRequired, otherFlags }: Options) => {
   const badPaths = useState<boolean>(false)
   const badFlags = useState<boolean>(false)
 
-  const { signedIn } = useUser()
+  const { signedIn } = useViewer()
   const { pathname } = useLocation()
 
   const checkFlags = useCallback((flag: boolean, state: Array<any>) => {

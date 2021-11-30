@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { useUser } from 'context/Viewer'
+import { useViewer } from 'context/Viewer'
 
 import UserMenu from '../Menu/User'
 import SignInCta from './SignInCta'
@@ -9,7 +9,7 @@ import Cta from 'style/button/Cta'
 import './Header.scss'
 
 const Header: React.FC = () => {
-  const { signedIn, loading } = useUser()
+  const { signedIn, loading } = useViewer()
   return (
     <header>
       <h1>

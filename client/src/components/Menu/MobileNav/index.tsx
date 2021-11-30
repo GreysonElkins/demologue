@@ -1,11 +1,11 @@
 import SignInCta from 'components/Header/SignInCta'
-import { useUser } from 'context/Viewer'
+import { useViewer } from 'context/Viewer'
 
 import LinkIcon from 'style/Icon/LinkIcon'
 import './MobileNav.scss'
 
 const MobileNav = () => {
-  const { signedIn } = useUser()
+  const { signedIn } = useViewer()
   if (!signedIn) return (
     <nav className="MobileNav loggedOut">
       <SignInCta />

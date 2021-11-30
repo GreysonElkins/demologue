@@ -4,7 +4,7 @@ import { toast } from 'react-toastify'
 import * as yup from 'yup'
 import { useQueryClient } from 'react-query'
 import { useCreateBand, useAddUserToBand } from 'scripts/api/demologue/mutation/band'
-import { useUser } from 'context/Viewer'
+import { useViewer } from 'context/Viewer'
 import { printDropdownOptions } from 'style/form/StyledField'
 
 import LineText from 'style/form/StyledField'
@@ -29,7 +29,7 @@ const CreateBand: React.FC<{ onComplete?: () => void }> = ({ onComplete }) => {
     isError: userIsError,
   } = useAddUserToBand(queryClient)
   const [role, setRole] = useState<string>('MEMBER')
-  const { user } = useUser()
+  const { user } = useViewer()
 
   useEffect(() => {
     if (!bandId || !user || bandIsError) return
