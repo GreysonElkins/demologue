@@ -42,6 +42,7 @@ export const ViewerProvider: React.FC = ({ children }) => {
     if (status === 'success' && !isFetching && !data && !!uid && auth.currentUser) {
       const { displayName, email, emailVerified, uid, photoURL } = auth.currentUser
       viewer = await createUser({ displayName, email, emailVerified, uid, photoURL })
+      // THIS GQL should be updated to return the whole user...I don't know how it's working currently...
     } else if (auth.currentUser && data) {
       viewer = new User(data)
     }
