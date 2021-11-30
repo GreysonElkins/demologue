@@ -13,7 +13,7 @@ const queryClient = new QueryClient()
 
 const App: React.FC = () => (
     <QueryClientProvider client={queryClient}>
-      {/* {process.env.NODE_ENV === 'development' && <ReactQueryDevtools initialIsOpen={false} />} */}
+      {process.env.NODE_ENV === 'development' && <ReactQueryDevtools initialIsOpen={false} />}
       <UserProvider>
         <BrowserRouter>
           <Header />
