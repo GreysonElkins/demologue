@@ -3,6 +3,7 @@
 .Sidebar {
   background-color: $dark2;
   min-width: 225px;
+  max-width: 225px;
   transition: margin-left 300ms;
 
   .Modes {
@@ -71,6 +72,9 @@
     overflow: scroll;
     li {
       margin: 4px 0;
+      a {
+        color: $white2;
+      }
     }
   }
 
@@ -85,19 +89,12 @@
     width: 80%;
     margin: 60% auto 0;
     text-align: center;
-  }
 
-  .collapse {
-    justify-content: flex-end;
-    padding-right: 5px;
-    transition: max-width 500ms;
-    max-width: 30px;
-    overflow: hidden;
-    &:after {
-      margin-left: 10px;
-    }
-    &:hover {
-      max-width: 300px;
+    i, a {
+      text-decoration: underline;
+      font-style: italic;
+      color: $accent2;
+      cursor: pointer;
     }
   }
 }
