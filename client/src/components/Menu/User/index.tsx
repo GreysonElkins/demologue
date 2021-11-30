@@ -15,8 +15,8 @@ const UserMenu: React.FC = () => {
         <section className="user-section">
           <Link to="/user">{user?.displayName || 'Edit Profile'}</Link>
         </section>
-        <Link to="/my-bands">Bands</Link>
-        <button>Playlists</button>
+        {/* <Link to="/my-bands">Bands</Link> */}
+        {/* <button>Playlists</button> */}
         <section className="log-out-section">
           <button onClick={logout}>Log out</button>
         </section>
