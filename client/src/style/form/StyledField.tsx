@@ -2,7 +2,7 @@ import { Field, FieldAttributes, ErrorMessage } from 'formik'
 
 import './index.scss'
 
-export const printDropdwonOptions = (options: Array<{text: string, value: any}>) => options.map(({ text, value }, i) => (
+export const printDropdownOptions = (options: Array<{text: string, value: any}>) => options.map(({ text, value }, i) => (
   <option key={`option-${i}:${text}`} value={value}>{text}</option>
 ))
 
