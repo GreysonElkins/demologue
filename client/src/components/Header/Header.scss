@@ -9,6 +9,13 @@ header {
   padding: 0 24px;
   background-color: $dark3;
   transition: margin-top 300ms;
+  
+  .right {
+    display: flex;
+    .CtaOne {
+      margin-right: 16px;
+    }
+  }
 
   @include onBreak('mobile') {
     margin-top: -94px;
