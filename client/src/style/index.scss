@@ -52,8 +52,29 @@ button {
   white-space: nowrap;
 }
 
+.collapse {
+    justify-content: flex-end;
+    padding-right: 5px;
+    transition: max-width 500ms;
+    max-width: 30px;
+    overflow: hidden;
+    &:after {
+      margin-left: 10px;
+    }
+    &:hover {
+      max-width: 300px;
+    }
+  }
+
 .CtaOne {
   @include Cta($accent1, $accent2);
+}
+
+.CtaOne.collapse {
+  &:after {
+    margin-left: 24px;
+    margin-right: 0px;
+  }
 }
 
 .CtaTwo {
@@ -64,6 +85,5 @@ button {
 
   &::after {
     font-size: 10px;
-
   }
 }
