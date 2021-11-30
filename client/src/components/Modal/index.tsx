@@ -11,7 +11,7 @@ const Modal: React.FC<ModalProps> = ({ children, isOpen, toggle }) => {
   return (
     <div className="overlay" onClick={toggle}>
       <div className="Modal" onClick={(event) => event.stopPropagation()}>
-        <button onClick={toggle} className="close-modal" data-ico="ⓧ"/>
+        <button onClick={toggle} className="close-modal" data-ico="ⓧ" tabIndex={1}/>
         {children}
       </div>
     </div>
