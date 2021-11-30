@@ -1,5 +1,5 @@
 import endpoint from 'scripts/api/demologue'
-import { QueryClient, useMutation, useQueryClient } from 'react-query'
+import { QueryClient, useMutation } from 'react-query'
 import { request } from 'graphql-request'
 import { CREATE_BAND, CREATE_USERS_TO_BAND } from './band.gql'
 import { toast } from 'react-toastify'
@@ -14,8 +14,6 @@ type JoinBandData = {
   bandId: number
   userId: string
 }
-
-
 
 export const useAddUserToBand = (queryClient?: QueryClient) =>
   useMutation(
