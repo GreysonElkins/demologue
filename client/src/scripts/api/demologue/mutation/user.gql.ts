@@ -19,7 +19,9 @@ export const CREATE_USER = gql`
         }
       }
     ) {
-      clientMutationId
+      user {
+        uid
+      }
     }
   }
 `

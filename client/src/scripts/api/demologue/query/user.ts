@@ -3,7 +3,7 @@ import { GET_USER } from 'scripts/api/demologue/query/user.gql'
 import { useQuery } from 'react-query'
 import { request } from 'graphql-request'
 
-export const getUser = (uid?: string) => {
+export const getUser = (uid: string | null) => {
   return useQuery(
     'user',
     async () => {

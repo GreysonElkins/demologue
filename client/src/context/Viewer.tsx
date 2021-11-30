@@ -1,51 +1,53 @@
 import { createContext, useContext, useState, useEffect, useCallback } from 'react'
-import firebase from 'firebase/compat/app'
 import auth from 'scripts/auth'
-import { ParsedFirebaseUser } from 'types/firebase'
-
+import User from 'types/User'
 import { getUser } from 'scripts/api/demologue/query/user'
-import UserMutations from 'scripts/api/demologue/mutation/user'
+import { useCreateUser } from 'scripts/api/demologue/mutation/user'
+// import { toast } from 'react-toastify'
 
 type ViewerContextValue = {
   loading: boolean
   logout: () => void
   signedIn: boolean
-  user: ParsedFirebaseUser | null
+  user: User | null
 }
 
 const ViewerContext = createContext({} as ViewerContextValue)
 
 export const ViewerProvider: React.FC = ({ children }) => {
-  const [user, setUser] = useState<ParsedFirebaseUser | null>(null)
-  const { status, data, isFetching } = getUser(user?.uid)
-  const { createUser } = UserMutations()
+  const [uid, setUid] = useState<string | null>(null)
+  const [user, setUser] = useState<User | null>(null)
+  const { status, data, isFetching } = getUser(uid)
+  const { mutate: createUser } = useCreateUser()
   
   const [loading, setLoading] = useState<boolean>(true)
 
   useEffect(() => {
     auth.onAuthStateChanged((response) => {
       if (!response && !!user) setUser(null)
-      if (response && !user) parseUser(response)
-      setLoading(false)
+      if (response && !user) setUid(response.uid)
+      // setLoading(false)
     })
   }, [])
 
   useEffect(() => {
-    if (status === 'success' && !isFetching && !data && !!user) {
-      createUser(user)
+    if (status === 'success' && uid) {
+      parseUserFromAuth()
     } 
-    // else {
-    //   checkForUpdates()
-    // maybe firebase should JUST be about JWT auth and share it's first set of data
-    // updates afterwards will be made in UI and if needed, update firebase as well
-    // but column `isVerified` can probably be ignored
-    // }
-  }, [status, data, isFetching])
+    setLoading(false)
+  }, [status, data, isFetching, uid])
 
-  const parseUser = useCallback((data: firebase.User) => {
-    const { displayName, email, emailVerified, uid, photoURL } = data
-    setUser({ displayName, email, emailVerified, uid, photoURL })
-  }, [])
+  const parseUserFromAuth = useCallback(async () => {
+    let viewer
+    if (status === 'success' && !isFetching && !data && !!uid && auth.currentUser) {
+      const { displayName, email, emailVerified, uid, photoURL } = auth.currentUser
+      viewer = await createUser({ displayName, email, emailVerified, uid, photoURL })
+    } else if (auth.currentUser && data) {
+      viewer = new User(data)
+    }
+    viewer ? setUser(viewer) : console.error("something went wrong")
+    setLoading(false)
+  }, [status, data, isFetching, uid])
 
   const logout = () => {
     auth.signOut().catch((error) => console.error(error))
