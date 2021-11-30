@@ -1,4 +1,4 @@
-import { NavLink, NavLinkProps } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
 import { Icon } from 'style/Icon'
 import { FontAwesomeIconProps } from '@fortawesome/react-fontawesome'
