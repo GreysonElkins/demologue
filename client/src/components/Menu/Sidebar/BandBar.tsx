@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import useModal from 'hooks/useModal'
-import { useUser } from 'context/User'
+import { useUser } from 'context/Viewer'
 import { getBandsByUser } from 'scripts/api/demologue/query/band'
 
 import AddBand from 'components/Modal/AddBand'

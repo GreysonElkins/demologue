@@ -1,5 +1,5 @@
 import SignInCta from 'components/Header/SignInCta'
-import { useUser } from 'context/User'
+import { useUser } from 'context/Viewer'
 
 import LinkIcon from 'style/Icon/LinkIcon'
 import './MobileNav.scss'

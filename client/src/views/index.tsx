@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Routes, Route } from 'react-router-dom'
-import { useUser } from 'context/User'
+import { useUser } from 'context/Viewer'
 import RouteInfo from 'types/Route'
 import Loading from 'style/Icon/Loading'
 

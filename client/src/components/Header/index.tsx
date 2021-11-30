@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { useUser } from 'context/User'
+import { useUser } from 'context/Viewer'
 
 import UserMenu from '../Menu/User'
 import SignInCta from './SignInCta'

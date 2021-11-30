@@ -4,7 +4,7 @@ import { toast } from 'react-toastify'
 import * as yup from 'yup'
 import { useQueryClient } from 'react-query'
 import { useCreateBand, useAddUserToBand } from 'scripts/api/demologue/mutation/band'
-import { useUser } from 'context/User'
+import { useUser } from 'context/Viewer'
 import { printDropdownOptions } from 'style/form/StyledField'
 
 import LineText from 'style/form/StyledField'

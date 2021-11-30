@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { useUser } from 'context/User'
+import { useUser } from 'context/Viewer'
 
 import DropdownCta from 'style/button/DropdownCta'
 import Avatar from 'style/Icon/Avatar'

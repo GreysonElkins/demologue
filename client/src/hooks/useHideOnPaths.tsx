@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
 import { useLocation } from 'react-router-dom'
-import { useUser } from 'context/User'
+import { useUser } from 'context/Viewer'
 
 type Options = {
   paths?: string[]
@@ -12,7 +12,6 @@ const useHideOnPaths = ({ paths, authRequired, otherFlags }: Options) => {
   // is it worth adding a warning if all options are undefined or empty arrays?
   const badPaths = useState<boolean>(false)
   const badFlags = useState<boolean>(false)
-  const state = useState<any>("test")
 
   const { signedIn } = useUser()
   const { pathname } = useLocation()
@@ -23,7 +22,6 @@ const useHideOnPaths = ({ paths, authRequired, otherFlags }: Options) => {
   }, [])
 
   useEffect(() => {
-    console.log({ state })
     if (!paths) return
     const matchedPath = paths.some((path) => pathname.includes(path))
     checkFlags(matchedPath, badPaths)

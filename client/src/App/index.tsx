@@ -1,7 +1,7 @@
 import { BrowserRouter } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
-import { UserProvider } from 'context/User'
+import { UserProvider } from 'context/Viewer'
 import Router from 'views'
 
 import Header from 'components/Header'
