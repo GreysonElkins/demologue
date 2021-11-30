@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import { Formik, Form } from 'formik'
+import { toast } from 'react-toastify'
 import * as yup from 'yup'
+import { useQueryClient } from 'react-query'
 import { useCreateBand, useAddUserToBand } from 'scripts/api/demologue/mutation/band'
 import { useUser } from 'context/User'
 import { printDropdwonOptions } from 'style/form/StyledField'
@@ -13,18 +15,22 @@ import Cta from 'style/button/Cta'
 import './index.scss'
 
 const CreateBand: React.FC<ModalProps> = (props) => {
+  const queryClient = useQueryClient()
   const { mutate: createBand, isLoading: bandLoading, data: bandId, isSuccess: bandSuccess, isError: bandIsError } = useCreateBand()
-  const { mutate: addUserToBand, isLoading: userLoading, isSuccess: userSuccess, isError: userIsError } = useAddUserToBand()
+  const { mutate: addUserToBand, isLoading: userLoading, isSuccess: userSuccess, isError: userIsError } = useAddUserToBand(queryClient)
   const [role, setRole] = useState<string>("MEMBER")
   const { user } = useUser()
 
   useEffect(() => {
-    if (!bandId || !user || userIsError || bandIsError) return
+    if (!bandId || !user || bandIsError) return
     addUserToBand({ role, userId: user.uid, bandId })
   }, [bandId])
 
   useEffect(() => {
-    if (!bandSuccess || !userSuccess) return
+    if (!bandSuccess || !userSuccess || userIsError) return
+    toast.success('Your band was created!', { toastId: "create-band-success"})
+    // could be a serious problem here if a band is
+    // created but a user doesn't successfully join
     props.toggle()
   }, [bandSuccess, userSuccess])
 
