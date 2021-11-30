@@ -1,3 +1,5 @@
+export type BandRole = "MEMBER" | "SUPPORT" | "GUEST"
+
 type Band = {
   id: number
   name: string
