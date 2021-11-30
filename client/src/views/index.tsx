@@ -5,9 +5,10 @@ import RouteInfo from 'types/Route'
 import Loading from 'style/Icon/Loading'
 
 import Home from './Home'
-import Bands from './Bands'
+import Band from './Band'
+import SearchBands from './SearchBands'
 
-export const pages: RouteInfo[] = [Home, Bands]
+export const pages: RouteInfo[] = [Home, Band, SearchBands]
 
 const Router: React.FC = () => {
   const [mappedRoutes, setMappedRoutes] = useState<JSX.Element[]>([])
