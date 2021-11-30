@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { getBandById } from 'scripts/api/demologue/query/band'
+import TestTable from 'components/Table/Band'
 
 import Loading from 'style/Icon/Loading'
 import './BandProfile.scss'
@@ -22,19 +23,16 @@ const BandProfile = () => {
       </div>
     )
 
-  // const members = data.usersToBands.map(({ user }:any) => user.name)
+  const members = data.usersToBands.map(({ user }:any) => user.displayName)
   // console.log(members)
 
   return (
-    <div className="BandProfile">
-      <div className="band-header">
-        <img src={data.photoUrl} />
-        <div className="band-info">
-          <h3>{ data.name }</h3>
-          {/* {members} */}
-        </div>
-      </div>
+    <>
+      <TestTable />
+      <div className="BandProfile">
+     
     </div>
+    </>
   )
 }
 
