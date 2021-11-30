@@ -26,23 +26,23 @@
   margin: 4px 0;
 }
 
-.LineText {
+.StyledField {
   margin: 4px 0;
   width: 100%;
+}
 
-  input {
-    width: 100%;
-    color: $white1;
-    background: none;
-    background-color: transparent;
-    border: none;
-    border-bottom: 1px solid $white2;
-    padding: 4px 0;
-    font-size: 16px;
+.LineText {
+  width: 100%;
+  color: $white1;
+  background: none;
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid $white2;
+  padding: 4px 0;
+  font-size: 16px;
 
-    &::placeholder {
-      color: $white3;
-      font-style: italic;
-    }
+  &::placeholder {
+    color: $white3;
+    font-style: italic;
   }
 }
