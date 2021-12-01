@@ -26,7 +26,6 @@ export const ViewerProvider: React.FC = ({ children }) => {
     auth.onAuthStateChanged((response) => {
       if (!response && !!user) setUser(null)
       if (response && !user) setUid(response.uid)
-      // setLoading(false)
     })
   }, [])
 
