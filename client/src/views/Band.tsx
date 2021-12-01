@@ -5,7 +5,6 @@ const Band = () => <BandProfile />
 const BandRoute = {
   element: <Band />,
   title: 'Band Profile',
-  authRequired: true,
   exact: true,
   path: '/band/:bandId'
 }
