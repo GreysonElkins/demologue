@@ -26,7 +26,7 @@ const Router: React.FC = () => {
   useEffect(() => {
     if (userLoading) return
     mapRoutes()
-  }, [userLoading])
+  }, [userLoading, signedIn])
 
   useEffect(() => {
     if (mappedRoutes.length < 1) return
