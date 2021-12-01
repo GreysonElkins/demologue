@@ -6,7 +6,6 @@ import { ParsedFirebaseUser } from 'types/firebase'
 
 export const useCreateUser = () =>
   useMutation(async (newUser: ParsedFirebaseUser) => {
-    console.log({ newUser })
     try {
       const {
         createUser: { user },
