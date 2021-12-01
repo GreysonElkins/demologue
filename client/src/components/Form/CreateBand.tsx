@@ -5,6 +5,7 @@ import * as yup from 'yup'
 import { useQueryClient } from 'react-query'
 import { useCreateBand, useAddUserToBand } from 'scripts/api/demologue/mutation/band'
 import { useViewer } from 'context/Viewer'
+import { useBands } from 'context/Bands'
 import { printDropdownOptions } from 'style/form/StyledField'
 
 import LineText from 'style/form/StyledField'
@@ -18,23 +19,31 @@ const CreateBand: React.FC<{ onComplete?: () => void }> = ({ onComplete }) => {
   const {
     mutate: createBand,
     isLoading: bandLoading,
-    data: bandId,
+    data: band,
     isSuccess: bandSuccess,
     isError: bandIsError,
   } = useCreateBand()
   const {
     mutate: addUserToBand,
+    data: bandWithUser,
     isLoading: userLoading,
     isSuccess: userSuccess,
     isError: userIsError,
   } = useAddUserToBand(queryClient)
   const [role, setRole] = useState<string>('MEMBER')
   const { user } = useViewer()
+  const { saveBand } = useBands()
 
   useEffect(() => {
-    if (!bandId || !user || bandIsError) return
-    addUserToBand({ role, userId: user.uid, bandId })
-  }, [bandId])
+    if (!band?.id || !user || bandIsError) return
+    addUserToBand({ role, userId: user.uid, bandId: band.id })
+  }, [band])
+
+  useEffect(() => {
+    if (!bandWithUser) return
+    console.log({ bandWithUser })
+    saveBand(bandWithUser)
+  }, [bandWithUser])
 
   useEffect(() => {
     if (!bandSuccess || !userSuccess || userIsError) return
