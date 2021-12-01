@@ -1,6 +1,5 @@
-import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { getBandById } from 'scripts/api/demologue/query/band'
+import { useBands } from 'context/Bands'
 import TestTable from 'components/Table/Band'
 
 import Loading from 'style/Icon/Loading'
@@ -8,29 +7,16 @@ import './BandProfile.scss'
 
 const BandProfile = () => {
   const { bandId } = useParams()
-  const { data, isFetched, ...props } = getBandById(Number(bandId))
+  const id = Number(bandId)
+  const { bands } = useBands(id)
 
-  useEffect(() => {
-    console.log({ data, ...props })
-  }, [data])
-
-  if (!isFetched) return <Loading />
-
-  if (isFetched && !data)
-    return (
-      <div className="missing-band">
-        <span>404</span>&nbsp;band not found 
-      </div>
-    )
-
-  const members = data.usersToBands.map(({ user }:any) => user.displayName)
-  // console.log(members)
+  if (!bands[id]) return <Loading />
 
   return (
     <>
       <TestTable />
       <div className="BandProfile">
-     
+      {bands[id].name}
     </div>
     </>
   )
