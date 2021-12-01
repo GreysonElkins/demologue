@@ -6,7 +6,7 @@ const bands = [
   { 
     id: 1, 
     name: 'creepon',
-    photoURL: 'https://f4.bcbits.com/img/a1992015150_10.jpg'
+    photoUrl: 'https://f4.bcbits.com/img/a1992015150_10.jpg'
   },
   { 
     id: 2, 
