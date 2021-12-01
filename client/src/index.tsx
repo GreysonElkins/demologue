@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { ToastContainer } from 'react-toastify'
+import { BrowserRouter } from 'react-router-dom'
 import { initFontAwesome } from 'style/Icon/fontAwesome'
 
 import App from 'App'
@@ -13,8 +13,9 @@ initFontAwesome()
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
-    <ToastContainer position="bottom-right" draggable theme="dark"/>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
 )
