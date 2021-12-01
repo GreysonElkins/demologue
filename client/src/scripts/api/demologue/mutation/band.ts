@@ -19,7 +19,8 @@ export const useAddUserToBand = (queryClient?: QueryClient) =>
   useMutation(
     async ({ role = 'GUEST', bandId, userId }: JoinBandData) => {
       try {
-        await request(endpoint, CREATE_USERS_TO_BAND, { bandId, userId, role })
+        const { band } = await request(endpoint, CREATE_USERS_TO_BAND, { bandId, userId, role })
+        return band
       } catch (error) {
         toast.warn('Something went wrong while adding you to the band, please try again', {
           toastId: 'create-band-to-user-error',
@@ -29,7 +30,8 @@ export const useAddUserToBand = (queryClient?: QueryClient) =>
     },
     {
       onSuccess: () => {
-        queryClient && queryClient.invalidateQueries('user-to-bands')
+        queryClient && queryClient.invalidateQueries('user')
+        // this query is depre
       },
     }
   )
@@ -38,10 +40,10 @@ export const useCreateBand = () => useMutation(async ({ name }: NewBand) => {
   try {
     const {
       createBand: {
-        band: { id },
+        band,
       },
     } = await request(endpoint, CREATE_BAND, { name: name.toLowerCase() })
-    return id
+    return band
   } catch (error: any) {
     if (error.message.includes('duplicate key value violates unique constraint "band_name"')) {
       return console.error('band exists')
