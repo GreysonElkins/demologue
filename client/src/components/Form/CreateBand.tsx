@@ -8,7 +8,7 @@ import { useViewer } from 'context/Viewer'
 import { useBands } from 'context/Bands'
 import { printDropdownOptions } from 'style/form/StyledField'
 
-import LineText from 'style/form/StyledField'
+import StyledField from 'style/form/StyledField'
 import Loading from 'style/Icon/Loading'
 import Cta from 'style/button/Cta'
 
@@ -74,15 +74,14 @@ const CreateBand: React.FC<{ onComplete?: () => void }> = ({ onComplete }) => {
       initialValues={{ name: '', role: 'MEMBER' }}
     >
       <Form className="StyledForm CreateBand">
-        <LineText
+        <StyledField
           name="name"
           placeholder="The Rolling Stones"
           label="Enter your group's name:"
           required
           tabIndex={1}
         />
-        <LineText
-          options={[{ text: 'test', value: '1' }]}
+        <StyledField
           name="role"
           as="select"
           label="What's your role in the band?"
@@ -90,7 +89,7 @@ const CreateBand: React.FC<{ onComplete?: () => void }> = ({ onComplete }) => {
           required
         >
           {roleOptions}
-        </LineText>
+        </StyledField>
         <Cta type="submit" tabIndex={1}>
           Save
         </Cta>
