@@ -19,7 +19,7 @@ export const useAddUserToBand = (queryClient?: QueryClient) =>
   useMutation(
     async ({ role = 'GUEST', bandId, userId }: JoinBandData) => {
       try {
-        const { band } = await request(endpoint, CREATE_USERS_TO_BAND, { bandId, userId, role })
+        const { createUsersToBand: { band } } = await request(endpoint, CREATE_USERS_TO_BAND, { bandId, userId, role })
         return band
       } catch (error) {
         toast.warn('Something went wrong while adding you to the band, please try again', {
