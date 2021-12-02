@@ -5,7 +5,9 @@ import {
   faDrum,
   faSave,
   faHome,
-  faHeadphones
+  faHeadphones,
+  faEnvelope,
+  faSignInAlt
 } from '@fortawesome/free-solid-svg-icons'
 import { library, IconDefinition } from '@fortawesome/fontawesome-svg-core'
 
@@ -17,6 +19,8 @@ const fontAwesomeIconList: IconDefinition[] = [
   faSave,
   faHome,
   faHeadphones,
+  faEnvelope,
+  faSignInAlt,
 ]
 
 export const initFontAwesome = () => library.add(...fontAwesomeIconList)
