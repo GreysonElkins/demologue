@@ -14,7 +14,7 @@ const BandImage: React.FC<{ band: Band; onUpload: (url: string) => void }> = ({
   return (
     <FileUploader
       onUpload={onUpload}
-      label={band.photoUrl ? 'Change Photo' : undefined}
+      label={band.photoUrl ? 'Change Photo' : "Upload a Photo"}
       preset={Preset.IMAGE}
       disabled={user?.bands[band.id] !== 'MEMBER'}
     >
