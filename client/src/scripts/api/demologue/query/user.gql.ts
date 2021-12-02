@@ -28,3 +28,11 @@ export const GET_USERS = gql`
     }
   }
 `
+
+export const GET_USERS_BY_UIDS = gql`
+  query MyQuery($uids: [String]!) {
+    usersByUids(uids: $uids) {
+      ${gqlUser}
+    }
+  }
+`
