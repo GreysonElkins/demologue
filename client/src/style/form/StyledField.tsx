@@ -1,4 +1,3 @@
-import { DetailedHTMLProps } from 'react'
 import { Field, FieldAttributes, ErrorMessage } from 'formik'
 
 import './index.scss'
