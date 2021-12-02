@@ -1,10 +1,16 @@
+import { DetailedHTMLProps } from 'react'
 import { Field, FieldAttributes, ErrorMessage } from 'formik'
 
 import './index.scss'
 
-export const printDropdownOptions = (options: Array<{text: string, value: any}>) => options.map(({ text, value }, i) => (
-  <option key={`option-${i}:${text}`} value={value}>{text}</option>
-))
+export const printDropdownOptions = (
+  options: Array<{ text: string; value: any }>,
+) =>
+  options.map(({ text, value }, i) => (
+    <option key={`option-${i}:${text}`} value={value}>
+      {text}
+    </option>
+  ))
 
 const StyledField: React.FC<FieldAttributes<any>> = ({ label, ...props }) => {
   const className = () => {
@@ -20,7 +26,7 @@ const StyledField: React.FC<FieldAttributes<any>> = ({ label, ...props }) => {
         </label>
       )}
       <div>
-      <Field className={className()} {...props} />
+        <Field className={className()} {...props} />
       </div>
       <div className="ErrorWrapper">
         <ErrorMessage name={props.name || ''} component="span" />
