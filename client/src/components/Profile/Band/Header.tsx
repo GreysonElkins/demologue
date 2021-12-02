@@ -5,9 +5,18 @@ import FileUploader from 'components/Form/FileUploader'
 import Band from "types/Band"
 import { Icon } from 'style/Icon'
 import { useBands } from 'context/Bands'
+import Preset from 'types/CloudinaryPresets.d'
 
-const AvatarUploader: React.FC<{ band: Band, onUpload: (url: string) => void }> = ({ band, onUpload }) => (
-  <FileUploader type="image" onUpload={onUpload} label={band.photoUrl ? "Change Photo" : undefined}>
+const AvatarUploader: React.FC<{ band: Band; onUpload: (url: string) => void }> = ({
+  band,
+  onUpload,
+}) => (
+  <FileUploader
+    type="image"
+    onUpload={onUpload}
+    label={band.photoUrl ? 'Change Photo' : undefined}
+    preset={Preset.IMAGE}
+  >
     {band.photoUrl ? (
       <img src={band.photoUrl} alt={`${band.name}'s photo'`} />
     ) : (
