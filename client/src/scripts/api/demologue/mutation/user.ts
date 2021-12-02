@@ -2,10 +2,9 @@ import endpoint from 'scripts/api/demologue'
 import { useMutation } from 'react-query'
 import { request } from 'graphql-request'
 import { CREATE_USER } from './user.gql'
-import { ParsedFirebaseUser } from 'types/firebase'
 
 export const useCreateUser = () =>
-  useMutation(async (newUser: ParsedFirebaseUser) => {
+  useMutation(async (newUser: any) => {
     try {
       const {
         createUser: { user },
