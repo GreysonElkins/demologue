@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react'
-import User from 'types/User'
+import User from 'types/User.d'
 import { getUserByUid, getUsersByUids } from 'scripts/api/demologue/query/user'
 import { useViewer } from './Viewer'
 

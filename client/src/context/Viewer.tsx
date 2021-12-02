@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useEffect, useCallback } from 'react'
 import auth from 'scripts/auth'
-import User from 'types/User'
+import User from 'types/User.d'
 import { getUserByUid } from 'scripts/api/demologue/query/user'
 import { useCreateUser } from 'scripts/api/demologue/mutation/user'
 // import { toast } from 'react-toastify'
