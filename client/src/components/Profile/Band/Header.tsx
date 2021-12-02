@@ -12,7 +12,6 @@ const AvatarUploader: React.FC<{ band: Band; onUpload: (url: string) => void }> 
   onUpload,
 }) => (
   <FileUploader
-    type="image"
     onUpload={onUpload}
     label={band.photoUrl ? 'Change Photo' : undefined}
     preset={Preset.IMAGE}

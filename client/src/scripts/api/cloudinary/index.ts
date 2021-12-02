@@ -2,7 +2,8 @@ import Preset from "types/CloudinaryPresets"
 const endpoint = `https://api.cloudinary.com/v1_1/demologue`
 import { toast } from 'react-toastify'
 
-export const uploadFile = async (type: 'audio' | 'image', file: any, preset: Preset) => {
+export const uploadFile = async (file: any, preset: Preset) => {
+  const type = Preset.IMAGE ? "image" : "audio"
   try {
     const data = new FormData()
     data.append('file', file)

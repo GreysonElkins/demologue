@@ -1,5 +1,4 @@
 import { useEffect, useState, useCallback } from 'react'
-import { toast } from 'react-toastify'
 import { uploadFile as cloudinary } from 'scripts/api/cloudinary'
 
 import { Icon } from 'style/Icon'
@@ -7,12 +6,12 @@ import Preset from 'types/CloudinaryPresets.d'
 
 type Props = {
   label?: string 
-  type: "image" | "audio"
   onUpload: (url: string) => void
   preset: Preset
+  disabled?: boolean
 }
 
-const FileUploader:React.FC<Props> = ({ children, type, onUpload, label = "Upload a file", preset }) => {
+const FileUploader:React.FC<Props> = ({ children, onUpload, label = "Upload a file", preset, disabled }) => {
   const [file, setFile] = useState<File | null>(null)
   const [uploading, setUploading] = useState<boolean>(false)
 
@@ -27,10 +26,9 @@ const FileUploader:React.FC<Props> = ({ children, type, onUpload, label = "Uploa
     if (!file) return
     try {
       setUploading(true)
-      const url = await cloudinary(type, file, preset)
+      const url = await cloudinary(file, preset)
       onUpload(url)
     } catch (error) {
-        toast.error(`Something went wrong uploading your ${type}`)
         console.error(error)
     }
     setFile(null)
@@ -42,6 +40,8 @@ const FileUploader:React.FC<Props> = ({ children, type, onUpload, label = "Uploa
       uploadFile()
     }
   }, [file])
+
+  if (disabled) return <>{children}</>
 
   if (uploading) return (
     <div className="FileUploader">
