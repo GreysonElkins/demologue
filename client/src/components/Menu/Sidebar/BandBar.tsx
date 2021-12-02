@@ -4,7 +4,6 @@ import useModal from 'hooks/useModal'
 import { useViewer } from 'context/Viewer'
 import { useBands } from 'context/Bands'
 
-import Band from 'types/Band'
 import AddBand from 'components/Modal/AddBand'
 
 import Cta from 'style/button/Cta'
@@ -13,17 +12,15 @@ const BandBar = () => {
   const { toggle, isOpen, secondOption: skipOptions } = useModal()
   const { user } = useViewer()
   const userBands = useMemo(() => user?.bandIds() || [], [JSON.stringify(user)])
-  const { bands } = useBands(userBands)
+  const { match } = useBands(userBands)
 
-  const ListItem = ({ id, name }: Band) =>
+  if (!match) return <></>
+  
+  const printBands = match.map(({ id, name }) => (
     <li key={`user-band-list-${id}`}>
       <Link to={`/band/${id}`}>{name}</Link>
     </li>
-
-  const printBands = Object.values(bands).reduce((ui, band) => {
-      if (band && userBands?.includes(band.id)) ui.push(ListItem(band))
-      return ui
-    }, [] as JSX.Element[])
+  ))
 
   return (
     <>
