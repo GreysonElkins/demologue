@@ -10,36 +10,33 @@ type BandsContextValue = {
   checkForBand: (id: number) => void
   checkForBands: (ids: number[]) => void
   bands: BandMap
-  saveBand: (band: gqlBand) => void
+  saveGqlBand: (band: gqlBand) => void
 }
 
 const BandsContext = createContext({} as BandsContextValue)
 
 export const BandsProvider: React.FC = ({ children }) => {
+  const [bands, setBands] = useState<BandMap>({})
   const [missingBand, setMissingBand] = useState<number | null>(null)
   const [missingBands, setMissingBands] = useState<number[] | null>(null)
-  const [bands, setBands] = useState<BandMap>({})
   const { data: fetchedBand, refetch } = getBandById(missingBand)
   const { data: fetchedBands } = getBandsByIds(missingBands)
 
+  useEffect(() => { if (missingBand) refetch() }, [missingBand]) 
+  // will this run twice on first render?
+
+  useEffect(() => { if (fetchedBand) saveGqlBand(fetchedBand) }, [fetchedBand])
+
   useEffect(() => {
     if (!fetchedBands || fetchedBands.length === 0) return
-    const newBandMap = fetchedBands?.reduce(
+    const newBandMap = fetchedBands.reduce(
       (map, band) => ({ ...map, [band.id]: new Band(band) }),
       {} as BandMap
     )
-    setBands(prev => ({ ...prev, ...newBandMap }))
+    setBands((prev) => ({ ...prev, ...newBandMap }))
   }, [fetchedBands])
 
-  useEffect(() => {
-    if (!fetchedBand) return
-    setBands(prev => ({ ...prev, [fetchedBand.id]: new Band(fetchedBand) }))
-  }, [fetchedBand])
-
-  useEffect(() => {
-    if (!missingBand) return
-    refetch()
-  }, [missingBand])
+  const saveGqlBand = (band: gqlBand) => setBands(prev => ({ ...prev, [band.id]: new Band(band)}))
 
   const checkForBand = (id: number) => {
     const savedBand = bands[id]
@@ -51,23 +48,37 @@ export const BandsProvider: React.FC = ({ children }) => {
     if (missing.length > 0) setMissingBands(missing)
   }
 
-  const saveBand = (band: gqlBand) => setBands(prev => ({ ...prev, [band.id]: new Band(band)}))
-
   return (
-    <BandsContext.Provider value={{ checkForBand, saveBand, checkForBands, bands: bands }}>
+    <BandsContext.Provider value={{ checkForBand, saveGqlBand, checkForBands, bands: bands }}>
       {children}
     </BandsContext.Provider>
   )
 }
 
-export const useBands = (selection?: number | number[]) => {
-  const context = useContext(BandsContext)
+export const useBands = <T extends number | number[]>(selection?: T) => {
+  type Match = T extends number ? Band : Band []
+  const [match, setMatch] = useState<Match | null>(null)
+  const { checkForBand, checkForBands, ...context} = useContext(BandsContext)
 
   useEffect(() => {
-    if (typeof selection === "number") context.checkForBand(selection)
-    if (Array.isArray(selection) && selection.length > 0) 
-      context.checkForBands(selection)
+    if (typeof selection === "number") {
+      setMatch(context.bands[selection] as Match)
+    } else if (Array.isArray(selection)) {
+      const matches = Object.values(context.bands).filter(({ id }) => selection.includes(id))
+      setMatch(matches as Match)
+    }
+  }, [JSON.stringify(context.bands)])
+
+  useEffect(() => {
+    if (typeof selection === "number") {
+      checkForBand(selection)
+      context.bands[selection] && setMatch(context.bands[selection] as Match)
+    } else if (Array.isArray(selection)) {
+      checkForBands(selection)
+      const matches = Object.values(context.bands).filter(({ id }) => selection.includes(id))
+      setMatch(matches as Match)
+    }
   }, [selection])
 
-  return context
+  return { ...context, match }
 }
