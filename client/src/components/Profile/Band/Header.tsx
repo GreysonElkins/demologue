@@ -1,13 +1,21 @@
 import { useMemo } from 'react'
 import { useUsers } from "context/Users"
 
+import FileUploader from 'components/Form/FileUploader'
 import Band from "types/Band"
 import { Icon } from 'style/Icon'
+import { useBands } from 'context/Bands'
 
-const PlaceHolderAvatar = (
-  <div className="placeholder-avatar">
-    <Icon icon="drum" />
-  </div>
+const AvatarUploader: React.FC<{ band: Band, onUpload: (url: string) => void }> = ({ band, onUpload }) => (
+  <FileUploader type="image" onUpload={onUpload} label={band.photoUrl ? "Change Photo" : undefined}>
+    {band.photoUrl ? (
+      <img src={band.photoUrl} alt={`${band.name}'s photo'`} />
+    ) : (
+      <div className="placeholder-avatar">
+        <Icon icon="drum" />
+      </div>
+    )}
+  </FileUploader>
 )
 
 const NumberStat = (value: string | number | JSX.Element, title: string) => (
@@ -20,6 +28,7 @@ const NumberStat = (value: string | number | JSX.Element, title: string) => (
 const BandHeader: React.FC<{band: Band}>= ({ band }) => {
   const memberIds = useMemo(() => Object.keys(band.members), [JSON.stringify(band)])
   const { match } = useUsers(memberIds)
+  const { changeBandPhoto } = useBands()
 
   if (!match) return <></>
 
@@ -32,7 +41,8 @@ const BandHeader: React.FC<{band: Band}>= ({ band }) => {
 
   return (
   <div className="band-header">
-    {band.photoUrl ? <img src={band.photoUrl} /> : PlaceHolderAvatar}
+    <AvatarUploader band={band} onUpload={(url: string) => changeBandPhoto(band.id, url) }/>
+    {/* don't forget about permissions for upload */}
     <div className="band-info">
       <h3>{band.name}</h3>
       <ul>{printMembers}</ul>
