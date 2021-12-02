@@ -1,7 +1,7 @@
 import { createContext, useContext, useState, useEffect, useCallback } from 'react'
 import auth from 'scripts/auth'
 import User from 'types/User'
-import { getUser } from 'scripts/api/demologue/query/user'
+import { getUserByUid } from 'scripts/api/demologue/query/user'
 import { useCreateUser } from 'scripts/api/demologue/mutation/user'
 // import { toast } from 'react-toastify'
 
@@ -17,7 +17,7 @@ const ViewerContext = createContext({} as ViewerContextValue)
 export const ViewerProvider: React.FC = ({ children }) => {
   const [uid, setUid] = useState<string | null>(null)
   const [user, setUser] = useState<User | null>(null)
-  const { status, data, isFetching } = getUser(uid)
+  const { status, data, isFetching } = getUserByUid(uid)
   const { mutate: createUser } = useCreateUser()
   
   const [loading, setLoading] = useState<boolean>(true)
