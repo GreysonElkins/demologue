@@ -11,17 +11,6 @@ export const gqlBand = `
   createdAt
 `
 
-export const GET_BANDS_BY_USER = gql`
-  query GetBandsByUser($userId: String!) {
-    usersToBands(condition: { userId: $userId }) {
-      band {
-        name
-        id
-      }
-    }
-  }
-`
-
 export const GET_BAND_BY_ID = gql`
   query getBandById($id: Int!) {
     bandById(id: $id) {
