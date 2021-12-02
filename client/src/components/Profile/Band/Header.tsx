@@ -1,5 +1,6 @@
 import { useMemo } from 'react'
 import { useUsers } from "context/Users"
+import { useViewer } from 'context/Viewer'
 
 import FileUploader from 'components/Form/FileUploader'
 import Band from "types/Band"
@@ -10,11 +11,14 @@ import Preset from 'types/CloudinaryPresets.d'
 const AvatarUploader: React.FC<{ band: Band; onUpload: (url: string) => void }> = ({
   band,
   onUpload,
-}) => (
+}) => {
+  const { user } = useViewer()
+  return (
   <FileUploader
     onUpload={onUpload}
     label={band.photoUrl ? 'Change Photo' : undefined}
     preset={Preset.IMAGE}
+    disabled={user?.bands[band.id] !== "MEMBER"}
   >
     {band.photoUrl ? (
       <img src={band.photoUrl} alt={`${band.name}'s photo'`} />
@@ -24,7 +28,7 @@ const AvatarUploader: React.FC<{ band: Band; onUpload: (url: string) => void }> 
       </div>
     )}
   </FileUploader>
-)
+)}
 
 const NumberStat = (value: string | number | JSX.Element, title: string) => (
   <div className="number-stat">
