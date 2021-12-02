@@ -1,34 +1,10 @@
 import { useMemo } from 'react'
 import { useUsers } from "context/Users"
-import { useViewer } from 'context/Viewer'
+import { useBands } from 'context/Bands'
 
-import FileUploader from 'components/Form/FileUploader'
+import BandImage from './BandImage'
 import Band from "types/Band"
 import { Icon } from 'style/Icon'
-import { useBands } from 'context/Bands'
-import Preset from 'types/CloudinaryPresets.d'
-
-const AvatarUploader: React.FC<{ band: Band; onUpload: (url: string) => void }> = ({
-  band,
-  onUpload,
-}) => {
-  const { user } = useViewer()
-  return (
-  <FileUploader
-    onUpload={onUpload}
-    label={band.photoUrl ? 'Change Photo' : undefined}
-    preset={Preset.IMAGE}
-    disabled={user?.bands[band.id] !== "MEMBER"}
-  >
-    {band.photoUrl ? (
-      <img src={band.photoUrl} alt={`${band.name}'s photo'`} />
-    ) : (
-      <div className="placeholder-avatar">
-        <Icon icon="drum" />
-      </div>
-    )}
-  </FileUploader>
-)}
 
 const NumberStat = (value: string | number | JSX.Element, title: string) => (
   <div className="number-stat">
@@ -53,8 +29,7 @@ const BandHeader: React.FC<{band: Band}>= ({ band }) => {
 
   return (
   <div className="band-header">
-    <AvatarUploader band={band} onUpload={(url: string) => changeBandPhoto(band.id, url) }/>
-    {/* don't forget about permissions for upload */}
+    <BandImage band={band} onUpload={(url: string) => changeBandPhoto(band.id, url) }/>
     <div className="band-info">
       <h3>{band.name}</h3>
       <ul>{printMembers}</ul>
