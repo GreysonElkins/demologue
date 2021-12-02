@@ -3,7 +3,7 @@ const endpoint = `https://api.cloudinary.com/v1_1/demologue`
 import { toast } from 'react-toastify'
 
 export const uploadFile = async (file: any, preset: Preset) => {
-  const type = Preset.IMAGE ? "image" : "audio"
+  const type = preset === Preset.IMAGE ? "image" : "video"
   try {
     const data = new FormData()
     data.append('file', file)
