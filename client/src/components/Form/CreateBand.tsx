@@ -32,7 +32,7 @@ const CreateBand: React.FC<{ onComplete?: () => void }> = ({ onComplete }) => {
   } = useAddUserToBand(queryClient)
   const [role, setRole] = useState<string>('MEMBER')
   const { user } = useViewer()
-  const { saveBand } = useBands()
+  const { saveGqlBand } = useBands()
 
   useEffect(() => {
     if (!band?.id || !user || bandIsError) return
@@ -41,8 +41,7 @@ const CreateBand: React.FC<{ onComplete?: () => void }> = ({ onComplete }) => {
 
   useEffect(() => {
     if (!bandWithUser) return
-    console.log({ bandWithUser })
-    saveBand(bandWithUser)
+    saveGqlBand(bandWithUser)
   }, [bandWithUser])
 
   useEffect(() => {
