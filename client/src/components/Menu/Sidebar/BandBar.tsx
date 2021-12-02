@@ -1,8 +1,6 @@
-import { useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import useModal from 'hooks/useModal'
-import { useViewer } from 'context/Viewer'
-import { useBands } from 'context/Bands'
+import useViewerBands from 'hooks/useViewerBands'
 
 import AddBand from 'components/Modal/AddBand'
 
@@ -10,13 +8,11 @@ import Cta from 'style/button/Cta'
 
 const BandBar = () => {
   const { toggle, isOpen, secondOption: skipOptions } = useModal()
-  const { user } = useViewer()
-  const userBands = useMemo(() => user?.bandIds() || [], [JSON.stringify(user)])
-  const { match } = useBands(userBands)
+  const { bands } = useViewerBands()
 
-  if (!match) return <></>
+  if (!bands) return <></>
   
-  const printBands = match.map(({ id, name }) => (
+  const printBands = bands.map(({ id, name }) => (
     <li key={`user-band-list-${id}`}>
       <Link to={`/band/${id}`}>{name}</Link>
     </li>
@@ -26,7 +22,7 @@ const BandBar = () => {
     <>
       <AddBand toggle={toggle} isOpen={isOpen} skipOptions={skipOptions} />
       <div className="MenuContents">
-        {userBands && userBands.length === 0 && (
+        {bands.length === 0 && (
           <div className="no-items">
             It looks like you don't have any bands <br />{' '}
             <Link to="/search-bands">join a band</Link> or{' '}
@@ -41,7 +37,7 @@ const BandBar = () => {
             </i>
           </div>
         )}
-        {userBands && userBands.length > 0 && <ul>{printBands}</ul>}
+        {bands.length > 0 && <ul>{printBands}</ul>}
         <div className="bottom">
           <Cta cta="Two" ico="➕" className="CtaTwo collapse" onClick={() => toggle(false)}>
             Add a Band
