@@ -1,24 +1,26 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 import User from 'types/User'
-import { getUser as fetchUser } from 'scripts/api/demologue/query/user'
+import { getUserByUid, getUsersByUids } from 'scripts/api/demologue/query/user'
 import { useViewer } from './Viewer'
-// import { toast } from 'react-toastify'
+
+export type UserMap = {
+  [key: string]: User
+}
 
 type UsersContextValue = {
-  getUser: (uid: string) => Promise<User | undefined>
+  checkForUser: (id: string) => void
+  checkForUsers: (ids: string[]) => void
+  users: UserMap
 }
 
 const UsersContext = createContext({} as UsersContextValue)
 
 export const UsersProvider: React.FC = ({ children }) => {
-  const [fetchUserId, setFetchUser] = useState<string | null>(null)
-  const [users, setUsers] = useState<{ [key: string]: User }>({})
-  const {
-    status: userStatus,
-    data: userData,
-    error: userError,
-    isFetching: fetchingUser,
-  } = fetchUser(fetchUserId)
+  const [users, setUsers] = useState<UserMap>({})
+  const [missingUser, setMissingUser] = useState<string | null>(null)
+  const [missingUsers, setMissingUsers] = useState<string[] | null>(null)
+  const { data: fetchedUser, refetch: refetchUser } = getUserByUid(missingUser)
+  const { data: fetchedUsers, refetch: refetchUsers } = getUsersByUids(missingUsers)
   const { user: viewer } = useViewer()
 
   useEffect(() => {
@@ -26,34 +28,73 @@ export const UsersProvider: React.FC = ({ children }) => {
     addUserToState(viewer)
   }, [viewer])
 
-  const getUser = async (uid: string, count = 0) => {
-    const user = users[uid]
-    if (user) return user
-    fetchUserId !== uid && setFetchUser(uid) // triggers a fetch call
-    if (userData && userStatus === 'success') {
-      // prolly not fast enough
-      const result = new User(userData)
-      setFetchUser(null)
-      setUsers((prev) => ({ ...prev, [uid]: result }))
-      return result
-    } else if (count > 3) {
-      console.error(`Something went wrong getting a user: ${userError}`)
-    } else if (fetchingUser) {
-      setTimeout(() => {
-        return getUser(uid, count + 1)
-      }, 500)
-    }
-  }
+  useEffect(() => { if (missingUser) refetchUser() }, [missingUser])
+  // will this run FETCH twice on first render?
+
+  useEffect(() => { if (missingUsers) refetchUsers() }, [missingUsers])
+  // will this run FETCH twice on first render?
+
+  useEffect(() => {
+    if (fetchedUser) addUserToState(new User(fetchedUser))
+  }, [fetchedUser])
+
+  useEffect(() => {
+    if (!fetchedUsers || fetchedUsers.length === 0) return
+    const newUserMap = fetchedUsers.reduce(
+      (map, user) => ({ ...map, [user.uid]: new User(user) }), 
+      {} as UserMap
+    )
+    setUsers(prev => ({ ...prev, ...newUserMap }))
+  }, [fetchedUsers])
 
   const addUserToState = async (user: User) => {
     setUsers(prev => ({ ...prev, [user.uid]: user }))
   }
 
+  const checkForUser = (uid: string) => {
+    const savedUser = users[uid]
+    if (!savedUser) setMissingUser(uid)
+  }
+
+  const checkForUsers = (uids: string[]) => {
+    const missing = uids.filter(uid => !users[uid])
+    if (missing.length > 0) setMissingUsers(missing)
+  }
+
   return (
-    <UsersContext.Provider value={{ getUser }}>
+    <UsersContext.Provider value={{ checkForUser, checkForUsers, users }}>
       {children}
     </UsersContext.Provider>
   )
 }
 
-export const useUsers = () => useContext(UsersContext)
+
+
+export const useUsers = <T extends string | string[]>(selection?: T ) => {
+  type Match = T extends string ? User : User[]
+  const [match, setMatch] = useState<Match | null>(null)
+  const { checkForUser, checkForUsers, ...context } = useContext(UsersContext)
+
+  useEffect(() => {
+    if (typeof selection === "string") {
+      setMatch(context.users[selection] as Match)
+    } else if (Array.isArray(selection)) {
+      const matches = Object.values(context.users).filter(({ uid }) => selection.includes(uid))
+      setMatch(matches as Match)
+    }
+  }, [JSON.stringify(context.users)])
+
+  useEffect(() => {
+    if (typeof selection === "string") { 
+      checkForUser(selection)
+      context.users[selection] && setMatch(context.users[selection] as Match)
+    } else if (Array.isArray(selection)) {
+      checkForUsers(selection)
+      const matches = Object.values(context.users).filter(({ uid }) => selection.includes(uid))
+      setMatch(matches as Match)
+    }
+  }, [selection])
+
+
+  return { ...context, match }
+}
