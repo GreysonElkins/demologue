@@ -9,6 +9,7 @@ import './index.scss'
 interface Props extends ModalProps {
   skipOptions?: boolean
 }
+// does this belong in Modal Props now??
 
 const AddBand: React.FC<Props> = ({ skipOptions = false, ...props }) => {
   const [isCreate, setIsCreate] = useState<boolean>(skipOptions)
