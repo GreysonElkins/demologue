@@ -1,4 +1,4 @@
-import Preset from "types/CloudinaryPresets"
+import Preset from "types/CloudinaryPresets.d"
 const endpoint = `https://api.cloudinary.com/v1_1/demologue`
 import { toast } from 'react-toastify'
 
