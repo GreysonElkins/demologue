@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, useEffect } from 'react'
-import Band, { gqlBand } from 'types/Band'
+import Band, { gqlBand } from 'types/Band.d'
 import { getBandById, getBandsByIds } from 'scripts/api/demologue/query/band'
+import { updateBandPhoto } from 'scripts/api/demologue/mutation/band'
 
 export type BandMap = {
   [key: number]: Band
@@ -11,6 +12,7 @@ type BandsContextValue = {
   checkForBands: (ids: number[]) => void
   bands: BandMap
   saveGqlBand: (band: gqlBand) => void
+  changeBandPhoto: (id: number, photoUrl: string) => void
 }
 
 const BandsContext = createContext({} as BandsContextValue)
@@ -21,6 +23,7 @@ export const BandsProvider: React.FC = ({ children }) => {
   const [missingBands, setMissingBands] = useState<number[] | null>(null)
   const { data: fetchedBand, refetch } = getBandById(missingBand)
   const { data: fetchedBands } = getBandsByIds(missingBands)
+  const { mutate: updatePhoto } = updateBandPhoto()
 
   useEffect(() => { if (missingBand) refetch() }, [missingBand]) 
   // will this run twice on first render?
@@ -48,8 +51,18 @@ export const BandsProvider: React.FC = ({ children }) => {
     if (missing.length > 0) setMissingBands(missing)
   }
 
+  const changeBandPhoto = async (id: number, photoUrl: string) => {
+    try {
+      await updatePhoto({ id, photoUrl })
+      const updatedBand = { ...bands[id], photoUrl }
+      setBands(prev => ({ ...prev, [id]: updatedBand }))
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   return (
-    <BandsContext.Provider value={{ checkForBand, saveGqlBand, checkForBands, bands: bands }}>
+    <BandsContext.Provider value={{ checkForBand, saveGqlBand, checkForBands, bands: bands, changeBandPhoto }}>
       {children}
     </BandsContext.Provider>
   )

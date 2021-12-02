@@ -1,7 +1,7 @@
 import endpoint from 'scripts/api/demologue'
 import { QueryClient, useMutation } from 'react-query'
 import { request } from 'graphql-request'
-import { CREATE_BAND, CREATE_USERS_TO_BAND } from './band.gql'
+import { CREATE_BAND, CREATE_USERS_TO_BAND, UPDATE_BAND_PHOTO } from './band.gql'
 import { toast } from 'react-toastify'
 
 // move types to type dir
@@ -51,6 +51,14 @@ export const useCreateBand = () => useMutation(async ({ name }: NewBand) => {
     toast.warn('Something went wrong creating your band, please try again', {
       toastId: 'create-band-error',
     })
+    console.error(error)
+  }
+})
+
+export const updateBandPhoto = () => useMutation(async ({ id, photoUrl }: { id: number, photoUrl: string}) => {
+  try {
+    await request(endpoint, UPDATE_BAND_PHOTO, { id, photoUrl })
+  } catch (error) {
     console.error(error)
   }
 })

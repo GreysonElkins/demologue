@@ -20,3 +20,11 @@ export const CREATE_USERS_TO_BAND = gql`
     }
   }
 `
+
+export const UPDATE_BAND_PHOTO = gql`
+  mutation updateBandPhoto($id: Int!, $photoUrl: String) {
+    updateBandById(input: { patch: { photoUrl: $photoUrl }, id: $id }) {
+      clientMutationId
+    }
+  }
+`
