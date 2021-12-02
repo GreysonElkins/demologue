@@ -1,24 +1,21 @@
 import { useParams } from 'react-router-dom'
 import { useBands } from 'context/Bands'
-import TestTable from 'components/Table/Band'
 
 import Loading from 'style/Icon/Loading'
+import Header from './Header'
 import './BandProfile.scss'
 
 const BandProfile = () => {
   const { bandId } = useParams()
   const id = Number(bandId)
-  const { bands } = useBands(id)
+  const { match } = useBands(id)
 
-  if (!bands[id]) return <Loading />
+  if (!match) return <Loading />
 
   return (
-    <>
-      <TestTable />
-      <div className="BandProfile">
-      {bands[id].name}
+    <div className="BandProfile">
+      <Header band={match} />
     </div>
-    </>
   )
 }
 
