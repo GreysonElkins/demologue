@@ -1,4 +1,3 @@
-
 import Modal, { ModalProps } from '.'
 import CreateTrack from 'components/Form/CreateTrack'
 
@@ -10,9 +9,15 @@ interface Props extends ModalProps {
 
 const UploadTrack: React.FC<Props> = ({ ...props }) => {
   return (
-  <Modal {...props}>
-    <CreateTrack />
-  </Modal>
-)}
+    <Modal {...props}>
+      <CreateTrack
+        onComplete={(track) => {
+          props.toggle()
+          console.log(track)
+        }}
+      />
+    </Modal>
+  )
+}
 
 export default UploadTrack
