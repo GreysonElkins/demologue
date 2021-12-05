@@ -13,7 +13,7 @@ const NumberStat = (value: string | number | JSX.Element, title: string) => (
   </div>
 )
 
-const BandHeader: React.FC<{band: Band}>= ({ band }) => {
+const BandHeader: React.FC<{band: Band}> = ({ band }) => {
   const memberIds = useMemo(() => Object.keys(band.members), [JSON.stringify(band)])
   const { match } = useUsers(memberIds)
   const { changeBandPhoto } = useBands()
@@ -28,7 +28,7 @@ const BandHeader: React.FC<{band: Band}>= ({ band }) => {
   ))
 
   return (
-  <div className="band-header">
+  <section className="band-header">
     <BandImage band={band} onUpload={(url: string) => changeBandPhoto(band.id, url) }/>
     <div className="band-info">
       <h3>{band.name}</h3>
@@ -40,7 +40,7 @@ const BandHeader: React.FC<{band: Band}>= ({ band }) => {
         {NumberStat(<Icon icon="envelope" />, "contact")}
       </div>
     </div>
-  </div>
+  </section>
 )}
 
 
