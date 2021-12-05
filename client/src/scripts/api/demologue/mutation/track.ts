@@ -14,9 +14,9 @@ type NewTrackData = {
 
 export const createTrack = () => 
   useMutation(
-    async({ url: trackUrl, title, workingTitle, bandId: ownedBy, userId: uploadedBy }: NewTrackData) => {
+    async({ url: trackUrl, title, workingTitle, bandId, userId: uploadedBy }: NewTrackData) => {
       try {
-        const { createTrack: track } = await request(endpoint, CREATE_TRACK, { trackUrl, title, workingTitle, ownedBy, uploadedBy })
+        const { createTrack: track } = await request(endpoint, CREATE_TRACK, { trackUrl, title, workingTitle, bandId, uploadedBy })
         return track
       } catch (error) {
         toast.error("Something went wrong while saving your track, please try again")
