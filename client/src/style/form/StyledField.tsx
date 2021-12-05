@@ -1,4 +1,5 @@
-import { Field, FieldAttributes, ErrorMessage } from 'formik'
+import { ChangeEvent } from 'react'
+import { Field, FieldAttributes, ErrorMessage, useFormikContext } from 'formik'
 
 import './index.scss'
 
@@ -12,6 +13,13 @@ export const printDropdownOptions = (
   ))
 
 const StyledField: React.FC<FieldAttributes<any>> = ({ label, ...props }) => {
+  const { setFieldValue } = useFormikContext()
+
+  const handleFile = (event: ChangeEvent<HTMLInputElement>) => {
+    if (!event.currentTarget?.files) return
+    setFieldValue(props.name, event.currentTarget.files[0])
+  }
+
   const className = () => {
     switch(props.as) {
       default: return 'LineText'
@@ -25,7 +33,11 @@ const StyledField: React.FC<FieldAttributes<any>> = ({ label, ...props }) => {
         </label>
       )}
       <div>
-        <Field className={className()} {...props} />
+        {props.type !== "file" ? (
+          <Field className={className()} { ...props } /> 
+        ) : (
+          <input className={className()} { ...props } onChange={handleFile} />
+        )}
       </div>
       <div className="ErrorWrapper">
         <ErrorMessage name={props.name || ''} component="span" />
