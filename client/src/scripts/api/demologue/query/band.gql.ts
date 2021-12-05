@@ -9,6 +9,9 @@ export const gqlBand = `
   }
   photoUrl
   createdAt
+  collectionsByCreatedByBand {
+      id
+    }
 `
 
 export const GET_BAND_BY_ID = gql`

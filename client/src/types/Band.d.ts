@@ -6,6 +6,7 @@ export type gqlBand = {
   photoUrl: string | null
   createdAt: string
   usersToBands: Array<{ role: BandRole; userId: number }>
+  collectionsByCreatedByBand: number[]
 }
 
 type RoleMap = { [key: string]: BandRole } 
@@ -16,12 +17,14 @@ class Band {
   photoUrl: string | null
   createdAt: Date
   members: RoleMap
-  constructor({ id, name, photoUrl, createdAt, usersToBands }: gqlBand) {
+  collections: number[]
+  constructor({ id, name, photoUrl, createdAt, usersToBands, collectionsByCreatedByBand }: gqlBand) {
     this.id = id
     this.name = name
     this.photoUrl = photoUrl
     this.createdAt = new Date(createdAt)
     this.members = usersToBands.reduce((map, { role, userId }) => ({ ...map, [userId]: role }), {} as RoleMap)
+    this.collections = collectionsByCreatedByBand
   }
 }
 
