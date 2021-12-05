@@ -17,7 +17,7 @@ class Band {
   photoUrl: string | null
   createdAt: Date
   members: RoleMap
-  collections: number[]
+  collections: Array<{ id: number, name: string }>
   constructor({ id, name, photoUrl, createdAt, usersToBands, collectionsByCreatedByBand }: gqlBand) {
     this.id = id
     this.name = name
