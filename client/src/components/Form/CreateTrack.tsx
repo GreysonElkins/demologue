@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import { Formik, Form } from 'formik'
 import { useMatch } from 'react-router-dom'
 import { toast } from 'react-toastify'
@@ -8,6 +9,7 @@ import { createTrack } from 'scripts/api/demologue/mutation/track'
 import { uploadFile as cloudinary } from 'scripts/api/cloudinary'
 
 import StyledField from 'style/form/StyledField'
+import { Icon } from 'style/Icon'
 import Loading from 'style/Icon/Loading'
 import Cta from 'style/button/Cta'
 
@@ -22,11 +24,22 @@ type FormValues = {
   workingTitle?: string
 }
 
-const CreateTrack: React.FC = () => {
+type Props = {
+  onComplete: (value: any) => void // value: Track
+}
+
+const CreateTrack: React.FC<Props> = ({ onComplete }) => {
+  const [isUploading, setIsUploading] = useState<boolean>(false)
   const { bands, viewer } = useViewerBands()
   const match = useMatch('/band/:bandId')
-  const { mutate: saveTrack } = createTrack()
+  const { mutate: saveTrack, status, data } = createTrack()
   // const { uploadFile } = useUploader({ preset: Preset.AUDIO })
+  useEffect(() => {
+    if (status !== "success" || !data || isUploading) return
+      toast.success("Your track was uploaded!")
+      onComplete(data)
+  }, [status, data, isUploading])
+
   if (!bands || !viewer) return <Loading />
 
   const options = printDropdownOptions(bands.map(({ id, name }) => ({ text: name, value: id })))
@@ -37,15 +50,17 @@ const CreateTrack: React.FC = () => {
   // })
 
   const onSubmit = async (values: FormValues) => {
+    setIsUploading(true)
     try {
       const { file, ...input } = values
       const url = await cloudinary(file, Preset.AUDIO)
       if (!url) return console.error("Something went wrong getting the url on upload")
-      saveTrack({ userId: viewer.uid, url, ...input })
+      const res = await saveTrack({ userId: viewer.uid, url, ...input })
     } catch (error) {
       toast.error("Something went wrong uploading your track, please try again")
       console.error(error)
     }
+    setIsUploading(false)
   }
 
   return (
@@ -53,9 +68,9 @@ const CreateTrack: React.FC = () => {
       onSubmit={onSubmit}
       // validationSchema={validationSchema}
       initialValues={{
-        file: '' as unknown as File,
+        file: { name: '' } as unknown as File,
         bandId: match ? Number(match.params.bandId) : bands[0].id,
-        title:  '',
+        title: '',
         workingTitle: '',
       }}
     >
@@ -74,7 +89,7 @@ const CreateTrack: React.FC = () => {
           as="select"
           label="Which band recorded this track?"
           tabIndex={1}
-          style={{ textTransform: "capitalize" }}
+          style={{ textTransform: 'capitalize' }}
           required
         >
           {options}
@@ -91,7 +106,15 @@ const CreateTrack: React.FC = () => {
           placeholder="Five"
           tabIndex={1}
         />
-        <Cta type="submit" tabIndex={1}>Upload</Cta>
+        {!isUploading ? (
+          <Cta type="submit" tabIndex={1} disabled={isUploading}>
+            upload
+          </Cta>
+        ) : (
+          <div className="loading-submit">
+            <Icon icon="spinner" spin />
+          </div>
+        )}
         {/* <FileUploader /> */}
       </Form>
     </Formik>
