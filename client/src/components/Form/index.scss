@@ -5,6 +5,12 @@
   margin: 20px 0 8px;
 }
 
+.StyledForm {
+  .loading-submit {
+    color: $accent1;
+  }
+}
+
 .FileUploader {
   position: relative;
   cursor: pointer;
