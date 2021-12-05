@@ -8,7 +8,8 @@ import {
   faHeadphones,
   faEnvelope,
   faSignInAlt,
-  faSpinner
+  faSpinner,
+  faLayerGroup
 } from '@fortawesome/free-solid-svg-icons'
 import { library, IconDefinition } from '@fortawesome/fontawesome-svg-core'
 
@@ -22,7 +23,8 @@ const fontAwesomeIconList: IconDefinition[] = [
   faHeadphones,
   faEnvelope,
   faSignInAlt,
-  faSpinner
+  faSpinner,
+  faLayerGroup,
 ]
 
 export const initFontAwesome = () => library.add(...fontAwesomeIconList)
