@@ -69,28 +69,29 @@ export const BandsProvider: React.FC = ({ children }) => {
 }
 
 export const useBands = <T extends number | number[]>(selection?: T) => {
-  type Match = T extends number ? Band : Band []
+  type Match = T extends number ? Band : Band[]
   const [match, setMatch] = useState<Match | null>(null)
   const { checkForBand, checkForBands, ...context} = useContext(BandsContext)
 
+  const findBandMatches = () => {
+    if (!selection) return {}
+    if (typeof selection === "number") return context.bands[selection] as Match
+    return Object.values(context.bands).filter(({ id }) => selection.includes(id))
+  }
+
   useEffect(() => {
-    if (typeof selection === "number") {
-      setMatch(context.bands[selection] as Match)
-    } else if (Array.isArray(selection)) {
-      const matches = Object.values(context.bands).filter(({ id }) => selection.includes(id))
-      setMatch(matches as Match)
-    }
+    const match = findBandMatches()
+    setMatch(match as Match)
   }, [JSON.stringify(context.bands)])
 
   useEffect(() => {
     if (typeof selection === "number") {
       checkForBand(selection)
-      context.bands[selection] && setMatch(context.bands[selection] as Match)
     } else if (Array.isArray(selection)) {
       checkForBands(selection)
-      const matches = Object.values(context.bands).filter(({ id }) => selection.includes(id))
-      setMatch(matches as Match)
     }
+    const match = findBandMatches()
+    setMatch(match as Match)
   }, [selection])
 
   return { ...context, match }
