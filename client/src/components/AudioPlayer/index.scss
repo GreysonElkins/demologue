@@ -1,0 +1,41 @@
+@import 'style/variables.scss';
+
+.PlayerControls {
+  position: absolute;
+  right: 0;
+  left: 0;
+  height: 75px;
+  transition: bottom 300ms;
+  background: $dark2;
+  border-top: 2px solid $dark3;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  .play-button {
+    background: $accent1dark;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border: none;
+    color: $white1;
+    border-radius: 50%;
+  }
+}
+
+.PlayerControls.open {
+  bottom: 0;
+  @include onBreak('mobile') {
+    bottom: 93px;
+  }
+}
+
+.PlayerControls.closed {
+  bottom: -75px;
+  @include onBreak('mobile') {
+    bottom: -75px;
+  }
+}
