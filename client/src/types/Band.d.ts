@@ -20,7 +20,7 @@ class Band {
   createdAt: Date
   members: RoleMap
   collections: Collection[]
-  tracks: Array<{ id: number; updatedAt: string }>
+  songList: Collection
   constructor({
     id,
     name,
@@ -39,7 +39,7 @@ class Band {
       {} as RoleMap
     )
     this.collections = collectionsByCreatedByBand.map((collection) => new Collection(collection))
-    this.tracks = tracks
+    this.songList = new Collection({ tracks, id: 0, name: `${name}`})
   }
 }
 

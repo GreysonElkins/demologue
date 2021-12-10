@@ -19,7 +19,7 @@ const CollectionGallery: React.FC<Props> = ({ band, onSelectCollection }) => {
       </button>
     )
 
-  if (band.tracks.length === 0) return <></>
+  if (band.songList.tracks.length === 0) return <></>
 
   return (
     <section className="CollectionGallery">

@@ -34,7 +34,7 @@ const BandHeader: React.FC<{band: Band}> = ({ band }) => {
       <h3>{band.name}</h3>
       <ul>{printMembers}</ul>
       <div className="band-stats">
-        {NumberStat(band.tracks.length, "tracks")}
+        {NumberStat(band.songList.tracks.length, "tracks")}
         {NumberStat(0, "members")}
         {NumberStat(<Icon icon="sign-in-alt" />, "join")}
         {NumberStat(<Icon icon="envelope" />, "contact")}
