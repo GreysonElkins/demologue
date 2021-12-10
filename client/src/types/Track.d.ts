@@ -1,4 +1,4 @@
-type gqlTrack = {
+export type gqlTrack = {
   id: number
   bandId: number
   uploadedBy: string | null
@@ -7,7 +7,8 @@ type gqlTrack = {
   createdAt: Date
   title: string | null
   workingTitle: string | null
-  public: boolean
+  isPublic: boolean
+  cloudinaryId: string
 }
 
 class Track {
@@ -19,8 +20,9 @@ class Track {
   createdAt: Date
   title: string | null
   workingTitle: string | null
-  public: boolean
-  constructor({ id, bandId, uploadedBy, trackUrl, updatedAt, createdAt, title, workingTitle, }: gqlTrack) {
+  isPublic: boolean
+  cloudinaryId: string
+  constructor({ id, bandId, uploadedBy, trackUrl, updatedAt, createdAt, title, workingTitle, isPublic, cloudinaryId }: gqlTrack) {
     this.id = id
     this.bandId = bandId
     this.uploadedBy = uploadedBy
@@ -29,6 +31,9 @@ class Track {
     this.createdAt = new Date(createdAt)
     this.title = title
     this.workingTitle = workingTitle
-    this.public = public 
+    this.isPublic = isPublic 
+    this.cloudinaryId = cloudinaryId
   }
 }
+
+export default Track
