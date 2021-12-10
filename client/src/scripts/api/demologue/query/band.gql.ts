@@ -1,18 +1,31 @@
 import { gql } from 'graphql-request'
 
-export const gqlBand = `
+export const gqlCollection = `
   id
   name
-  usersToBands {
-    userId
-    role
+  collectionToTracks {
+    trackId
+    order
+    dateAdded
   }
-  photoUrl
-  createdAt
-  collectionsByCreatedByBand {
+`
+
+export const gqlBand = `
     id
     name
-  }
+    usersToBands {
+      userId
+      role
+    }
+    photoUrl
+    createdAt
+    tracks {
+      id
+      updatedAt
+    }
+    collectionsByCreatedByBand {
+     ${gqlCollection}
+    }
 `
 
 export const GET_BAND_BY_ID = gql`
