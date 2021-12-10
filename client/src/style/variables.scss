@@ -20,7 +20,8 @@ $error: #f74e6a;
 $breakpoints: (
   'mobile': 768px,
   'smallTablet': 1015px,
-  'tablet': 1230px
+  'tablet': 1230px,
+  'laptop': 1440px
 ) !default;
 
 @mixin onBreak($breakpoint) {

@@ -25,9 +25,14 @@
       opacity: 0.3;
       font-size: 150px;
       transition: min-width 500ms, min-height 500ms, font-size 500ms;
+      @include onBreak("laptop") {
+        min-width: 190px;
+        min-height: 190px;
+        font-size: 80px;
+      }
       @include onBreak("smallTablet") {
-        min-width: 150px;
-        min-height: 150px;
+        min-width: 160px;
+        min-height: 160px;
         font-size: 80px;
       }
     }
@@ -46,6 +51,9 @@
         @include onBreak("smallTablet") {
           padding: 0 20px;
         }
+        @include onBreak("mobile") {
+          padding: 0 10px;
+        }
       }
 
       h3 {
@@ -57,6 +65,9 @@
         text-transform: capitalize;
         font-size: 60px;
         transition: font-size 500ms;
+        @include onBreak("laptop") {
+          font-size: 50px;
+        }
         @include onBreak("smallTablet") {
           font-size: 40px;
         }
@@ -100,7 +111,7 @@
 
       transition: font-size 500ms;
         @include onBreak("mobile") {
-          font-size: 12px; 
+          font-size: 10px; 
         }
       span {
         font-size: 20px;
