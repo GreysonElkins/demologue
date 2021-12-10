@@ -25,8 +25,8 @@ const Table: React.FC<Props> = ({ columns, data }) => {
                     return defaultCanSort ? (
                       <th {...column.getHeaderProps(getSortByToggleProps())}>
                         <span>
-                          <Sort isSortedDesc={isSortedDesc}/>
                           {column.render('Header')}
+                          <Sort isSortedDesc={isSortedDesc}/>
                         </span>
                       </th>
                     ) : (
