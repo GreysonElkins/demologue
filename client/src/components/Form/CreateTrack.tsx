@@ -53,9 +53,10 @@ const CreateTrack: React.FC<Props> = ({ onComplete }) => {
     setIsUploading(true)
     try {
       const { file, ...input } = values
-      const url = await cloudinary(file, Preset.AUDIO)
-      if (!url) return console.error("Something went wrong getting the url on upload")
-      const res = await saveTrack({ userId: viewer.uid, url, ...input })
+      const response = await cloudinary(file, Preset.AUDIO)
+      if (!response) return console.error("Something went wrong getting the url on upload")
+      const { url, cloudinaryId } = response
+      saveTrack({ userId: viewer.uid, url, cloudinaryId, ...input })
     } catch (error) {
       toast.error("Something went wrong uploading your track, please try again")
       console.error(error)
@@ -81,7 +82,7 @@ const CreateTrack: React.FC<Props> = ({ onComplete }) => {
           label="Upload an audio file"
           tabIndex={1}
           type="file"
-          accept=".mp3"
+          accept=".mp3, .aac, .aiff, .m4a, .mp3, .ogg, .wav"
           required
         />
         <StyledField

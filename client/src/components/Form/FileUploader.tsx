@@ -26,8 +26,8 @@ const FileUploader:React.FC<Props> = ({ children, onUpload, label = "Upload a fi
     if (!file) return
     try {
       setUploading(true)
-      const url = await cloudinary(file, preset)
-      onUpload(url)
+      const response = await cloudinary(file, preset)
+      !!response && onUpload(response.url)
     } catch (error) {
         console.error(error)
     }
