@@ -5,6 +5,8 @@ import Collection from "types/Collection.d"
 import Table from 'components/Table'
 import Waveform from './Waveform'
 
+import './Playlist.scss'
+
 type Props = {
   collection: Collection
 }
@@ -41,7 +43,7 @@ const Playlist: React.FC<Props> = ({ collection }) => {
       ],
       []
     )
-  return <div><Table data={data} columns={columns} /></div>
+  return <div><Table className="Playlist" data={data} columns={columns} /></div>
   // return <div></div>
 }
 

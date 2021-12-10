@@ -1,0 +1,13 @@
+@import 'style/variables.scss';
+
+.Playlist {
+  tbody {
+    tr {
+      cursor: pointer;
+
+      &:hover {
+        background-color: $dark1;
+      }
+    }
+  }
+}
