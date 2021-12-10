@@ -12,6 +12,7 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  z-index: 30;
 }
 
 .Modal {
@@ -25,6 +26,7 @@
   justify-content: center;
   padding: 15px 26px;
   cursor: default !important;
+  z-index: 40;
 
   .close-modal {
     position: absolute;
