@@ -14,7 +14,24 @@
     background-color: $dark1;
     height: min-content;
 
-    .placeholder-avatar {
+    .band-avatar {
+      @include onBreak("laptop") {
+        min-width: 190px;
+        min-height: 190px;
+        width: 190px;
+        height: 190px;
+        font-size: 80px;
+      }
+      @include onBreak("smallTablet") {
+        min-width: 160px;
+        min-height: 160px;
+        width: 160px;
+        height: 160px;
+        font-size: 80px;
+      }
+    }
+
+    .placeholder {
       background-color: $white2;
       color: $white3;
       min-width: 225px;
@@ -25,16 +42,6 @@
       opacity: 0.3;
       font-size: 150px;
       transition: min-width 500ms, min-height 500ms, font-size 500ms;
-      @include onBreak("laptop") {
-        min-width: 190px;
-        min-height: 190px;
-        font-size: 80px;
-      }
-      @include onBreak("smallTablet") {
-        min-width: 160px;
-        min-height: 160px;
-        font-size: 80px;
-      }
     }
 
     .band-info {

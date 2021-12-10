@@ -19,9 +19,9 @@ const BandImage: React.FC<{ band: Band; onUpload: (url: string) => void }> = ({
       disabled={user?.bands[band.id] !== 'MEMBER'}
     >
       {band.photoUrl ? (
-        <img src={band.photoUrl} alt={`${band.name}'s photo'`} />
+        <img className="band-avatar" src={band.photoUrl} alt={`${band.name}'s photo'`} />
       ) : (
-        <div className="placeholder-avatar">
+        <div className="band-avatar placeholder">
           <Icon icon="drum" />
         </div>
       )}
