@@ -1,14 +1,16 @@
 import { gql } from 'graphql-request'
 
-const gqlTrack = `
+export const gqlTrack = `
   bandId
+  createdAt
   id
+  isPublic
   title
   trackUrl
-  uploadedBy
   updatedAt
+  uploadedBy
   workingTitle
-  createdAt
+  cloudinaryId
 `
 
 export const CREATE_TRACK = gql`
@@ -18,6 +20,7 @@ export const CREATE_TRACK = gql`
     $workingTitle: String
     $bandId: Int!
     $uploadedBy: String!
+    $cloudinaryId: String!
   ) {
     createTrack(
       input: {
@@ -27,6 +30,7 @@ export const CREATE_TRACK = gql`
           title: $title
           workingTitle: $workingTitle
           uploadedBy: $uploadedBy
+          cloudinaryId: $cloudinaryId
         }
       }
     ) {
