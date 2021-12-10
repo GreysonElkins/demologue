@@ -20,7 +20,7 @@ const Playlist: React.FC<Props> = ({ collection }) => {
       return {
         col1: order || '',
         col2: tracks[id]?.title || tracks[id]?.workingTitle || 'Untitled',
-        url: tracks[id]?.trackUrl
+        id
       }
     }
   ), [JSON.stringify(collection), tracks])
@@ -39,8 +39,11 @@ const Playlist: React.FC<Props> = ({ collection }) => {
     ],
     []
   )
-  const setRowProps = ({ original: { url }}: { [key: string]: any }) => ({
-    onClick: () => mountTrack(url)
+  
+  const setRowProps = ({ original: { id }}: { [key: string]: any }) => ({
+    onClick: () => mountTrack(id),
+    onKeyDown: (event: KeyboardEvent) => event.code === "Enter" && mountTrack(id),
+    tabIndex: 0
   })
 
   return <div><Table className="Playlist" data={data} columns={columns} getRowProps={setRowProps}/></div>
