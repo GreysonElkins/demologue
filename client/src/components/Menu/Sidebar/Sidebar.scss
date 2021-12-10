@@ -4,7 +4,7 @@
   background-color: $dark2;
   min-width: 225px;
   max-width: 225px;
-  transition: margin-left 300ms padding-bottom 300ms;
+  transition: margin-left 300ms, padding-bottom 300ms;
   z-index: 10;
   
   .Modes {
@@ -20,7 +20,7 @@
 }
 
 .Sidebar.short {
-  padding-bottom: 75px;
+  padding-bottom: 100px;
 }
 
 .Sidebar.hidden {

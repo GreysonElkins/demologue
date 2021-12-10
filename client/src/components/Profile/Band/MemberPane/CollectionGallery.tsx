@@ -14,7 +14,7 @@ const CollectionGallery: React.FC<Props> = ({ band, onSelectCollection }) => {
   const showCollections = () => 
     band.collections.map((collection) => 
       <button onClick={() => onSelectCollection(collection)} key={`collection-${collection.id}`}>
-          <Icon icon="layer-group" size="3x" />
+          <Icon icon="layer-group" />
           {collection.name}
       </button>
     )

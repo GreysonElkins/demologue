@@ -41,7 +41,7 @@
 .AudioPlayer.open {
   bottom: 0;
   @include onBreak('mobile') {
-    bottom: 93px;
+    bottom: 68px;
   }
 }
 
