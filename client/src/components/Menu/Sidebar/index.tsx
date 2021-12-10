@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import useHideOnPaths from 'hooks/useHideOnPaths'
+import { usePlayer } from 'context/Player'
 
 import './Sidebar.scss'
 import BandBar from './BandBar'
@@ -12,6 +13,7 @@ const Sidebar: React.FC = () => {
     authRequired: true,
     otherFlags: [loading],
   })
+  const { isMounted: playerIsMounted } = usePlayer()
 
   useEffect(() => {
     const mode = localStorage.getItem('sidebarMode')
@@ -25,7 +27,7 @@ const Sidebar: React.FC = () => {
   }, [selection])
 
   return (
-    <div className={`Sidebar${(isHidden) ? ' hidden' : ''}`}>
+    <div className={`Sidebar${(isHidden) ? ' hidden' : ''}${(playerIsMounted) ? ' short' : ''}`}>
       <div className="Modes">
         <button
           className={`tab-option ${selection === 'playlist' ? 'active' : ''}`}
