@@ -11,8 +11,11 @@
   z-index: 20;
   display: flex;
   align-items: center;
-  justify-content: center;
-  
+
+  .buttons {
+    margin: 0 20px;
+  }
+
   .play-button {
     background: $accent1dark;
     display: flex;
@@ -23,6 +26,12 @@
     border: none;
     color: $white1;
     border-radius: 50%;
+  }
+
+  .PlayingTrack {
+    width: 100%;
+    text-align: center;
+    padding: 20px;
   }
 }
 
