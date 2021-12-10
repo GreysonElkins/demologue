@@ -1,6 +1,6 @@
 @import 'style/variables.scss';
 
-.PlayerControls {
+.AudioPlayer {
   position: absolute;
   right: 0;
   left: 0;
@@ -12,7 +12,7 @@
   display: flex;
   align-items: center;
 
-  .buttons {
+  .PlayerControls {
     margin: 0 20px;
   }
 
@@ -35,14 +35,14 @@
   }
 }
 
-.PlayerControls.open {
+.AudioPlayer.open {
   bottom: 0;
   @include onBreak('mobile') {
     bottom: 93px;
   }
 }
 
-.PlayerControls.closed {
+.AudioPlayer.closed {
   bottom: -75px;
   @include onBreak('mobile') {
     bottom: -75px;
