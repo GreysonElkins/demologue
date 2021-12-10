@@ -9,7 +9,8 @@ header {
   padding: 0 24px;
   background-color: $dark3;
   transition: margin-top 300ms;
-  
+  z-index: 20;
+
   .right {
     display: flex;
     .CtaOne {
