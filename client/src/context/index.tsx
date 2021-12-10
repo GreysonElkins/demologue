@@ -1,4 +1,4 @@
-import { ReactQueryDevtools } from 'react-query/devtools'
+// import { ReactQueryDevtools } from 'react-query/devtools'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { ToastContainer } from 'react-toastify'
 
@@ -12,7 +12,7 @@ const queryClient = new QueryClient()
 
 const Providers: React.FC = ({ children }) => (
   <QueryClientProvider client={queryClient}>
-    {process.env.NODE_ENV === 'development' && <ReactQueryDevtools initialIsOpen={false} />}
+    {/* {process.env.NODE_ENV === 'development' && <ReactQueryDevtools initialIsOpen={false} />} */}
     <ViewerProvider>
       <TracksProvider>
         <UsersProvider>
