@@ -14,6 +14,18 @@ import './Header.scss'
 const Header: React.FC = () => {
   const { signedIn, loading } = useViewer()
   const { toggle, isOpen } = useModal()
+
+  // const whichCta = () => {
+  //   if (!signedIn || !user) return <></>
+  //   if (user.bandIds().length > 0) return (
+  //     <Cta ico="⬆" className="CtaOne collapse" onClick={toggle}>
+  //       Upload a Track
+  //     </Cta>
+  //   )
+  //         <Cta cta="Two" ico="➕" className="CtaTwo collapse" onClick={() => toggle(false)}>
+  //           Add a Band
+  //         </Cta>
+  // }
   return (
     <>
       <UploadTrack toggle={toggle} isOpen={isOpen} />
@@ -27,9 +39,9 @@ const Header: React.FC = () => {
         {!loading &&
           (signedIn ? (
             <div className="right">
-                <Cta ico="⬆" className="CtaOne collapse" onClick={toggle}>
-                  Upload a Track
-                </Cta>
+              <Cta ico="⬆" className="CtaOne collapse" onClick={toggle}>
+                Upload a Track
+              </Cta>
               <UserMenu />
             </div>
           ) : (
