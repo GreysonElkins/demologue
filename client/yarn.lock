@@ -2238,6 +2238,11 @@
   dependencies:
     "@babel/types" "^7.3.0"
 
+"@types/debounce@*":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@types/debounce/-/debounce-1.2.1.tgz#79b65710bc8b6d44094d286aecf38e44f9627852"
+  integrity sha512-epMsEE85fi4lfmJUH/89/iV/LI+F5CvNIvmgs5g5jYFPfhO2S/ae8WSsLOKWdwtoaZw9Q2IhJ4tQ5tFCcS/4HA==
+
 "@types/eslint@^7.2.6":
   version "7.28.2"
   resolved "https://registry.yarnpkg.com/@types/eslint/-/eslint-7.28.2.tgz#0ff2947cdd305897c52d5372294e8c76f351db68"
@@ -2453,6 +2458,13 @@
   integrity sha512-O3MmRAk6ZuAKa9CHgg0Pr0+lUOqoMLpc9AS4R8ano2auvsg7IE8syF3Xh/NPr26TWklxYcqoEEFdzLLs1fV9PQ==
   dependencies:
     source-map "^0.6.1"
+
+"@types/wavesurfer.js@^5.2.2":
+  version "5.2.2"
+  resolved "https://registry.yarnpkg.com/@types/wavesurfer.js/-/wavesurfer.js-5.2.2.tgz#ccf5c30b50b918d53a08582ef19f895b09a49f3a"
+  integrity sha512-/vjpf81co0SK3z4F5V79fZrFPQ8pw9/fEpgkzcgNVkBa9sY0gAaYzKuaQyCX/yjVf6kc73uPtWABQuVgvpguDQ==
+  dependencies:
+    "@types/debounce" "*"
 
 "@types/webpack-sources@*":
   version "3.2.0"
@@ -12490,6 +12502,11 @@ watchpack@^1.7.4:
   optionalDependencies:
     chokidar "^3.4.1"
     watchpack-chokidar2 "^2.0.1"
+
+wavesurfer.js@^5.2.0:
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/wavesurfer.js/-/wavesurfer.js-5.2.0.tgz#efae107b5b561e9bfe3fffc50e6158136a17643e"
+  integrity sha512-SkPlTXfvKy+ZnEA7f7g7jn6iQg5/8mAvWpVV5vRbIS/FF9TB2ak9J7VayQfzfshOLW/CqccTiN6DDR/fZA902g==
 
 wbuf@^1.1.0, wbuf@^1.7.3:
   version "1.7.3"
