@@ -4,9 +4,9 @@ import { Icon } from "style/Icon"
 import './index.scss'
 
 const PlayerControls: React.FC = () => {
-  const { isMounted, isPlaying, playPause } = usePlayer()
+  const { isPlaying, playPause } = usePlayer()
   return (
-    <div className={`PlayerControls ${isMounted ? 'open' : 'closed'}`}>
+    <div className="PlayerControls">
       <button className="play-button" onClick={playPause}>
         <Icon icon={isPlaying ? 'pause' : 'play'} />
       </button>
