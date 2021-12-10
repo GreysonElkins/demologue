@@ -4,7 +4,7 @@
   position: absolute;
   right: 0;
   left: 0;
-  height: 75px;
+  height: 95px;
   transition: bottom 300ms;
   background: $dark2;
   border-top: 2px solid $dark3;
@@ -13,7 +13,7 @@
   align-items: center;
 
   .PlayerControls {
-    margin: 0 20px;
+    margin: 0 30px 28px 10px;
   }
 
   .play-button {
@@ -30,8 +30,11 @@
 
   .PlayingTrack {
     width: 100%;
-    text-align: center;
     padding: 20px;
+
+    .track-info {
+      margin-top: 12px;
+    }
   }
 }
 
@@ -43,8 +46,8 @@
 }
 
 .AudioPlayer.closed {
-  bottom: -75px;
+  bottom: -95px;
   @include onBreak('mobile') {
-    bottom: -75px;
+    bottom: -95px;
   }
 }
