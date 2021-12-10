@@ -1,107 +1,103 @@
-export const empty = {}
+import { createContext, useContext, useState, useEffect } from 'react'
+import { getTracksByIds, getTrackById } from 'scripts/api/demologue/query/track'
+import Collection from 'types/Collection'
+import Track, { gqlTrack } from 'types/Track.d'
 
-// import { createContext, useContext, useState, useEffect } from 'react'
-// import Band, { gqlBand } from 'types/Band.d'
-// import { getBandById, getBandsByIds } from 'scripts/api/demologue/query/band'
-// import { updateBandPhoto } from 'scripts/api/demologue/mutation/band'
+export type TrackMap = {
+  [key: number]: Track
+}
 
-// export type BandMap = {
-//   [key: number]: Band
-// }
+type TracksContextValue = {
+  checkForTracks: (ids: number[]) => void
+  checkForTrack: (id: number) => void
+  tracks: TrackMap
+}
 
-// type BandsContextValue = {
-//   checkForBand: (id: number) => void
-//   checkForBands: (ids: number[]) => void
-//   bands: BandMap
-//   saveGqlBand: (band: gqlBand) => void
-//   changeBandPhoto: (id: number, photoUrl: string) => void
-// }
+const TracksContext = createContext({} as TracksContextValue)
 
-// const BandsContext = createContext({} as BandsContextValue)
-
-// export const BandsProvider: React.FC = ({ children }) => {
-//   const [bands, setBands] = useState<BandMap>({})
-//   const [missingBand, setMissingBand] = useState<number | null>(null)
-//   const [missingBands, setMissingBands] = useState<number[] | null>(null)
-//   const { data: fetchedBand, refetch } = getBandById(missingBand)
-//   const { data: fetchedBands } = getBandsByIds(missingBands)
+export const TracksProvider: React.FC = ({ children }) => {
+  const [tracks, setTracks] = useState<TrackMap>({})
+  const [missingTrack, setMissingTrack] = useState<number | null>(null)
+  const [missingTracks, setMissingTracks] = useState<number[] | null>(null)
+  // const [loading, setLoading] = useState<boolean>(false)
+  const { data: fetchedTracks, refetch } = getTracksByIds(missingTracks)
+  const { data: fetchedTrack } = getTrackById(missingTrack)
 //   const { mutate: updatePhoto } = updateBandPhoto()
 
-//   useEffect(() => {
-//     if (missingBand) refetch()
-//   }, [missingBand])
-//   // will this run twice on first render?
+  useEffect(() => {
+    if (missingTracks) refetch()
+  }, [missingTracks])
+  // will this run twice on first render?
 
-//   useEffect(() => {
-//     if (fetchedBand) saveGqlBand(fetchedBand)
-//   }, [fetchedBand])
+  useEffect(() => {
+    if (fetchedTrack) saveGqlTrack(fetchedTrack)
+  }, [fetchedTrack])
 
-//   useEffect(() => {
-//     if (!fetchedBands || fetchedBands.length === 0) return
-//     const newBandMap = fetchedBands.reduce(
-//       (map, band) => ({ ...map, [band.id]: new Band(band) }),
-//       {} as BandMap
-//     )
-//     setBands((prev) => ({ ...prev, ...newBandMap }))
-//   }, [fetchedBands])
+  useEffect(() => {
+    if (!fetchedTracks || fetchedTracks.length === 0) return
+    const newTrackMap = fetchedTracks.reduce(
+      (map, track) => ({ ...map, [track.id]: new Track(track) }),
+      {} as TrackMap
+    )
+    setTracks((prev) => ({ ...prev, ...newTrackMap }))
+  }, [fetchedTracks])
 
-//   const saveGqlBand = (band: gqlBand) =>
-//     setBands((prev) => ({ ...prev, [band.id]: new Band(band) }))
+  const saveGqlTrack = (track: gqlTrack) =>
+    setTracks((prev) => ({ ...prev, [track.id]: new Track(track) }))
 
-//   const checkForBand = (id: number) => {
-//     const savedBand = bands[id]
-//     if (!savedBand) setMissingBand(id)
-//   }
+  const checkForTrack = (id: number) => {
+    const savedTrack = tracks[id]
+    if (!savedTrack) setMissingTrack(id)
+  }
 
-//   const checkForBands = (ids: number[]) => {
-//     const missing = ids.filter((id) => !bands[id])
-//     if (missing.length > 0) setMissingBands(missing)
-//   }
+  const checkForTracks = (ids: number[]) => {
+    const missing = ids.filter((id) => !tracks[id])
+    if (missing.length > 0) setMissingTracks(missing)
+  }
 
-//   const changeBandPhoto = async (id: number, photoUrl: string) => {
-//     try {
-//       await updatePhoto({ id, photoUrl })
-//       const updatedBand = { ...bands[id], photoUrl }
-//       setBands((prev) => ({ ...prev, [id]: updatedBand }))
-//     } catch (error) {
-//       console.error(error)
-//     }
-//   }
+  return (
+    <TracksContext.Provider
+      value={{
+        checkForTracks,
+        checkForTrack,
+        tracks
+        // loading
+      }}
+    >
+      {children}
+    </TracksContext.Provider>
+  )
+}
 
-//   return (
-//     <BandsContext.Provider
-//       value={{ checkForBand, saveGqlBand, checkForBands, bands: bands, changeBandPhoto }}
-//     >
-//       {children}
-//     </BandsContext.Provider>
-//   )
-// }
+export const useTracks = <T extends number | number[] | Collection>(selection?: T) => {
+  type Match = T extends number ? Track : Track[]
+  const [match, setMatch] = useState<Match | null>(null)
+  const { checkForTrack, checkForTracks, ...context } = useContext(TracksContext)
 
-// export const useBands = <T extends number | number[]>(selection?: T) => {
-//   type Match = T extends number ? Band : Band[]
-//   const [match, setMatch] = useState<Match | null>(null)
-//   const { checkForBand, checkForBands, ...context } = useContext(BandsContext)
+  const findTrackMatches = () => {
+    if (!selection) return {}
+    if (typeof selection === 'number') return context.tracks[selection] as Match
+    if (Array.isArray(selection)) return Object.values(context.tracks).filter(({ id }) => selection.includes(id))
 
-//   const findBandMatches = () => {
-//     if (!selection) return {}
-//     if (typeof selection === 'number') return context.bands[selection] as Match
-//     return Object.values(context.bands).filter(({ id }) => selection.includes(id))
-//   }
+  }
 
-//   useEffect(() => {
-//     const match = findBandMatches()
-//     setMatch(match as Match)
-//   }, [JSON.stringify(context.bands)])
+  useEffect(() => {
+    const match = findTrackMatches()
+    setMatch(match as Match)
+  }, [JSON.stringify(context.tracks)])
 
-//   useEffect(() => {
-//     if (typeof selection === 'number') {
-//       checkForBand(selection)
-//     } else if (Array.isArray(selection)) {
-//       checkForBands(selection)
-//     }
-//     const match = findBandMatches()
-//     setMatch(match as Match)
-//   }, [selection])
+  useEffect(() => {
+    if (typeof selection === 'number') {
+      checkForTrack(selection)
+    } else if (Array.isArray(selection)) {
+      checkForTracks(selection)
+    } else if (!!selection) {
+      const tracks = selection.getCollectionIds()
+      checkForTracks(tracks)
+    }
+    const match = findTrackMatches()
+    setMatch(match as Match)
+  }, [selection])
 
-//   return { ...context, match }
-// }
+  return { ...context, match }
+}
