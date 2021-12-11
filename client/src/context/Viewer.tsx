@@ -1,8 +1,9 @@
 import { createContext, useContext, useState, useEffect, useCallback } from 'react'
 import auth from 'scripts/auth'
 import User from 'types/User.d'
-import { getUserByUid } from 'scripts/api/demologue/query/user'
+import { getViewer } from 'scripts/api/demologue/query/user'
 import { useCreateUser } from 'scripts/api/demologue/mutation/user'
+import { updateUserPhoto } from 'scripts/api/demologue/mutation/user'
 // import { toast } from 'react-toastify'
 
 type ViewerContextValue = {
@@ -10,6 +11,7 @@ type ViewerContextValue = {
   logout: () => void
   signedIn: boolean
   user: User | null
+  changeUserPhoto: (photoUrl: string) => void
 }
 
 const ViewerContext = createContext({} as ViewerContextValue)
@@ -17,8 +19,9 @@ const ViewerContext = createContext({} as ViewerContextValue)
 export const ViewerProvider: React.FC = ({ children }) => {
   const [uid, setUid] = useState<string | null>(null)
   const [user, setUser] = useState<User | null>(null)
-  const { status, data, isFetching } = getUserByUid(uid)
+  const { status, data, isFetching } = getViewer(uid)
   const { mutate: createUser } = useCreateUser()
+  const { mutate: updatePhoto } = updateUserPhoto()
   
   const [loading, setLoading] = useState<boolean>(true)
 
@@ -54,8 +57,19 @@ export const ViewerProvider: React.FC = ({ children }) => {
     setUser(null)
   }
 
+  const changeUserPhoto = async (photoUrl: string) => {
+    if (!user) return
+    try {
+      await updatePhoto({ uid: user.uid, photoUrl })
+      const updatedUser = { ...user, photoUrl }
+      setUser(updatedUser)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   return (
-    <ViewerContext.Provider value={{ signedIn: !!user, user, logout, loading }}>
+    <ViewerContext.Provider value={{ signedIn: !!user, user, logout, loading, changeUserPhoto }}>
       {children}
     </ViewerContext.Provider>
   )
