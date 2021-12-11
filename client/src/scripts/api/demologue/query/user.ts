@@ -14,6 +14,16 @@ export const getUserByUid = (uid: string | null) => {
     { enabled: !!uid }
   )
 }
+export const getViewer = (uid: string | null) => {
+  return useQuery(
+    'viewer',
+    async () => {
+      const { user: data }: any = await request(endpoint, GET_USER, { uid })
+      return data
+    },
+    { enabled: !!uid }
+  )
+}
 
 export const getUsersByUids = (uids: string[] | null) => {
   return useQuery(
