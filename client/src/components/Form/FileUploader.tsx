@@ -17,7 +17,9 @@ const FileUploader:React.FC<Props> = ({ children, onUpload, label = "Upload a fi
 
   const accept = () => {
     switch(preset) {
-      case Preset.IMAGE: return '.jpg, .png, .gif, .bmp, .tiff, .svg'
+      case Preset.BAND_IMAGE: 
+      case Preset.USER_IMAGE:
+        return '.jpg, .png, .gif, .bmp, .tiff, .svg'
       // cloudinary allows: JPG, PNG, GIF, BMP, TIFF, ICO, PDF, EPS, PSD, SVG, WebP, JXR, and WDP
     }
   }
@@ -63,7 +65,7 @@ const FileUploader:React.FC<Props> = ({ children, onUpload, label = "Upload a fi
           event.target.files && setFile(event.target.files[0])
         }}
       />
-      <label htmlFor="file-upload" className="FileUploader" tabIndex={0}>
+      <label htmlFor="file-upload" className="FileUploader enabled" tabIndex={0}>
         {children}
         <div className="cta">{label}</div>
       </label>
