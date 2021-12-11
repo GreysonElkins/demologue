@@ -25,3 +25,11 @@ export const CREATE_USER = gql`
     }
   }
 `
+
+export const UPDATE_USER_PHOTO = gql`
+  mutation UpdateUserPhoto($uid: String!, $photoUrl: String!) {
+    updateUser(input: { patch: { photoUrl: $photoUrl }, uid: $uid }) {
+      clientMutationId
+    }
+  }
+`
