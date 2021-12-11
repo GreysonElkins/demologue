@@ -5,6 +5,7 @@ import MemberPane from './MemberPane'
 import Loading from 'style/Icon/Loading'
 import Header from './Header'
 import './BandProfile.scss'
+import '../index.scss'
 
 const BandProfile = () => {
   const { bandId } = useParams()
@@ -14,7 +15,7 @@ const BandProfile = () => {
   if (!match) return <Loading />
 
   return (
-    <div className="BandProfile">
+    <div className="Profile">
       <Header band={match} />
       {/* OWNER SECTIONS */}
       <div>
