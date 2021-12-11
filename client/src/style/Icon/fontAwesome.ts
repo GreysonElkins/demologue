@@ -11,7 +11,12 @@ import {
   faSpinner,
   faLayerGroup,
   faPlay,
-  faPause
+  faPause,
+  // for track actions
+  faLowVision,
+  faCommentAlt,
+  faPlusSquare,
+  faEye
 } from '@fortawesome/free-solid-svg-icons'
 import { library, IconDefinition } from '@fortawesome/fontawesome-svg-core'
 
@@ -29,6 +34,10 @@ const fontAwesomeIconList: IconDefinition[] = [
   faLayerGroup,
   faPlay,
   faPause,
+  faLowVision,
+  faCommentAlt,
+  faPlusSquare,
+  faEye,
 ]
 
 export const initFontAwesome = () => library.add(...fontAwesomeIconList)
