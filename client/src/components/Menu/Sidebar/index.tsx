@@ -9,7 +9,7 @@ const Sidebar: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true)
   const [selection, setSelection] = useState<"band" | "playlist">("playlist")
   const { isHidden } = useHideOnPaths({
-    paths: ['/playlists', '/user', '/search-bands'],
+    paths: ['/playlists', '/search-bands'],
     authRequired: true,
     otherFlags: [loading],
   })
