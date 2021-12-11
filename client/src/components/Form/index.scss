@@ -15,9 +15,10 @@
   position: relative;
   cursor: pointer;
   border: 1px solid transparent;
+  transition: border-color 200ms;
 
-  &:hover {
-    border: 1px solid $accent1;
+  img {
+    transition: opacity 200ms;
   }
 
   .uploading {
@@ -38,7 +39,27 @@
   .cta {
     position: absolute;
     bottom: 0;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 100%;
     text-align: center;
+    opacity: 0;
+    transition: opacity 200ms;
+  }
+
+}
+
+.FileUploader.enabled {
+  &:hover {
+    border: 1px solid $accent1;
+    .cta {
+      opacity: 1;
+    }
+
+    img {
+      opacity: .3;
+    }
   }
 }
