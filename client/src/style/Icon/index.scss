@@ -1,6 +1,7 @@
 @import '../variables.scss';
 
 .Avatar {
+  // this should be refactored with the second Avatar class in mind (./Avatar)
   @include fadeIn(300ms);
   height: 30px;
   width: 30px;
