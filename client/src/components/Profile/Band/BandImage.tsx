@@ -15,13 +15,13 @@ const BandImage: React.FC<{ band: Band; onUpload: (url: string) => void }> = ({
     <FileUploader
       onUpload={onUpload}
       label={band.photoUrl ? 'Change Photo' : "Upload a Photo"}
-      preset={Preset.IMAGE}
+      preset={Preset.BAND_IMAGE}
       disabled={user?.bands[band.id] !== 'MEMBER'}
     >
       {band.photoUrl ? (
-        <img className="band-avatar" src={band.photoUrl} alt={`${band.name}'s photo'`} />
+        <img className="avatar" src={band.photoUrl} alt={`${band.name}'s photo'`} />
       ) : (
-        <div className="band-avatar placeholder">
+        <div className="avatar placeholder">
           <Icon icon="drum" />
         </div>
       )}
