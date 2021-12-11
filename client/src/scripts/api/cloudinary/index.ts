@@ -8,7 +8,7 @@ export type CloudResponse = {
 }
 
 export const uploadFile = async (file: any, preset: Preset) => {
-  const type = preset === Preset.IMAGE ? "image" : "video"
+  const type = preset === Preset.AUDIO ? "video" : "image"
   try {
     const data = new FormData()
     data.append('file', file)
