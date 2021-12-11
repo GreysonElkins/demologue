@@ -11,12 +11,14 @@ type UsersContextValue = {
   checkForUser: (id: string) => void
   checkForUsers: (ids: string[]) => void
   users: UserMap
+  userLoading: boolean
 }
 
 const UsersContext = createContext({} as UsersContextValue)
 
 export const UsersProvider: React.FC = ({ children }) => {
   const [users, setUsers] = useState<UserMap>({})
+  const [userLoading, setUserLoading] = useState<boolean>(false)
   const [missingUser, setMissingUser] = useState<string | null>(null)
   const [missingUsers, setMissingUsers] = useState<string[] | null>(null)
   const { data: fetchedUser, refetch: refetchUser } = getUserByUid(missingUser)
@@ -28,14 +30,21 @@ export const UsersProvider: React.FC = ({ children }) => {
     addUserToState(viewer)
   }, [viewer])
 
-  useEffect(() => { if (missingUser) refetchUser() }, [missingUser])
+  useEffect(() => { 
+    if (missingUser) refetchUser() 
+    !userLoading && setUserLoading(true)
+  }, [missingUser])
   // will this run FETCH twice on first render?
 
-  useEffect(() => { if (missingUsers) refetchUsers() }, [missingUsers])
+  useEffect(() => { 
+    if (missingUsers) refetchUsers() 
+    !userLoading && setUserLoading(true)
+  }, [missingUsers])
   // will this run FETCH twice on first render?
 
   useEffect(() => {
     if (fetchedUser) addUserToState(new User(fetchedUser))
+    userLoading && setUserLoading(false)
   }, [fetchedUser])
 
   useEffect(() => {
@@ -45,6 +54,7 @@ export const UsersProvider: React.FC = ({ children }) => {
       {} as UserMap
     )
     setUsers(prev => ({ ...prev, ...newUserMap }))
+    userLoading && setUserLoading(false)
   }, [fetchedUsers])
 
   const addUserToState = async (user: User) => {
@@ -62,7 +72,7 @@ export const UsersProvider: React.FC = ({ children }) => {
   }
 
   return (
-    <UsersContext.Provider value={{ checkForUser, checkForUsers, users }}>
+    <UsersContext.Provider value={{ checkForUser, checkForUsers, users, userLoading }}>
       {children}
     </UsersContext.Provider>
   )
