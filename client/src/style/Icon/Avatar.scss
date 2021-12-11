@@ -24,6 +24,7 @@
     overflow: hidden;
     border: 1px solid transparent;
     transition: border-color 200ms;
+    background: linear-gradient(-45deg, $dark2, $dark3);
 
     img {
       width: 100%;

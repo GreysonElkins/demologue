@@ -15,11 +15,12 @@ const UserImage: React.FC<{ user: User }> = ({
       label={user.photoUrl ? 'Change Photo' : 'Upload a Photo'}
       preset={Preset.USER_IMAGE}
       disabled={(viewer || user) && user?.uid !== viewer?.uid}
+      className="UserImage"
     >
       {user.photoUrl ? (
         <img className="avatar" src={user.photoUrl} alt={`${user.displayName}'s photo'`} />
       ) : (
-        <div className="avatar placeholder">
+        <div className="avatar placeholder UserImage">
           <Icon icon="user" />
         </div>
       )}

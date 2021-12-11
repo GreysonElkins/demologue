@@ -16,6 +16,7 @@
   cursor: pointer;
   border: 1px solid transparent;
   transition: border-color 200ms;
+  width: min-content;
 
   img {
     transition: opacity 200ms;
@@ -47,6 +48,7 @@
     text-align: center;
     opacity: 0;
     transition: opacity 200ms;
+    color: $white1;
   }
 
 }
@@ -54,12 +56,11 @@
 .FileUploader.enabled {
   &:hover {
     border: 1px solid $accent1;
+    > img, div {
+      opacity: .3;
+    }
     .cta {
       opacity: 1;
-    }
-
-    img {
-      opacity: .3;
     }
   }
 }

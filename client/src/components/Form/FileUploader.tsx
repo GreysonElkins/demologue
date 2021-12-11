@@ -9,9 +9,10 @@ type Props = {
   onUpload: (url: string) => void
   preset: Preset
   disabled?: boolean
+  className?: string
 }
 
-const FileUploader:React.FC<Props> = ({ children, onUpload, label = "Upload a file", preset, disabled }) => {
+const FileUploader:React.FC<Props> = ({ children, onUpload, label = "Upload a file", preset, disabled, className }) => {
   const [file, setFile] = useState<File | null>(null)
   const [uploading, setUploading] = useState<boolean>(false)
 
@@ -46,7 +47,7 @@ const FileUploader:React.FC<Props> = ({ children, onUpload, label = "Upload a fi
   if (disabled) return <>{children}</>
 
   if (uploading) return (
-    <div className="FileUploader">
+    <div className={`FileUploader ${className ? className : ''}`}>
       {children}
       <div className="uploading">
         <Icon icon="spinner" spin size="4x" />
@@ -65,7 +66,11 @@ const FileUploader:React.FC<Props> = ({ children, onUpload, label = "Upload a fi
           event.target.files && setFile(event.target.files[0])
         }}
       />
-      <label htmlFor="file-upload" className="FileUploader enabled" tabIndex={0}>
+      <label
+        htmlFor="file-upload"
+        className={`FileUploader enabled ${className ? className : ''}`}
+        tabIndex={0}
+      >
         {children}
         <div className="cta">{label}</div>
       </label>
