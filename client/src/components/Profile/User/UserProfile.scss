@@ -10,10 +10,85 @@
   .avatar, .placeholder {
     border-radius: 50%;
   }
+
+  .top-line {
+    width: 100%;
+    background-color: $dark1;
+    z-index: 20;
+    position: relative;
+  }
 }
 
 .UserImage {
   margin-right: 10px;
   margin-top: -10px;
   border-radius: 50%;
+  position: relative;
+  z-index: 30;
+  transition: margin-top 200ms;
+  @include onBreak("mobile") {
+    margin-top: 5px;
+  }
+}
+
+.user-profile-body {
+  margin-top: -124px;
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  max-height: 100%;
+  transition: max-height 200ms;
+  overflow: scroll;
+  @include onBreak("mobile") {
+    max-height: calc(100% - 65px)
+  }
+}
+
+.user-profile-body.with-player {
+  max-height: calc(100% - 170px);
+  @include onBreak("mobile") {
+    max-height: calc(100% - 132px);
+  }
+}
+
+.UserBands {
+  display: flex;
+  flex-direction: column;
+  right: 20px;
+  margin-top: 5px;
+  align-items: flex-end;
+  padding: 125px 10px 10px;
+  width: min-content;
+  border-left: 1px solid transparent;
+  transition: right 200ms, border-color 200ms;
+  z-index: 0;
+  height: min-content;
+
+  @include onBreak("smallTablet") {
+      margin-right: 0px;
+      opacity: 1;
+      border-color: $dark3;
+      // right: 10px;
+    }
+
+  .pop-out-label {
+    opacity: 0;
+    margin-right: -40px;
+    transition: margin-right 200ms, opacity 200ms;
+
+    @include onBreak("smallTablet") {
+      margin-right: 8px;
+      opacity: 1;
+    }
+  }
+
+  .NewAvatar {
+    flex-direction: row-reverse;
+    &:hover {
+    .pop-out-label {
+      margin-right: 8px;
+      opacity: 1;
+    }
+  }
+  }
 }
