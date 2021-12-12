@@ -46,7 +46,16 @@ const Playlist: React.FC<Props> = ({ collection }) => {
     tabIndex: 0
   })
 
-  return <div><Table className="Playlist" data={data} columns={columns} getRowProps={setRowProps}/></div>
+  return (
+    <div>
+      <h3 className="playlist-title">{collection.name}</h3>
+      {data.length > 0 ? (
+        <Table className="Playlist" data={data} columns={columns} getRowProps={setRowProps} />
+      ) : (
+        <div className="empty-playlist">This playlist is empty</div>
+      )}
+    </div>
+  )
   // return <div></div>
 }
 
