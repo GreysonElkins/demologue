@@ -39,7 +39,7 @@ class Band {
       {} as RoleMap
     )
     this.collections = collectionsByCreatedByBand.map((collection) => new Collection(collection))
-    this.songList = new Collection({ tracks, id: 0, name: `${name}`})
+    this.songList = new Collection({ tracks, id: 0, name: `${name}'s Tracks`})
   }
 }
 
