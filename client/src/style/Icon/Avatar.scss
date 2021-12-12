@@ -1,7 +1,7 @@
 @import 'style/variables.scss';
 // Avatar.tsx DOES NOT USE THIS SHEET and should be refactored accordingly
 
-.NewAvatar {
+.Avatar {
   display: flex;
   flex-direction: column;
   align-items: center;

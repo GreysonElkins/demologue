@@ -14,7 +14,7 @@ const BandAvatar: React.FC<Props> = ({ hideLabel, bandId, labelClass }) => {
   const { match } = useBands(bandId)
   if (!match) return <></>
   return (
-    <div className="NewAvatar">
+    <div className="Avatar">
       <Link to={`/band/${bandId}`} id={`${match.name}-avatar`}>
         {match.photoUrl && <img src={match.photoUrl} alt={`${match.name}'s avatar`} />}
         {!match.photoUrl && <Icon icon={'drum'} />}

@@ -13,7 +13,7 @@ const UserAvatar: React.FC<Props> = ({ hideLabel, userId }) => {
   const { match } = useUsers(userId)
   if (!match) return <></>
   return (
-    <div className="NewAvatar">
+    <div className="Avatar">
       <Link to={`/user/${userId}`} id={`${match.displayName}-avatar`}>
         {match.photoUrl && <img src={match.photoUrl} alt={`${match.displayName}'s avatar`} />}
         {!match.photoUrl && <Icon icon={'user'} />}
