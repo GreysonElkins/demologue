@@ -1,16 +1,18 @@
 import { Link } from 'react-router-dom'
 import { useViewer } from 'context/Viewer'
 
+import UserAvatar from 'style/Icon/UserAvatar'
 import DropdownCta from 'style/button/DropdownCta'
-import Avatar from 'style/Icon/Avatar'
 
 import './UserMenu.scss'
 
 const UserMenu: React.FC = () => {
   const { logout, user } = useViewer()
 
+  if (!user) return <></>
+
   return (
-    <DropdownCta altTrigger={<Avatar className="trigger" src={user?.photoUrl} tabIndex={-1} />}>
+    <DropdownCta altTrigger={<UserAvatar userId={user.uid} hideLabel />}>
       <nav className="UserMenu">
         <section className="user-section">
           <Link to="/user">{user?.displayName || 'Edit Profile'}</Link>
