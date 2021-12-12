@@ -34,6 +34,7 @@ export const ViewerProvider: React.FC = ({ children }) => {
   useEffect(() => {
     if (!uid || !!user) return 
     refetch()
+    // this may be a redundant answer to a non-issue
   }, [uid])
 
   useEffect(() => {
