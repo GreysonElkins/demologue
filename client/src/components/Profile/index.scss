@@ -3,6 +3,8 @@
 .Profile {
   width: 100%;
   animation: slide-in 500ms;
+  position: relative;
+  height: 100%;
 
   .header {
     display: flex;
