@@ -13,9 +13,7 @@ header {
 
   .right {
     display: flex;
-    .CtaOne {
-      margin-right: 16px;
-    }
+    align-items: center;
   }
 
   @include onBreak('mobile') {
