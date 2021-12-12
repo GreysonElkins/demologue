@@ -6,26 +6,29 @@ import UserMenu from '../Menu/User'
 import SignInCta from './SignInCta'
 import { Icon } from 'style/Icon'
 import Cta from 'style/button/Cta'
+import AddBand from 'components/Cta/AddBand'
 
 import UploadTrack from 'components/Modal/UploadTrack'
 
 import './Header.scss'
 
 const Header: React.FC = () => {
-  const { signedIn, loading } = useViewer()
+  const { user, signedIn, loading } = useViewer()
   const { toggle, isOpen } = useModal()
 
-  // const whichCta = () => {
-  //   if (!signedIn || !user) return <></>
-  //   if (user.bandIds().length > 0) return (
-  //     <Cta ico="⬆" className="CtaOne collapse" onClick={toggle}>
-  //       Upload a Track
-  //     </Cta>
-  //   )
-  //         <Cta cta="Two" ico="➕" className="CtaTwo collapse" onClick={() => toggle(false)}>
-  //           Add a Band
-  //         </Cta>
-  // }
+  const whichCta = () => {
+    if (!signedIn || !user) return <></>
+    if (user.bandIds().length > 0) {
+      return (
+        <Cta ico="⬆" className="CtaOne collapse" onClick={toggle}>
+          Upload a Track
+        </Cta>
+      )
+    } else {
+      return <AddBand />
+    }
+  }
+
   return (
     <>
       <UploadTrack toggle={toggle} isOpen={isOpen} />
@@ -39,9 +42,7 @@ const Header: React.FC = () => {
         {!loading &&
           (signedIn ? (
             <div className="right">
-              <Cta ico="⬆" className="CtaOne collapse" onClick={toggle}>
-                Upload a Track
-              </Cta>
+              {whichCta()}
               <UserMenu />
             </div>
           ) : (

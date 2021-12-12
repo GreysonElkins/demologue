@@ -3,8 +3,7 @@ import useModal from 'hooks/useModal'
 import useViewerBands from 'hooks/useViewerBands'
 
 import AddBand from 'components/Modal/AddBand'
-
-import Cta from 'style/button/Cta'
+import AddBandCta from 'components/Cta/AddBand'
 
 const BandBar = () => {
   const { toggle, isOpen, secondOption: skipOptions } = useModal()
@@ -39,9 +38,7 @@ const BandBar = () => {
         )}
         {bands.length > 0 && <ul>{printBands}</ul>}
         <div className="bottom">
-          <Cta cta="Two" ico="➕" className="CtaTwo collapse" onClick={() => toggle(false)}>
-            Add a Band
-          </Cta>
+          <AddBandCta />
         </div>
       </div>
     </>
