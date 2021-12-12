@@ -4,7 +4,6 @@ import User from 'types/User.d'
 import { getViewer } from 'scripts/api/demologue/query/user'
 import { useCreateUser } from 'scripts/api/demologue/mutation/user'
 import { updateUserPhoto } from 'scripts/api/demologue/mutation/user'
-// import { toast } from 'react-toastify'
 
 type ViewerContextValue = {
   loading: boolean
@@ -19,7 +18,7 @@ const ViewerContext = createContext({} as ViewerContextValue)
 export const ViewerProvider: React.FC = ({ children }) => {
   const [uid, setUid] = useState<string | null>(null)
   const [user, setUser] = useState<User | null>(null)
-  const { status, data, isFetching } = getViewer(uid)
+  const { status, data, isFetching, refetch } = getViewer(uid)
   const { mutate: createUser } = useCreateUser()
   const { mutate: updatePhoto } = updateUserPhoto()
   
@@ -31,6 +30,11 @@ export const ViewerProvider: React.FC = ({ children }) => {
       if (response && !user) setUid(response.uid)
     })
   }, [])
+
+  useEffect(() => {
+    if (!uid || !!user) return 
+    refetch()
+  }, [uid])
 
   useEffect(() => {
     if (status === 'success' && uid) {
