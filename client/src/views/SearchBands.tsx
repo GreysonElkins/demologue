@@ -4,8 +4,10 @@ import BandList from 'components/Table/Band'
 
 const SearchBands = () => {
   return (
-    <Search queryFn={searchBands} placeholder="search bands!">
-      {({ results }) => <BandList bands={results} />}
+    <Search queryFn={searchBands} placeholder="search bands!" perPage={6}>
+      {({ results }) => 
+        <BandList bands={results} />
+      }
     </Search>
   )
 }
