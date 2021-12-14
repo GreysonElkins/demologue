@@ -44,9 +44,12 @@ export const GET_BANDS_BY_IDS = gql`
   }
 `
 
-export const SEARCH_BANDS = gql`
-  query SearchBands($query: String!) {
-    bandsConnection(filter: { name: { includesInsensitive: $query } }) {
+export const SEARCH_BANDS = (perPage?: number) => gql`
+  query SearchBands($query: String!, $offset: Int!) {
+    bandsConnection(filter: { name: { includesInsensitive: $query } }, ${
+      perPage ? `first: ${perPage},` : ''
+    } offset: $offset) {
+      totalCount
       nodes {
         name
         id
