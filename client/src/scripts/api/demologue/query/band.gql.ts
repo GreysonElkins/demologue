@@ -43,3 +43,21 @@ export const GET_BANDS_BY_IDS = gql`
     }
   }
 `
+
+export const SEARCH_BANDS = gql`
+  query SearchBands($query: String!) {
+    bandsConnection(filter: { name: { includesInsensitive: $query } }) {
+      nodes {
+        name
+        id
+        photoUrl
+        tracksConnection {
+          totalCount
+        }
+        usersToBandsConnection(condition: { role: MEMBER }) {
+          totalCount
+        }
+      }
+    }
+  }
+`
