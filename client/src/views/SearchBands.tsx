@@ -1,6 +1,6 @@
 import Search from "components/Form/Search"
 import { searchBands } from "scripts/api/demologue/query/band"
-import BandList from 'components/Table/Band'
+import BandList from 'components/Table/BandList'
 
 const SearchBands = () => {
   return (
