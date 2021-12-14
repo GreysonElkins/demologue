@@ -1,19 +1,18 @@
 import { useMemo } from 'react'
-import Band from 'types/Band'
+import { PartialBand } from 'types/Band'
 
 import Table from '.'
-import Avatar from 'style/Icon/Avatar'
-// import test from 'test/data/bands'
+import Avatar from 'style/Icon/BandAvatar'
 
-const BandList: React.FC<{bands?: Band[]}> = ({ bands }) => {
+const BandList: React.FC<{bands?: PartialBand[]}> = ({ bands }) => {
   const data = useMemo(
     () =>
-      bands?.map(({ name, photoUrl }) => ({
-        col1: <Avatar src={photoUrl} className="avatar-squared" defaultIcon="drum" size="3x" noAction />,
-        col2: name,
-        col3: "testData",
-        col4: <img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pinclipart.com%2Fpindetail%2FThwhxi_sound-wave-clipart-soud-audio-sound-wave-png%2F&psig=AOvVaw0PmiznWuyJDReBGAkCOWoU&ust=1638386044401000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCNjl0uTlwPQCFQAAAAAdAAAAABAK" />
-
+      bands?.map((band) => ({
+        col1: <Avatar partialBand={band} hideLabel/>,
+        col2: band.name,
+        col3: band.tracksConnection.totalCount,
+        col4: band.usersToBandsConnection.totalCount
+        
       })) || [],
     [bands]
   )
@@ -25,12 +24,18 @@ const BandList: React.FC<{bands?: Band[]}> = ({ bands }) => {
       accessor: 'col2',
       defaultCanSort: true
     }, {
-      Header: 'test',
-      accessor: 'col3'
+      Header: 'Uploaded Demos',
+      accessor: 'col3',
+      defaultCanSort: true
     }, {
-      Header: 'test',
-      accessor: 'col4'
+      Header: 'Members',
+      accessor: 'col4',
+      defaultCanSort: true
+    }, {
+      Header: '',
+      accessor: 'col5',
     }
+
   ], [])
 
   return <Table data={data} columns={columns}/>  
