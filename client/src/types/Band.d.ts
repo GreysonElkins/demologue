@@ -1,6 +1,18 @@
 import Collection, { gqlCollection } from './Collection.d'
 export type BandRole = "MEMBER" | "SUPPORT" | "GUEST"
 
+export type PartialBand = {
+  name: string
+  id: number
+  photoUrl: string | null
+  tracksConnection: {
+    totalCount: number
+  }
+  usersToBandsConnection: {
+    totalCount: number
+  }
+}
+
 export type gqlBand = {
   id: number
   name: string
