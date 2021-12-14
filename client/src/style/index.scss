@@ -67,7 +67,6 @@ button {
   }
 }
 
-
 .collapse {
     justify-content: flex-end;
     padding-right: 5px;
@@ -104,3 +103,29 @@ button {
     }
     }
   }
+
+.Pagination {
+  margin-bottom: 30px;
+  button {
+    border: none;
+    font-weight: bold;
+    background-color: transparent;
+    color: $white2;
+    margin: 0 5px;
+    font-size: 16px;
+    border: 2px solid transparent;
+    border-radius: 50%;
+    transition: color 200ms, border 200ms;
+    
+    &:hover.number-page, &.current-page {
+      color: $accent2dark;
+      border: 2px solid $accent2dark;
+    }
+    
+    &:hover.nav-pages {
+      color: $accent2dark;
+      text-decoration: underline;
+    }
+  }
+
+}

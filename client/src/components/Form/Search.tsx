@@ -18,27 +18,33 @@ interface Props
 const Search: React.FC<Props> = ({ queryFn, children, perPage, ...props }) => {
   const [search, setSearch] = useSearchParams({ search: ''})
   const [query, setQuery] = useState(search.get('search') || '')
-  const [page, setPage] = useState(0)
+  const [page, setPage] = useState(Number(search.get('page')) || 0)
   const { data, refetch, isFetching } = queryFn({ query, page, perPage }) // needs error handling
 
   useEffect(() => {
     refetch()
-    if (query.length > 0 && query.length % 4 === 0) setSearch({ search: query })
+    if (query.length % 4 === 0) setSearch({ ...search, search: query })
   }, [query, page])
+
+  // useEffect(() => {
+  //   setSearch({ ...search, page: page.toString() })
+  // }, [page])
 
   if (!data) return <Loading />
 
   const { results, totalCount } = data
 
   return (
-    <div className="search-and-results">
-      <input
-        className="StyledField LineText SearchInput"
-        value={query}
-        onChange={event => setQuery(event.target.value)}
-        {...props}
-      />
-      {isFetching && !results ? <Loading /> : <>{children({ results: results })}</>}
+    <div className="Search">
+      <div className="search-and-results">
+        <input
+          className="StyledField LineText SearchInput"
+          value={query}
+          onChange={event => setQuery(event.target.value)}
+          {...props}
+        />
+        {isFetching && !results ? <Loading /> : <>{children({ results: results })}</>}
+      </div>
       {perPage && totalCount > perPage && (
         <Pagination pageCount={totalCount / perPage} onChange={(tab) => setPage(tab - 1)}/>
       )}

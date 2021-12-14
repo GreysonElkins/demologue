@@ -9,6 +9,8 @@ type Props = {
   runOnStartUp?: boolean
 }
 
+import './index.scss'
+
 const Pagination: React.FC<Props> = ({
   startPage = 1,
   pageCount,
@@ -63,8 +65,8 @@ const Pagination: React.FC<Props> = ({
     list = _.range(1, pageCount + 1)
   }
   return (
-    <div>
-      <button onClick={prevPage}>
+    <div className="Pagination">
+      <button onClick={prevPage} className="nav-pages">
         <Icon icon="angle-left" /> Prev
       </button>
       {startTrunc && (
@@ -78,7 +80,7 @@ const Pagination: React.FC<Props> = ({
         <button
           key={pageNumber}
           onClick={() => jumpPage(pageNumber)}
-          //   currentPage={page === pageNumber}
+          className={`number-page ${page === pageNumber ? 'current-page' : ''}`}
         >
           {pageNumber}
         </button>
@@ -92,7 +94,7 @@ const Pagination: React.FC<Props> = ({
           </button>
         </>
       )}
-      <button onClick={nextPage}>
+      <button onClick={nextPage} className="nav-pages">
         Next <Icon icon="angle-right" />
       </button>
     </div>
