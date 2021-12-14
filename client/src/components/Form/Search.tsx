@@ -12,7 +12,7 @@ interface Props extends DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputEle
 
 const Search: React.FC<Props> = ({ queryFn, children, ...props }) => {
   const [query, setQuery] = useState('')
-  const { data, refetch, isFetching, isError } = queryFn(query)
+  const { data, refetch, isFetching } = queryFn(query) // needs error handling
 
   useEffect(() => {
     refetch()
