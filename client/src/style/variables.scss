@@ -52,6 +52,18 @@ $breakpoints: (
   }
 }
 
+@mixin clickableRow {
+  tbody {
+    tr {
+      cursor: pointer;
+
+      &:hover {
+        background-color: $dark1;
+      }
+    }
+  }
+}
+
 @mixin fadeIn($time: 200ms) {
   animation: fade-in $time;
 }
