@@ -3,9 +3,17 @@
 main {
   height: calc(100vh - 94px);
   width: 100%;
-
+  overflow: scroll;
+  
   @include onBreak('mobile') {
-    height: calc(100vh - 75px);
+    height: calc(100vh - 93px); 
+  }
+}
+
+main.with-player {
+  height: calc(100vh - 191px);
+  @include onBreak('mobile') {
+    height: calc(100vh - 165px); 
   }
 }
 

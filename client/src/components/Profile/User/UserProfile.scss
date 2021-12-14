@@ -21,10 +21,11 @@
 
 .UserImage {
   margin-right: 10px;
-  margin-top: -10px;
+  // margin-top: -10px;
+  margin-top: 10px;
   border-radius: 50%;
   position: relative;
-  z-index: 30;
+  // z-index: 30;
   transition: margin-top 200ms;
   @include onBreak("mobile") {
     margin-top: 5px;
@@ -38,7 +39,7 @@
   width: 100%;
   max-height: 100%;
   transition: max-height 200ms;
-  overflow: scroll;
+  // overflow: scroll;
   @include onBreak("mobile") {
     max-height: calc(100% - 65px)
   }
