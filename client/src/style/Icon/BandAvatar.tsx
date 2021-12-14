@@ -1,21 +1,23 @@
 import { Link } from 'react-router-dom'
 import { useBands } from 'context/Bands'
 import { Icon } from '.'
+import { PartialBand } from 'types/Band'
 
 import './Avatar.scss'
 
 type Props = {
   hideLabel?: boolean
-  bandId: number
+  bandId?: number
+  partialBand?: PartialBand
   labelClass?: string
 }
 
-const BandAvatar: React.FC<Props> = ({ hideLabel, bandId, labelClass }) => {
-  const { match } = useBands(bandId)
+const BandAvatar: React.FC<Props> = ({ hideLabel, bandId, labelClass, partialBand }) => {
+  const { match } = bandId ? useBands(bandId) : { match: partialBand }
   if (!match) return <></>
   return (
     <div className="Avatar">
-      <Link to={`/band/${bandId}`} id={`${match.name}-avatar`}>
+      <Link to={`/band/${bandId || partialBand?.id}`} id={`${match.name}-avatar`}>
         {match.photoUrl && <img src={match.photoUrl} alt={`${match.name}'s avatar`} />}
         {!match.photoUrl && <Icon icon={'drum'} />}
       </Link>
