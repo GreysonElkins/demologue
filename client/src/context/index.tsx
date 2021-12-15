@@ -7,6 +7,7 @@ import { UsersProvider } from './Users'
 import { BandsProvider } from './Bands'
 import { TracksProvider } from './Tracks'
 import { PlayerProvider } from './Player'
+import { MessagesProvider } from './Messages'
 
 const queryClient = new QueryClient()
 
@@ -17,10 +18,12 @@ const Providers: React.FC = ({ children }) => (
       <TracksProvider>
         <UsersProvider>
           <BandsProvider>
-            <PlayerProvider>
-              {children}
-              <ToastContainer position="bottom-right" draggable theme="dark" />
-            </PlayerProvider>
+            <MessagesProvider>
+              <PlayerProvider>
+                {children}
+                <ToastContainer position="bottom-right" draggable theme="dark" />
+              </PlayerProvider>
+            </MessagesProvider>
           </BandsProvider>
         </UsersProvider>
       </TracksProvider>
