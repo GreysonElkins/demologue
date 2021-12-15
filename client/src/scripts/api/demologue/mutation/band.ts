@@ -1,8 +1,9 @@
 import endpoint from 'scripts/api/demologue'
 import { QueryClient, useMutation } from 'react-query'
 import { request } from 'graphql-request'
-import { CREATE_BAND, CREATE_USERS_TO_BAND, UPDATE_BAND_PHOTO } from './band.gql'
+import { ADD_BAND_MEMBER, CREATE_BAND, CREATE_USERS_TO_BAND, REQUEST_BAND_ACCESS, UPDATE_BAND_PHOTO } from './band.gql'
 import { toast } from 'react-toastify'
+import { BandRole } from 'types/Band'
 
 // move types to type dir
 type NewBand = {
@@ -16,6 +17,7 @@ type JoinBandData = {
 }
 
 export const useAddUserToBand = (queryClient?: QueryClient) =>
+// this has been duplicated by addBandMember
   useMutation(
     async ({ role = 'GUEST', bandId, userId }: JoinBandData) => {
       try {
@@ -30,7 +32,7 @@ export const useAddUserToBand = (queryClient?: QueryClient) =>
     },
     {
       onSuccess: () => {
-        queryClient && queryClient.invalidateQueries('user')
+        queryClient && queryClient.invalidateQueries('viewer')
         // this query is depre
       },
     }
@@ -62,3 +64,35 @@ export const updateBandPhoto = () => useMutation(async ({ id, photoUrl }: { id: 
     console.error(error)
   }
 })
+
+export const requestBandAccess = () => useMutation(
+  async ({ userId, bandId, role }: { userId: string, bandId: number, role?: BandRole }) => {
+    try {
+      await request(endpoint, REQUEST_BAND_ACCESS, { userId, bandId, role: role || "REQUEST"})
+      toast.success("Request sent!")
+    } catch (error) {
+      toast.error("Something went wrong!")
+      console.error(error)
+    }
+  }
+)
+
+export const addBandMember = (queryClient?: QueryClient) =>
+  useMutation(
+    async ({ userId, bandId }: { userId: string; bandId: number }) => {
+      try {
+        const result = await request(endpoint, ADD_BAND_MEMBER, { userId, bandId })
+        console.warn('The band relationships still need to be updated in state', { result })
+        toast.success("The band's got a new member!")
+      } catch (error) {
+        toast.error('Something went wrong!')
+        console.error(error)
+      }
+    },
+    {
+      onSuccess: () => {
+        queryClient && queryClient.invalidateQueries('viewer')
+        // this query is depre
+      },
+    }
+  )
