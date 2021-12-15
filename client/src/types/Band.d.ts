@@ -1,5 +1,5 @@
 import Collection, { gqlCollection } from './Collection.d'
-export type BandRole = "MEMBER" | "SUPPORT" | "GUEST"
+export type BandRole = "MEMBER" | "SUPPORT" | "GUEST" | "REQUEST" | "INVITE"
 
 export type PartialBand = {
   name: string
