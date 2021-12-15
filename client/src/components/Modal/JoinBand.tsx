@@ -30,10 +30,25 @@ const JoinBand: React.FC<Props> = ({ selectedBand, ...props }) => {
   if (currentRole === 'REQUEST')
     return (
       <Modal {...props}>
-        You've already requested to join this band. A member of the band needs to accept your
+        You've already requested to join {match.name}. A member of the band needs to accept your
         request.
       </Modal>
     )
+
+  if (currentRole && currentRole !== 'INVITE') {
+    return (
+      <Modal {...props}>
+        <div>
+          You're already a member of {match.name}!
+          <div className="modal-options">
+            <Cta cta="Three" onClick={props.toggle} tabIndex={1}>
+              Cancel
+            </Cta>
+          </div>
+        </div>
+      </Modal>
+    )
+  }
 
   const joinBand = async () => {
     if (currentRole === 'INVITE') {
@@ -57,7 +72,7 @@ const JoinBand: React.FC<Props> = ({ selectedBand, ...props }) => {
           <Cta cta="Two" onClick={joinBand} tabIndex={1}>
             Yes!
           </Cta>
-          <Cta cta="Three" onClick={joinBand} tabIndex={1}>
+          <Cta cta="Three" onClick={props.toggle} tabIndex={1}>
             Cancel
           </Cta>
         </div>
