@@ -17,7 +17,13 @@ const BandHeader: React.FC<{band: Band}> = ({ band }) => {
   const memberIds = useMemo(() => Object.keys(band.members), [JSON.stringify(band)])
   const { changeBandPhoto } = useBands()
 
-  const printMembers = memberIds.map(id => <UserAvatar userId={id} hideLabel key={`user-avatar-${id}`} />)
+  const printMembers = memberIds.reduce((avatars, id) => {
+    if (band.members[id] === "MEMBER") 
+      avatars.push(
+        <UserAvatar userId={id} hideLabel key={`user-avatar-${id}`} />
+      )
+    return avatars
+  }, [] as JSX.Element[])
 
   return (
     <section className="header">
