@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react'
-import Band, { gqlBand } from 'types/Band.d'
+import Band, { BandRole, gqlBand } from 'types/Band.d'
 import { getBandById, getBandsByIds } from 'scripts/api/demologue/query/band'
 import { updateBandPhoto } from 'scripts/api/demologue/mutation/band'
 
@@ -13,6 +13,7 @@ type BandsContextValue = {
   bands: BandMap
   saveGqlBand: (band: gqlBand) => void
   changeBandPhoto: (id: number, photoUrl: string) => void
+  updateBandMemberRole: (bandId: number, userId: string, role: BandRole) => void
 }
 
 const BandsContext = createContext({} as BandsContextValue)
@@ -61,8 +62,23 @@ export const BandsProvider: React.FC = ({ children }) => {
     }
   }
 
+  const updateBandMemberRole = (bandId: number, userId: string, role: BandRole) => {
+    const state = { ...bands }
+    state[bandId].members[userId] = role
+    setBands(state)
+  }
+
   return (
-    <BandsContext.Provider value={{ checkForBand, saveGqlBand, checkForBands, bands: bands, changeBandPhoto }}>
+    <BandsContext.Provider
+      value={{
+        updateBandMemberRole,
+        checkForBand,
+        saveGqlBand,
+        checkForBands,
+        bands: bands,
+        changeBandPhoto,
+      }}
+    >
       {children}
     </BandsContext.Provider>
   )
