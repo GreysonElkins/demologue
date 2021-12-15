@@ -3,7 +3,7 @@ import { DetailedHTMLProps } from 'react'
 // import { Icon } from 'style/Icon'
 
 interface Props extends DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> {
-  cta?: 'One' | 'Two'
+  cta?: 'One' | 'Two' | 'Three' // these should be changed to an additional class i.e. `.Cta.Three`
   ico?: string
   // icon?: IconProp
 }
