@@ -3,3 +3,17 @@
 .BandList { 
   @include clickableRow;
 }
+
+.join-button {
+  color: $white2;
+  background-color: transparent;
+  border: 2px solid $white2;
+  padding: 4px 8px;
+  border-radius: 10px;
+  transition: color 200ms, background-color 200ms;
+  
+  &:hover {
+    color: $dark3;
+    background-color: $white2;
+  }
+}
