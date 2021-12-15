@@ -1,21 +1,36 @@
-import { useMemo } from 'react'
+import { useState, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { PartialBand } from 'types/Band'
 
 import Table from '..'
 import Avatar from 'style/Icon/BandAvatar'
+import { Icon } from 'style/Icon'
+import JoinBand from 'components/Modal/JoinBand'
+
 import './BandList.scss'
 
 const BandList: React.FC<{bands?: PartialBand[]}> = ({ bands }) => {
+  const [selectedBand, setSelectedBand] = useState<null | number>(null)
   const navigate = useNavigate()
   const data = useMemo(
     () =>
       bands?.map((band) => ({
-        col1: <Avatar partialBand={band} hideLabel/>,
+        col1: <Avatar partialBand={band} hideLabel />,
         col2: band.name,
         col3: band.tracksConnection.totalCount,
         col4: band.usersToBandsConnection.totalCount,
-        id: band.id
+        col5: (
+          <button
+            className="join-button"
+            onClick={(event) => {
+              event.stopPropagation()
+              setSelectedBand(band.id)
+            }}
+          >
+            Join <Icon icon="sign-in-alt" />
+          </button>
+        ),
+        id: band.id,
       })) || [],
     [bands]
   )
@@ -37,7 +52,7 @@ const BandList: React.FC<{bands?: PartialBand[]}> = ({ bands }) => {
     }, {
       Header: '',
       accessor: 'col5',
-    }
+    }, 
 
   ], [])
 
@@ -47,7 +62,12 @@ const BandList: React.FC<{bands?: PartialBand[]}> = ({ bands }) => {
     tabIndex: 0,
   })
 
-  return <Table className="BandList" data={data} columns={columns} getRowProps={setRowProps} />  
+  return (
+    <>
+      {selectedBand && <JoinBand selectedBand={selectedBand} isOpen={!!selectedBand} toggle={() => setSelectedBand(null)} />}
+      <Table className="BandList" data={data} columns={columns} getRowProps={setRowProps} />
+    </>
+  )  
 }
 
 export default BandList
