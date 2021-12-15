@@ -8,8 +8,9 @@ import Home from './Home'
 import Band from './Band'
 import User, { ViewerRoute } from './User'
 import SearchBands from './SearchBands'
+import Inbox from './Inbox'
 
-export const pages: RouteInfo[] = [Home, Band, User, ViewerRoute, SearchBands]
+export const pages: RouteInfo[] = [Home, Band, User, ViewerRoute, SearchBands, Inbox]
 
 const Router: React.FC = () => {
   const [mappedRoutes, setMappedRoutes] = useState<JSX.Element[]>([])
