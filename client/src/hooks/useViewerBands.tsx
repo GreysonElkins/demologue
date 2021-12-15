@@ -6,7 +6,7 @@ const useViewerBands = () => {
   const { user } = useViewer()
   const userBands = useMemo(() => user?.bandIds() || [], [JSON.stringify(user)])
   const { match } = useBands(userBands)
-  return ({ bands: match, viewer: user })
+  return ({ bands: match, viewer: user, bandIds: userBands })
 }
 
 export default useViewerBands
