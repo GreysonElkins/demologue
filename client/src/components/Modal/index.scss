@@ -19,12 +19,11 @@
   position: relative;
   background: $dark3;
   border-radius: 5px;
-  min-height: 150px;
   min-width: 250px;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 15px 26px;
+  padding: 50px 40px;
   cursor: default !important;
   z-index: 40;
 
@@ -38,6 +37,16 @@
       content: attr(data-ico);
       font-size: 20px;
       @include maskIcon($white2);
+    }
+  }
+
+  .modal-options {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    button {
+      margin: 20px 16px 0;
     }
   }
 }
