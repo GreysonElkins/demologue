@@ -7,15 +7,19 @@ import AddBandCta from 'components/Cta/AddBand'
 
 const BandBar = () => {
   const { toggle, isOpen, secondOption: skipOptions } = useModal()
-  const { bands } = useViewerBands()
+  const { bands, viewer } = useViewerBands()
 
-  if (!bands) return <></>
+  if (!bands || !viewer) return <></>
   
-  const printBands = bands.map(({ id, name }) => (
-    <li key={`user-band-list-${id}`}>
-      <Link to={`/band/${id}`}>{name}</Link>
-    </li>
-  ))
+  const printBands = bands.reduce((bands, { id, name, members }) => {
+    if (members[viewer.uid] !== 'INVITE' && members[viewer.uid] !== 'REQUEST')
+      bands.push(
+        <li key={`user-band-list-${id}`}>
+          <Link to={`/band/${id}`}>{name}</Link>
+        </li>
+      )
+    return bands
+  }, [] as JSX.Element[])
 
   return (
     <>
