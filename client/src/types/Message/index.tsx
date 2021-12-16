@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { BaseMetadata, parseMetadata } from "./Metadata"
+import { BaseMetadata, Metadata } from "./Metadata"
 
 export type MessageType =
   | 'NEW_MEMBER' // band
@@ -40,7 +40,7 @@ export class Message {
   bandId?: number
   constructor({ id, createdAt, metadata, userRead, messageType }: gqlMessage, viewerId: string) {
     this.messageType = messageType
-    this.metaData = parseMetadata(metadata, messageType)
+    this.metaData = this.parseMetadata(metadata, messageType)
     const { subject, text } = this.parseMessage()
     this.id = id
     this.createdAt = new Date(createdAt)
@@ -50,11 +50,11 @@ export class Message {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  // parseMetadata = <M extends MessageType>(rawMetadata: string, messageType: M) => {
-  //   const data = JSON.parse(rawMetadata) as Metadata<M>
-  //   if (messageType === 'SYSTEM_MESSAGE') data.sender = "Demologue"
-  //   return data
-  // }
+  parseMetadata = <M extends MessageType>(rawMetadata: string, messageType: M) => {
+    const data = JSON.parse(rawMetadata) as Metadata<M>
+    if (messageType === 'SYSTEM_MESSAGE') data.sender = "Demologue"
+    return data
+  }
 
   parseMessage = () => {
     switch (this.messageType) {
