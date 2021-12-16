@@ -5,6 +5,7 @@ import { BandMessage, Message } from "types/Message"
 
 import Table from '../'
 import Actions from './Actions'
+import './MessageList.scss'
 
 const MessageList: React.FC<{ messages: Array<BandMessage | Message> }> = ({ messages }) => {
   const { user } = useViewer()
@@ -20,7 +21,7 @@ const MessageList: React.FC<{ messages: Array<BandMessage | Message> }> = ({ mes
         ),
         date: format(message.createdAt, 'MMM dd, yyyy'),
         actions: <Actions message={message} />,
-        // col2:
+        read: message.userRead
       })),
     [messages]
   )
@@ -46,7 +47,11 @@ const MessageList: React.FC<{ messages: Array<BandMessage | Message> }> = ({ mes
   }
   ], [])
 
-  return <Table data={data} columns={columns} />
+  const setRowProps = ({ original: { read } }: { [key: string]: any }) => ({
+    className: read ? "" : "unread-message"
+  })
+
+  return <Table data={data} columns={columns} getRowProps={setRowProps} />
 }
 
 export default MessageList

@@ -25,15 +25,19 @@
   }
 
   label {
-      opacity: 0;
-      transition: opacity 200ms;
-      font-size: 14px;
-      position: absolute;
-      top: 25px;
-      border: 1px solid $white3;
-      background-color: $dark2;
-      color: $white2;
-      padding: 4px 10px;
-      text-transform: capitalize;
-    }
+    opacity: 0;
+    transition: opacity 200ms;
+    font-size: 14px;
+    position: absolute;
+    top: 25px;
+    border: 1px solid $white3;
+    background-color: $dark2;
+    color: $white2;
+    padding: 4px 10px;
+    text-transform: capitalize;
+  }
 } 
+
+.unread-message {
+  border-left: 8px solid $accent2;
+}
