@@ -2,18 +2,11 @@ import endpoint from 'scripts/api/demologue'
 import { useQuery } from 'react-query'
 import { request } from 'graphql-request'
 import { GET_MESSAGES } from './message.gql'
-import { gqlMessage } from 'types/Message.d'
-
-interface BandMessage extends gqlMessage {
-  band: {
-    id: number
-    name: string
-  }
-}
+import { gqlMessage, gqlBandMessage } from 'types/Message'
 
 type Response = {
   messages: gqlMessage[]
-  messagesByBands: BandMessage[]
+  messagesByBands: gqlBandMessage[]
 }
 
 type Params = {
