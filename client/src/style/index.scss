@@ -42,6 +42,10 @@ h2 {
 
 a {
   text-decoration: none;
+  color: $accent2;
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 button {
@@ -72,7 +76,6 @@ button {
   text-transform: capitalize;
   border-width: 2px;
   font-size: 12px;
-
   &::after {
     font-size: 10px;
   }
