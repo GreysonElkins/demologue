@@ -38,8 +38,10 @@ export const REQUEST_BAND_ACCESS = gql`
 `
 
 export const ADD_BAND_MEMBER = gql`
-  mutation AddBandMember($bandId: Int!, $userId: String!, $role: UserRole!) {
-    updateUsersToBand(input: { patch: { role: $role }, userId: $userId, bandId: $bandId }) {
+  mutation AddBandMember($bandId: Int!, $userId: String!, $role: UserRole!, $approvedBy: String) {
+  updateUsersToBand(
+    input: {patch: {role: $role, approvedBy: $approvedBy}, userId: $userId, bandId: $bandId}
+  ) {
       band {
         ${gqlBand}
       }

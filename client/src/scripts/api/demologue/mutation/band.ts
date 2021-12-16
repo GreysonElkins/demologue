@@ -79,11 +79,9 @@ export const requestBandAccess = () => useMutation(
 
 export const addBandMember = (queryClient?: QueryClient) =>
   useMutation(
-    async ({ userId, bandId }: { userId: string; bandId: number }) => {
+    async ({ userId, bandId, approvedBy }: { userId: string; bandId: number, approvedBy?: string }) => {
       try {
-        const result = await request(endpoint, ADD_BAND_MEMBER, { userId, bandId })
-        console.warn('The band relationships still need to be updated in state', { result })
-        toast.success("The band's got a new member!")
+        const result = await request(endpoint, ADD_BAND_MEMBER, { userId, bandId, role: "MEMBER", approvedBy })
       } catch (error) {
         toast.error('Something went wrong!')
         console.error(error)
