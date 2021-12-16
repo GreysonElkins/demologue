@@ -7,13 +7,13 @@ module.exports = async (payload) => {
   let metadata
   switch (role) {
     case 'REQUEST':
-      metadata = JSON.stringify({ sender: user[0].displayName, senderId: user_id })
+      metadata = JSON.stringify({ sender: user[0].display_name, senderId: user_id })
       await knex('message').insert({ message_type: 'MEMBER_REQUEST', metadata, band_id })
       break
     case 'INVITE':
       break
     case 'MEMBER':
-      metadata = JSON.stringify({ sender: user[0].displayName, senderId: user_id })
+      metadata = JSON.stringify({ sender: user[0].display_name, senderId: user_id })
       const confirmInviteMetadata = JSON.stringify({ sender: band[0].name })
       await knex('message').insert({ message_type: 'NEW_MEMBER', metadata, band_id })
       await knex('message').insert({
