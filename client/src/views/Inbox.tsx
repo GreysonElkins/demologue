@@ -1,12 +1,12 @@
-// import { useViewer } from 'context/Viewer'
-// import { useUsers } from 'context/Users'
-
-// import Loading from 'style/Icon/Loading'
+import { useMessages } from 'context/Messages'
+import MessageList from 'components/Table/MessageList'
+import Loading from 'style/Icon/Loading'
 
 const Inbox = () => {
-//   const { user: viewer } = useViewer()
+  const { messages, loading } = useMessages()
 
-  return <>Inbox</>
+  if (loading) return <Loading />
+  return <MessageList messages={Object.values(messages).flat()} />
 }
 
 export const InboxRoute = {
