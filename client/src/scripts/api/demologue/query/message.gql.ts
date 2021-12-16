@@ -10,9 +10,7 @@ const gqlMessage = `
 
 export const GET_MESSAGES = gql`
   query GetMessages($bands: [Int]!, $userId: String!) {
-    messages(
-      filter: { userId: { equalTo: $userId }, or: { messageType: { equalTo: SYSTEM_MESSAGE } } }
-    ) {
+    messages(condition: { userId: $userId }) {
       ${gqlMessage}
     }
     messagesByBands(ids: $bands) {
