@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { BaseMetadata, Metadata } from "./Metadata"
+import { Metadata } from "./Metadata"
 
 export type MessageType =
   | 'NEW_MEMBER' // band

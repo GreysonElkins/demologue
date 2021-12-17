@@ -81,7 +81,7 @@ export const addBandMember = (queryClient?: QueryClient) =>
   useMutation(
     async ({ userId, bandId, approvedBy }: { userId: string; bandId: number, approvedBy?: string }) => {
       try {
-        const result = await request(endpoint, ADD_BAND_MEMBER, { userId, bandId, role: "MEMBER", approvedBy })
+        await request(endpoint, ADD_BAND_MEMBER, { userId, bandId, role: "MEMBER", approvedBy })
       } catch (error) {
         toast.error('Something went wrong!')
         console.error(error)
