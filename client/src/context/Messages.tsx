@@ -37,8 +37,9 @@ export const MessagesProvider: React.FC = ({ children }) => {
       direct: data.messages.map(message => new Message(message, viewer.uid)),
       toBand: data.messagesByBands.reduce((messages, message) => {
         const bandRole = viewer?.bands[message.band.id]
-        if (bandRole === 'MEMBER' || bandRole === 'SUPPORT')
-          messages.push(new BandMessage(message, viewer.uid))
+        const parsedMessage = new BandMessage(message, viewer.uid)
+        if ((bandRole === 'MEMBER' || bandRole === 'SUPPORT') && !parsedMessage.metaData.exclude.includes(viewer.uid))
+          messages.push(parsedMessage)
         // there probably should be some delineation between what types of messages these roles receive
         return messages
       }, [] as BandMessage[])
