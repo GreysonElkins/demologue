@@ -89,7 +89,7 @@ export const addBandMember = (queryClient?: QueryClient) =>
     },
     {
       onSuccess: () => {
-        queryClient && queryClient.invalidateQueries('viewer')
+        queryClient && queryClient.invalidateQueries(['viewer', 'get-messages'])
         // this query is depre
       },
     }
