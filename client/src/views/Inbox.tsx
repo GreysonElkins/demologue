@@ -12,6 +12,7 @@ const Inbox = () => {
 export const InboxRoute = {
   element: <Inbox />,
   title: 'Inbox',
+  authRequired: true,
   exact: false,
   path: '/inbox',
 }
