@@ -11,10 +11,7 @@ const UploadTrack: React.FC<Props> = ({ ...props }) => {
   return (
     <Modal {...props}>
       <CreateTrack
-        onComplete={(track) => {
-          props.toggle()
-          console.log(track)
-        }}
+        onComplete={props.toggle}
       />
     </Modal>
   )
