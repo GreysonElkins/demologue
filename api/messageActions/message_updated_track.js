@@ -1,13 +1,14 @@
 const knex = require('../knex')
 
 module.exports = async (channel, payload) => {
-  const { band_id, uploaded_by, track_id, title, working_title } = JSON.parse(payload)
+  const { band_id, uploaded_by, id: track_id, title, working_title } = JSON.parse(payload)
   const band = await knex.select('name').from('band').where('id', band_id)
-
+  const uploaded = await knex.select('display_name').from('users').where('uid', uploaded_by)
   let metadata = {
     sender: band[0].name,
     trackId: track_id,
     trackName: title || working_title || undefined,
+    uploadedBy: uploaded[0].display_name
   }
   switch (channel) {
     case 'track_update':
@@ -29,3 +30,5 @@ module.exports = async (channel, payload) => {
       break
   }
 }
+
+// {"id":17,"band_id":158,"uploaded_by":"CsA57hOL9IXWIaGe3MiElHfF7Gw1","track_url":"https://res.cloudinary.com/demologue/video/upload/v1640026522/band-tracks/vfilp9oudukkllmuldbk.mp3","updated_at":"2021-12-20T11:55:23.102","created_at":"2021-12-20T11:55:23.102","title":"","working_title":"Sneaks Under a Bridge","isPublic":false,"cloudinary_id":"band-tracks/vfilp9oudukkllmuldbk"}
