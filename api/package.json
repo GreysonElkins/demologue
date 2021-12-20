@@ -16,7 +16,7 @@
     "postgraphile-plugin-connection-filter": "^2.2.2"
   },
   "scripts": {
-    "start": "node index.js"
+    "start": "nodemon index.js"
   },
   "devDependencies": {
     "dotenv": "^10.0.0",
