@@ -6,6 +6,7 @@ module.exports = async (channel, payload) => {
   const uploaded = await knex.select('display_name').from('users').where('uid', uploaded_by)
   let metadata = {
     sender: band[0].name,
+    senderId: band_id,
     trackId: track_id,
     trackName: title || working_title || undefined,
     uploadedBy: uploaded[0].display_name
