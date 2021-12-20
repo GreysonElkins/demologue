@@ -83,6 +83,18 @@ export class Message {
           subject: `${this.metaData.sender} joined the band`,
           text:  `${this.metaData.approved_by_name} accepted ${this.metaData.sender}'s request to join the band`
         }
+      case 'NEW_TRACK':
+        return {
+          subject: `${this.metaData.uploadedBy} added a new track`,
+          text: (
+            <>
+              Listen to Feral Suits new demo{' '}
+              <Link to={`/bands/${this.metaData.senderId}`}>
+                {this.metaData.trackName && `${this.metaData.trackName}`}
+              </Link>
+            </>
+          ),
+        }
       default:
         return {subject: this.messageType, text: this.messageType}
     }
