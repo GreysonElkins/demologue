@@ -22,8 +22,10 @@ const Cta: React.FC<Props> = ({
     className={`Cta ${cta} ${collapse ? 'collapse' : ''} ${className ? className : ''}`}
     {...props}
   >
-    {children}
-    {icon && <Icon icon={icon} id="CtaIcon"/>}
+    <div>
+      {icon && <Icon icon={icon} />}
+      {children}
+    </div>
   </button>
 )
 
