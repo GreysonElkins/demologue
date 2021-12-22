@@ -78,6 +78,35 @@ $b: 3px;
 
 @mixin Cta($color1, $color2, $color3: $dark1) {
   white-space: nowrap;
+  
+  border: solid 3px transparent;
+  border-radius: 15px;
+  background: linear-gradient(80deg, $color1, $color2) border-box;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  z-index: 1;
+   position: relative;
+    border: solid $b transparent;
+  
+  &::before { 
+    position: absolute;
+    z-index: -1;
+    inset: -1px;
+    border: inherit;
+    border-radius: inherit;
+    background: inherit;
+    background-clip: border-box;
+    content: '';
+
+    --full: linear-gradient(red 0 0);
+    -webkit-mask: var(--full) padding-box, var(--full);
+    -webkit-mask-composite: xor;
+    mask: var(--full) padding-box exclude, var(--full);
+  }
+  svg {
+    color: $color2;
+  }
 }
 
 @keyframes rotate {
