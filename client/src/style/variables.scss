@@ -77,36 +77,58 @@ $b: 3px;
 }
 
 @mixin Cta($color1, $color2, $color3: $dark1) {
-  white-space: nowrap;
-  
-  border: solid 3px transparent;
-  border-radius: 15px;
-  background: linear-gradient(80deg, $color1, $color2) border-box;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  z-index: 1;
-   position: relative;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  div { // stupid fix for safari
+    font-size: 16px;
+    padding: 8px 10px;
+    font-weight: bold;
+
+    white-space: nowrap;
+    border-radius: 25px;
+    background: linear-gradient(80deg, $color1, $color2) border-box;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    z-index: 1;
+    position: relative;
     border: solid $b transparent;
   
-  &::before { 
-    position: absolute;
-    z-index: -1;
-    inset: -1px;
-    border: inherit;
-    border-radius: inherit;
-    background: inherit;
-    background-clip: border-box;
-    content: '';
+      
+      &::before { 
+      position: absolute;
+      z-index: -1;
+      inset: -1px;
+      border: inherit;
+      border-radius: inherit;
+      background: inherit;
+      background-clip: border-box;
+      content: '';
+  
+      --full: linear-gradient(red 0 0);
+      -webkit-mask: var(--full) padding-box, var(--full);
+      -webkit-mask-composite: xor;
+      mask: var(--full) padding-box exclude, var(--full);
+    }
 
-    --full: linear-gradient(red 0 0);
-    -webkit-mask: var(--full) padding-box, var(--full);
-    -webkit-mask-composite: xor;
-    mask: var(--full) padding-box exclude, var(--full);
+    &:hover {
+      color: color3;
+      background: linear-gradient(80deg, $color1, $color2) border-box;
+      background-clip: none;
+      -webkit-text-fill-color: $color3;
+      svg {
+        color: $color3;
+      }
+    }
+
+    svg {
+      color: $color1;
+      margin-right: 16px;
+    }
   }
-  svg {
-    color: $color2;
-  }
+
 }
 
 @keyframes rotate {
