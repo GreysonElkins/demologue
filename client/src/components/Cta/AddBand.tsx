@@ -8,7 +8,7 @@ const AddBand: React.FC = () => {
   return (
     <>
       <AddBandModal toggle={toggle} isOpen={isOpen} skipOptions={skipOptions} />
-      <Cta cta="Two" ico="➕" className="CtaTwo collapse" onClick={() => toggle(false)}>
+      <Cta cta="Two" ico="➕" collapse onClick={() => toggle(false)}>
         Add a Band
       </Cta>
     </>

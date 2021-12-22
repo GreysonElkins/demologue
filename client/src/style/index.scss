@@ -56,29 +56,29 @@ button {
   white-space: nowrap;
 }
 
-.CtaOne {
+.Cta.One {
   @include Cta($accent1, $accent2);
 }
 
-.CtaTwo {
+.Cta.Two {
   @include Cta($accent3, $accent4);
-  text-transform: capitalize;
-  border-width: 2px;
-  font-size: 12px;
+  // text-transform: capitalize;
+  // border-width: 2px;
+  // font-size: 12px;
 
-  &::after {
-    font-size: 10px;
-  }
+  // &::after {
+  //   font-size: 10px;
+  // }
 }
 
-.CtaThree {
+.Cta.Three {
   @include Cta($white2, $white2);
-  text-transform: capitalize;
-  border-width: 2px;
-  font-size: 12px;
-  &::after {
-    font-size: 10px;
-  }
+  // text-transform: capitalize;
+  // border-width: 2px;
+  // font-size: 12px;
+  // &::after {
+  //   font-size: 10px;
+  // }
 }
 
 .collapse {
