@@ -8,7 +8,7 @@ const SignInCta = () => {
   const { isOpen, toggle } = useModal()
   return (
     <>
-      <CtaOne data-ico="👤" onClick={toggle}>Sign In</CtaOne>
+      <CtaOne onClick={toggle} icon="user">Sign In</CtaOne>
       <Modal isOpen={isOpen} toggle={toggle}>
         <SignInMenu />
       </Modal>

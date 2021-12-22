@@ -20,7 +20,7 @@ const Header: React.FC = () => {
     if (!signedIn || !user) return <></>
     if (user.bandIds().length > 0) {
       return (
-        <Cta ico="⬆" collapse onClick={toggle}>
+        <Cta collapse onClick={toggle} icon="arrow-circle-up">
           Upload a Track
         </Cta>
       )
