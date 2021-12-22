@@ -21,7 +21,9 @@ import {
   faAngleLeft,
   faAngleRight,
   faCheckCircle,
-  faTimesCircle
+  faTimesCircle,
+  faPlus,
+  faArrowCircleUp,
 } from '@fortawesome/free-solid-svg-icons'
 import { library, IconDefinition } from '@fortawesome/fontawesome-svg-core'
 
@@ -48,6 +50,8 @@ const fontAwesomeIconList: IconDefinition[] = [
   faAngleRight,
   faCheckCircle,
   faTimesCircle,
+  faPlus,
+  faArrowCircleUp
 ]
 
 export const initFontAwesome = () => library.add(...fontAwesomeIconList)
