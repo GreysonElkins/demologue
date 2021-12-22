@@ -22,7 +22,7 @@ const UserBands: React.FC<{ user: User }> = ({ user }) => {
     }, [] as JSX.Element[])
   return (
     <div className="UserBands">
-      {userIsViewer() && <AddBand />}
+      {userIsViewer() && <AddBand className="profile-band-cta" />}
       {/* else => invite to band */}
       {bandIcons()}
     </div>
