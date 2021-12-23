@@ -19,6 +19,7 @@ type PlayerContextValue = {
   playPause: () => void
   wave: MutableRefObject<HTMLDivElement | null> | null
   trackInfo: Track | null
+  currentTime: number
 }
 
 const formWaveSurferOptions = (ref: any) => ({
@@ -46,6 +47,7 @@ export const PlayerProvider: React.FC = ({ children }) => {
   const { match: track } = useTracks(selectedTrack)
   const wave = useRef<HTMLDivElement | null>(null)
   const audio = useRef<WaveSurfer | null>(null)
+  const [seconds, setSeconds] = useState<number>(0)
 
   const playPause = useCallback(() => {
     audio.current?.playPause()
@@ -57,12 +59,18 @@ export const PlayerProvider: React.FC = ({ children }) => {
   }, [track])
 
   const handleAudioEvents = () => {
-    audio.current?.on('ready', () => {
+    audio.current?.on('ready', event => {
+      console.log({ ready: event })
       setIsMounted(true)
       playPause()
     })
     audio.current?.on('play', () => setIsPlaying(true))
     audio.current?.on('pause', () => setIsPlaying(false))
+    audio.current?.on('audioprocess', (event) => {
+      if (event % 1 === 0) {
+        console.log(event)
+        setSeconds(event)
+      }})
   }
 
   const handleKeyboardEvents = (event: KeyboardEvent) => {
@@ -70,6 +78,10 @@ export const PlayerProvider: React.FC = ({ children }) => {
       playPause()
     }
   }
+
+  useEffect(() => {
+    console.log({audio})
+  }, [audio.current])
 
   useEffect(() => {
     window.addEventListener('keyup', event => handleKeyboardEvents(event))
@@ -92,7 +104,7 @@ export const PlayerProvider: React.FC = ({ children }) => {
   }
 
   return (
-    <PlayerContext.Provider value={{ isMounted, mountTrack, playPause, isPlaying, wave, trackInfo: track }}>
+    <PlayerContext.Provider value={{ isMounted, mountTrack, playPause, isPlaying, wave, trackInfo: track, currentTime: seconds }}>
       {children}
       <AudioPlayer />
     </PlayerContext.Provider>
