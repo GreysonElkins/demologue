@@ -19,7 +19,7 @@ export type gqlBand = {
   photoUrl: string | null
   createdAt: string
   usersToBands: Array<{ role: BandRole; userId: number }>
-  collectionsByCreatedByBand: gqlCollection[]
+  playlistsByCreatedByBand: gqlCollection[]
   tracks: Array<{ id: number, updatedAt: string }>
 }
 
@@ -39,7 +39,7 @@ class Band {
     photoUrl,
     createdAt,
     usersToBands,
-    collectionsByCreatedByBand,
+    playlistsByCreatedByBand,
     tracks,
   }: gqlBand) {
     this.id = id
@@ -50,7 +50,7 @@ class Band {
       (map, { role, userId }) => ({ ...map, [userId]: role }),
       {} as RoleMap
     )
-    this.collections = collectionsByCreatedByBand.map((collection) => new Collection(collection))
+    this.collections = playlistsByCreatedByBand.map((collection) => new Collection(collection))
     this.songList = new Collection({ tracks, id: 0, name: `${name}'s Tracks`})
   }
 }

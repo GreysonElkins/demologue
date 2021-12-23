@@ -3,7 +3,7 @@ import { gql } from 'graphql-request'
 export const gqlCollection = `
   id
   name
-  collectionToTracks {
+  playlistToTracks {
     trackId
     order
     dateAdded
@@ -23,7 +23,7 @@ export const gqlBand = `
       id
       updatedAt
     }
-    collectionsByCreatedByBand {
+    playlistsByCreatedByBand {
      ${gqlCollection}
     }
 `
